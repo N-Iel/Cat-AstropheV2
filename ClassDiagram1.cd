@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Player">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQCAAAAACAAAAAMAAAAAQAAABAAAAABAAAAAAAIAEA=</HashCode>
+      <FileName>Assets\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerHealth">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAIAAAAQAAAIAAIMAAAAAAABACAAACAAAAAg=</HashCode>
+      <FileName>Assets\PlayerHealth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerMovement">
+    <Position X="4.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAqAAAAAAAAAAAAQAEAAQAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\PlayerMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerAnimator">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQCAAAAAAAAAAAAAgAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\PlayerAnimator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
