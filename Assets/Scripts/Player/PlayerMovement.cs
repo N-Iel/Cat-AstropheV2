@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     float speed = 1.0f;
 
     Vector2 direcction = Vector2.zero;
+    public Vector2 lastDir { get; private set; }
 
     void Update()
     {
@@ -46,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Player.player.rb.MovePosition(Player.player.rb.position + direcction * speed * Time.deltaTime);
 
-        if (direcction != Vector2.zero) Player.player.animator.UpdateLookingDir(direcction);
+        if (direcction != Vector2.zero)
+        {
+            lastDir = direcction;
+            Player.player.animator.UpdateLookingDir(direcction);
+        }
     }
 }

@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     // Player Scripts
     public static Player player { get; private set; }
+    public PlayerMovement movement { get; private set; }
     public PlayerAnimator animator { get; private set; }
     public PlayerHealth health { get; private set; }
     public Shadow shadow { get; private set; }
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         // Scripts
         shadow = GetComponent<Shadow>();
         health = GetComponent<PlayerHealth>();
+        movement = GetComponent<PlayerMovement>();
         animator = model.GetComponent<PlayerAnimator>();
 
         // Variables

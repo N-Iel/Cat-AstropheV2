@@ -43,8 +43,8 @@ public class PlayerAnimator : MonoBehaviour
     public void UpdateLookingDir(Vector2 _dir)
     {
         // Flip Model
-        Vector2 dirBuffer = Player.player.model.transform.localScale;
-        dirBuffer.x = Mathf.Sign(_dir.x);
-        Player.player.model.transform.localScale = dirBuffer;
+        Vector2 lastDir = Player.player.model.transform.localScale;
+        lastDir.x = Mathf.Sign(_dir.x);
+        Player.player.model.transform.localScale = lastDir;
     }
 }

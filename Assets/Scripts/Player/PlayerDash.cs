@@ -39,7 +39,7 @@ public class PlayerDash : MonoBehaviour
         Player.player.isDashing = true;
         dashAvailable = false;
 
-        Player.player.rb.velocity = new Vector2(Player.player.model.transform.localScale.x, 0) * dashingPower;
+        Player.player.rb.velocity = Player.player.movement.lastDir * dashingPower;
 
         yield return new WaitForSeconds(dashingTime);
 
