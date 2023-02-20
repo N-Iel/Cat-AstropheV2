@@ -5,7 +5,7 @@ using Constants;
 using UnityEngine.Events;
 
 /// <summary>
-/// This will handle dash and shadow generation
+/// Preforms all the task related with dashing
 /// </summary>
 public class PlayerDash : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class PlayerDash : MonoBehaviour
                  dashingCost = 0.8f;
 
     [SerializeField]
-    UnityEvent OnDash;
+    UnityEvent OnDash;  // Event used for feeback effects
 
     bool dashAvailable = true;
 

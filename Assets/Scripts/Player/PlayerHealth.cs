@@ -6,9 +6,8 @@ using UnityEngine.Events;
 using Constants;
 
 /// <summary>
-/// This script will manage all the elements relative with the energy:
-/// - Recovery: Recovers a set amount of energy in a setted amount of time
-/// - Damage: Reduce energy per hit and interrupts the recovery process
+/// This script will manage all the elements relative with the energy
+/// TODO: Energy display
 /// </summary>
 public class PlayerHealth : MonoBehaviour
 {
@@ -22,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     float hitEnergyCost = 1.0f; // Amount of energy consumed onHit
 
     [Header("Events")]
-    UnityEvent OnHit, OnDeath;
+    UnityEvent OnHit, OnDeath;  // Events used for feeback effects
 
     public float energy;        // Current amount of energy
 

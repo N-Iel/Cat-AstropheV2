@@ -7,7 +7,7 @@ using Constants;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    Animator anim;
+    public Animator anim;
 
     private void Start()
     {

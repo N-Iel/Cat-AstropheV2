@@ -10,7 +10,8 @@ namespace Constants
                             idle = "idle",
                             walk = "walk",
                             hit = "hit",
-                            dead = "dead";
+                            dead = "dead",
+                            attack = "attack";
     }
     
 }

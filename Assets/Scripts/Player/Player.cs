@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Main controller for player functions
+/// Main script for player functions
 /// </summary>
 public class Player : MonoBehaviour
 {

@@ -4,11 +4,7 @@ using UnityEngine;
 using Constants;
 
 /// <summary>
-/// This class will manage all the process related with movement and player control
-/// - Cosa a controlar:
-///     - Movimiento del personaje
-///         - Velocidad
-///         - Dirección
+/// Preforms all the task related with player movent throught inputs
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     float speed = 1.0f;
 
     Vector2 direcction = Vector2.zero;
-    public Vector2 lastDir { get; private set; }
+    public Vector2 lastDir { get; private set; } // Last direction used that is not zero
+
 
     void Update()
     {
