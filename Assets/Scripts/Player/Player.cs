@@ -55,5 +55,6 @@ public class Player : MonoBehaviour
         // Dash interactions
         col.enabled = !isDashing;
         shadow.enabled = isDashing;
+        Debug.Log(isExhausted);
     }
 }

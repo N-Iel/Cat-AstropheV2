@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Constants;
+using System;
+using Unity.VisualScripting;
 
 /// <summary>
 /// This script will manage all the elements relative with the energy
@@ -13,17 +15,30 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     float recoverDelay = 1.0f,  // Time needed before start recovering
-          recoverRatio = 0.2f,  // Amount of energy recovered per cycle
-          recoverRate = 0.2f,   // Time Between recovery
+          recoverRatio = 0.1f,  // Amount of energy recovered per cycle
+          recoverTime = 0.5f,   // Time Between recovery
           maxEnergy = 3.0f;     // Maximum amount of energy
-
     [SerializeField]
     float hitEnergyCost = 1.0f; // Amount of energy consumed onHit
+    [SerializeField]
+    Image energyBar;
 
     [Header("Events")]
     UnityEvent OnHit, OnDeath;  // Events used for feeback effects
 
+    [NonSerialized]
     public float energy;        // Current amount of energy
+
+    void Start()
+    {
+        energy = maxEnergy;
+        StartCoroutine(RecoverEnergy());
+    }
+
+    void Update()
+    {
+        if(!Player.player.isDead) UpdateEnergyStatus();
+    }
 
     // Recovers energy through time
     IEnumerator RecoverEnergy()
@@ -33,8 +48,8 @@ public class PlayerHealth : MonoBehaviour
         while (!Player.player.isDead)
         {
             energy = Mathf.Clamp(energy + recoverRatio, 0, maxEnergy);
-            if (energy >= 1) Player.player.isExhausted = false;
-            yield return new WaitForSeconds(recoverRate);
+
+            yield return new WaitForSeconds(recoverTime);
         }
     }
 
@@ -61,5 +76,12 @@ public class PlayerHealth : MonoBehaviour
         Player.player.animator.PlayAnimation(Animations.dead);
 
         energy = 0;
+    }
+
+    void UpdateEnergyStatus()
+    {
+        energyBar.fillAmount = energy / maxEnergy;
+        if (energy >= 1) Player.player.isExhausted = false;
+        if (energy == 0) Player.player.isExhausted = true;
     }
 }

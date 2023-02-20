@@ -10,6 +10,13 @@ public class WeaponDetection : MonoBehaviour
     public float attackRadius = 0.35f;
 
     public Transform attackOriginPoint;
+
+    [Header("Player Attr")]
+    [SerializeField]
+    bool isPlayerWeapon;
+    [SerializeField]
+    float energyCost = 0.3f;
+
     bool isAttacking = false;
 
     public void DetectColliders()
@@ -27,11 +34,17 @@ public class WeaponDetection : MonoBehaviour
     public void EnableDetection()
     {
         isAttacking = true;
+        if (isPlayerWeapon) ConsumeEnergy();
     }
 
     public void DisableDetection()
     {
         isAttacking = false;
+    }
+
+    void ConsumeEnergy()
+    {
+        Player.player.health.energy -= energyCost;
     }
 
     // Debug
