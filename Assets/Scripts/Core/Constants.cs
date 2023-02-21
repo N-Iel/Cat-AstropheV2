@@ -11,7 +11,8 @@ namespace Constants
                             walk = "walk",
                             hit = "hit",
                             dead = "dead",
-                            attack = "attack";
+                            attack = "attack",
+                            invincible = "invincible";
     }
     
 }

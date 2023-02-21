@@ -5,30 +5,34 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Constants;
 using System;
-using Unity.VisualScripting;
 
 /// <summary>
 /// This script will manage all the elements relative with the energy
-/// TODO: Energy display
 /// </summary>
 public class PlayerHealth : MonoBehaviour
 {
+    #region variables
     [SerializeField]
-    float recoverDelay = 1.0f,  // Time needed before start recovering
-          recoverRatio = 0.1f,  // Amount of energy recovered per cycle
+    float recoverRatio = 0.1f,  // Amount of energy recovered per cycle
           recoverTime = 0.5f,   // Time Between recovery
-          maxEnergy = 3.0f;     // Maximum amount of energy
+          maxEnergy = 3.0f,     // Maximum amount of energy
+          hitEnergyCost = 1.0f; // Amount of energy consumed onHit
+
     [SerializeField]
-    float hitEnergyCost = 1.0f; // Amount of energy consumed onHit
+    float InvincibilityTime = 2.0f;
     [SerializeField]
     Image energyBar;
+
 
     [Header("Events")]
     UnityEvent OnHit, OnDeath;  // Events used for feeback effects
 
     [NonSerialized]
     public float energy;        // Current amount of energy
+    bool isInvincible = false;
+    #endregion
 
+    #region lifeCycle
     void Start()
     {
         energy = maxEnergy;
@@ -39,11 +43,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if(!Player.player.isDead) UpdateEnergyStatus();
     }
+    #endregion
 
+    #region Energy
     // Recovers energy through time
     IEnumerator RecoverEnergy()
     {
-        yield return new WaitForSeconds(recoverDelay);
+        yield return new WaitForSeconds(InvincibilityTime);
+        isInvincible = false;
 
         while (!Player.player.isDead)
         {
@@ -56,17 +63,29 @@ public class PlayerHealth : MonoBehaviour
     // Stops Recovery and reduce shield 
     public void Hit()
     {
+        if (isInvincible || Player.player.isDead) return;
         if (Player.player.isExhausted) Dead();
+
+        isInvincible = true;
 
         StopAllCoroutines();
         StartCoroutine(RecoverEnergy());
 
-        OnHit.Invoke();
+        //OnHit.Invoke();
         Player.player.animator.PlayAnimation(Animations.hit);
 
         energy -= hitEnergyCost;
     }
 
+    void UpdateEnergyStatus()
+    {
+        energyBar.fillAmount = energy / maxEnergy;
+        if (energy >= 1) Player.player.isExhausted = false;
+        if (energy == 0) Player.player.isExhausted = true;
+    }
+    #endregion
+
+    #region States
     // Updates player status to dead
     void Dead()
     {
@@ -77,11 +96,5 @@ public class PlayerHealth : MonoBehaviour
 
         energy = 0;
     }
-
-    void UpdateEnergyStatus()
-    {
-        energyBar.fillAmount = energy / maxEnergy;
-        if (energy >= 1) Player.player.isExhausted = false;
-        if (energy == 0) Player.player.isExhausted = true;
-    }
+    #endregion
 }
