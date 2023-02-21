@@ -11,6 +11,14 @@ using System;
 /// </summary>
 public class PlayerHealth : MonoBehaviour
 {
+    #region Events
+    public delegate void OnExhausted();
+    public static event OnExhausted onExhausted;
+
+    public delegate void OnRecover();
+    public static event OnRecover onRecover;
+    #endregion
+
     #region variables
     [SerializeField]
     float recoverRatio = 0.1f,  // Amount of energy recovered per cycle
@@ -80,8 +88,20 @@ public class PlayerHealth : MonoBehaviour
     void UpdateEnergyStatus()
     {
         energyBar.fillAmount = energy / maxEnergy;
-        if (energy >= 1) Player.player.isExhausted = false;
-        if (energy == 0) Player.player.isExhausted = true;
+
+        // Player exhausted
+        if (energy == 0)
+        {
+            Player.player.isExhausted = true;
+            onExhausted();
+        }
+
+        // Player recovered
+        if (energy >= 1 && Player.player.isExhausted)
+        {
+            Player.player.isExhausted = false;
+            onRecover();
+        }
     }
     #endregion
 

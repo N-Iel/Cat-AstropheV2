@@ -12,6 +12,8 @@ namespace Constants
                             hit = "hit",
                             dead = "dead",
                             attack = "attack",
+                            exhausted = "exhausted",
+                            recovered = "recovered",
                             invincible = "invincible";
     }
     
