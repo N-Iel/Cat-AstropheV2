@@ -25,8 +25,11 @@ public class WeaponDetection : MonoBehaviour
         {
             foreach (Collider2D collider in Physics2D.OverlapCircleAll(attackOriginPoint.position, attackRadius))
             {
-
-                Debug.Log(collider.name);
+                if (collider.CompareTag("Enemy"))
+                {
+                    // TODO Update this with the health scripts
+                    collider.GetComponent<FeedbackTester>().Hit(gameObject);
+                }
             }
         }
     }
