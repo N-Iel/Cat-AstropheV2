@@ -43,5 +43,6 @@ public class WeaponAnim : MonoBehaviour
     void FadeInWeapon()
     {
         anim.SetTrigger("onRecover");
+        anim.ResetTrigger("onAttack");
     }
 }

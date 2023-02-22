@@ -31,6 +31,6 @@ public class WeaponMelee : MonoBehaviour
     void Inputs()
     {
         // Attack
-        if (!Player.player.isDashing && Input.GetMouseButton(0)) attack.PreformAttack(animator);
+        if (!Player.player.isDashing && !Player.player.isExhausted && Input.GetMouseButton(0)) attack.PreformAttack(animator);
     }
 }

@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 71273068}
   - component: {fileID: 71273069}
   - component: {fileID: 71273070}
+  - component: {fileID: 71273071}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -250,7 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b6bb1bc2f5a2c4b9ede79b1ea39a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  maxSpeed: 3
+  acceleration: 50
+  decceleration: 100
 --- !u!114 &71273062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +272,21 @@ MonoBehaviour:
   hitEnergyCost: 1
   InvincibilityTime: 2
   energyBar: {fileID: 257669092}
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 71273071}
+        m_TargetAssemblyTypeName: FBKnockback, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &71273064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +405,51 @@ MonoBehaviour:
   customTarget: {fileID: 425012464}
   shadowRender: {fileID: 2790078498516478655, guid: 1bd4d9337be3fa94db241bd2a92d5114, type: 3}
   shadowParent: {fileID: 1247736750}
+--- !u!114 &71273071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71273060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6974ca6d01e0c934599e0164b907cc2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 71273067}
+  strength: 7
+  delay: 0.15
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 71273061}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDone:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 71273061}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &90384310
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +463,7 @@ GameObject:
   - component: {fileID: 90384316}
   - component: {fileID: 90384315}
   - component: {fileID: 90384314}
+  - component: {fileID: 90384317}
   - component: {fileID: 90384313}
   m_Layer: 7
   m_Name: EnemyTest
@@ -488,7 +552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 90384315}
-  strength: 16
+  strength: 5
   delay: 0.15
   OnBegin:
     m_PersistentCalls:
@@ -543,7 +607,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!61 &90384316
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -570,6 +634,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &90384317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90384310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d356501712d21fb4099fc39da0d80e1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &257669091
 GameObject:
   m_ObjectHideFlags: 0

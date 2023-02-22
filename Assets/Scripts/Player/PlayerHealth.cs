@@ -33,7 +33,9 @@ public class PlayerHealth : MonoBehaviour
 
 
     [Header("Events")]
-    UnityEvent OnHit, OnDeath;  // Events used for feeback effects
+    [SerializeField]
+    UnityEvent<GameObject> OnHit;
+    UnityEvent OnDeath;  // Events used for feeback effects
 
     [NonSerialized]
     public float energy;        // Current amount of energy
@@ -69,7 +71,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Stops Recovery and reduce shield 
-    public void Hit()
+    public void Hit(GameObject sender)
     {
         if (isInvincible || Player.player.isDead) return;
         if (Player.player.isExhausted) Dead();
@@ -79,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(RecoverEnergy());
 
-        //OnHit.Invoke();
+        OnHit.Invoke(sender);
         Player.player.animator.PlayAnimation(Animations.hit);
 
         energy -= hitEnergyCost;

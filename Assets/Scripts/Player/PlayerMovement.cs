@@ -9,7 +9,8 @@ using Constants;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    float speed = 1.0f;
+    float maxSpeed = 1.0f, acceleration = 50f, decceleration = 100f;
+    float speed;
 
     Vector2 direcction = Vector2.zero;
     public Vector2 lastDir { get; private set; } // Last direction used that is not zero
@@ -42,12 +43,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        Player.player.rb.MovePosition(Player.player.rb.position + direcction * speed * Time.deltaTime);
-
-        if (direcction != Vector2.zero)
+        //Player.player.rb.MovePosition(Player.player.rb.position + direcction * speed * Time.deltaTime);
+        if (direcction.magnitude > 0 && speed >= 0)
         {
+            speed += acceleration * maxSpeed * Time.deltaTime;
             lastDir = direcction;
             Player.player.animator.UpdateLookingDir(direcction);
         }
+        else
+        {
+            speed -= decceleration * maxSpeed * Time.deltaTime;
+        }
+        speed = Mathf.Clamp(speed, 0, maxSpeed);
+        Player.player.rb.velocity = direcction * speed;
     }
 }
