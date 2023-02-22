@@ -39,7 +39,8 @@ public class PlayerHealth : MonoBehaviour
 
     [NonSerialized]
     public float energy;        // Current amount of energy
-    bool isInvincible = false;
+    [NonSerialized]
+    public bool isInvincible = false;
     #endregion
 
     #region lifeCycle
@@ -73,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
     // Stops Recovery and reduce shield 
     public void Hit(GameObject sender)
     {
-        if (isInvincible || Player.player.isDead) return;
+        if (Player.player.isDead) return;
         if (Player.player.isExhausted) Dead();
 
         isInvincible = true;

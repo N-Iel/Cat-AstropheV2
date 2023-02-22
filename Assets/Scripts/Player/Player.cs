@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Dash interactions
-        col.enabled = !isDashing;
+        col.enabled = !isDashing && !health.isInvincible;
         shadow.enabled = isDashing;
     }
 }
