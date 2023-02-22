@@ -77,16 +77,14 @@ public class PlayerHealth : MonoBehaviour
         if (Player.player.isExhausted) Dead();
 
         isInvincible = true;
+        energy = Mathf.Floor(energy);
+        energy -= hitEnergyCost;
 
         StopAllCoroutines();
         StartCoroutine(RecoverEnergy());
 
-        OnHit.Invoke(sender);
+        OnHit?.Invoke(sender);
         Player.player.animator.PlayAnimation(Animations.hit);
-
-        energy = Mathf.Floor(energy);
-        energy -= hitEnergyCost;
-        Debug.Log(energy);
     }
 
     void UpdateEnergyStatus()
@@ -94,17 +92,17 @@ public class PlayerHealth : MonoBehaviour
         energyBar.fillAmount = energy / maxEnergy;
 
         // Player exhausted
-        if (energy == 0)
+        if (energy == 0 && !Player.player.isExhausted)
         {
-            Player.player.isExhausted = true;
             onExhausted();
+            Player.player.isExhausted = true;
         }
 
         // Player recovered
         if (energy >= 1 && Player.player.isExhausted)
         {
-            Player.player.isExhausted = false;
             onRecover();
+            Player.player.isExhausted = false;
         }
     }
     #endregion
@@ -115,7 +113,7 @@ public class PlayerHealth : MonoBehaviour
     {
         Player.player.isDead = true;
 
-        OnDeath.Invoke();
+        OnDeath?.Invoke();
         Player.player.animator.PlayAnimation(Animations.dead);
 
         energy = 0;
