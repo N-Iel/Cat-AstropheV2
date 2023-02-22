@@ -92,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
         energyBar.fillAmount = energy / maxEnergy;
 
         // Player exhausted
-        if (energy == 0 && !Player.player.isExhausted)
+        if (energy <= 0 && !Player.player.isExhausted)
         {
             onExhausted();
             Player.player.isExhausted = true;
