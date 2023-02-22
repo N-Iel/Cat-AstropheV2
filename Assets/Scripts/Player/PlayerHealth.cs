@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
           hitEnergyCost = 1.0f; // Amount of energy consumed onHit
 
     [SerializeField]
-    float InvincibilityTime = 2.0f;
+    float invincibilityTime = 2.0f;
     [SerializeField]
     Image energyBar;
 
@@ -59,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
     // Recovers energy through time
     IEnumerator RecoverEnergy()
     {
-        yield return new WaitForSeconds(InvincibilityTime);
+        yield return new WaitForSeconds(invincibilityTime);
         isInvincible = false;
 
         while (!Player.player.isDead)
@@ -84,7 +84,9 @@ public class PlayerHealth : MonoBehaviour
         OnHit.Invoke(sender);
         Player.player.animator.PlayAnimation(Animations.hit);
 
+        energy = Mathf.Floor(energy);
         energy -= hitEnergyCost;
+        Debug.Log(energy);
     }
 
     void UpdateEnergyStatus()

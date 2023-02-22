@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,10 @@ public class Player : MonoBehaviour
 {
     #region Variable
     // Variables
-    public bool isDead = false;         // Prevent player from preform all his functions
-    public bool isExhausted = false;    // Makes player vulnerable and prevent themF
-    public bool isDashing = false;      // Prevents player from moving and attack
+    [NonSerialized]
+    public bool isDead = false,         // Prevent player from preform all his functions
+                isExhausted = false,    // Makes player vulnerable and prevent themF
+                isDashing = false;      // Prevents player from moving and attack
 
     // Components
     public GameObject model;

@@ -28,7 +28,7 @@ public class WeaponDetection : MonoBehaviour
                 if (collider.CompareTag("Enemy"))
                 {
                     // TODO Update this with the health scripts
-                    collider.GetComponent<FeedbackTester>().Hit(gameObject);
+                    collider.GetComponent<EnemyHealth>().Hit(gameObject);
                 }
             }
         }
