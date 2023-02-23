@@ -9,25 +9,42 @@ using UnityEngine.Events;
 public class EnemyBrain : MonoBehaviour
 {
     [SerializeField]
-    UnityEvent Detecting, Attacking, Recovering;
+    private List<Detector> detectors;
+
+    [SerializeField]
+    private AIData aiData;
+
+    [SerializeField]
+    private float detectionDealy = 0.05f; // Stable detection frequency prevents preformance issues
+ 
+    //[SerializeField]
+    //UnityEvent Detecting, Attacking, Recovering;
 
     private void Start()
     {
-        StartDetecting();
+        InvokeRepeating("PerformDetection", 0, detectionDealy);
     }
 
-    public void StartDetecting()
+    private void PerformDetection()
     {
-        Detecting.Invoke();
+        foreach (Detector detector in detectors)
+        {
+            detector.Detect(aiData);
+        }
     }
 
-    public void StartAttacking()
-    {
-        Attacking.Invoke();
-    }
+    //public void StartDetecting()
+    //{
+    //    Detecting.Invoke();
+    //}
 
-    public void StartRecovering() 
-    { 
-        Recovering.Invoke();
-    }
+    //public void StartAttacking()
+    //{
+    //    Attacking.Invoke();
+    //}
+
+    //public void StartRecovering() 
+    //{ 
+    //    Recovering.Invoke();
+    //}
 }
