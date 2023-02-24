@@ -26,7 +26,7 @@ public class TargetDetector : Detector
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, targetDetectionRange, obstacleLayerMask);
 
             // Make sure that the collider detected is on the Target Layer
-            if(hit.collider && (targetLayerMask & (1 << hit.collider.gameObject.layer)) != 0)
+            if (hit.collider != null && (targetLayerMask & (1 << hit.collider.gameObject.layer)) != 0)
             {
                 Debug.DrawRay(transform.position, direction * targetDetectionRange, Color.magenta);
                 colliders = new List<Transform>() { targetCollider.transform };
