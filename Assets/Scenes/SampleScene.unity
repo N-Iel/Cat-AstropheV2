@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8744933f12e1fd04a99b19d665b4e5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 2811822796082578110, guid: fff9a99559773684cb2a4c259933b786, type: 3}
 --- !u!114 &52536742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +226,7 @@ GameObject:
   - component: {fileID: 71273065}
   - component: {fileID: 71273067}
   - component: {fileID: 71273066}
+  - component: {fileID: 71273072}
   - component: {fileID: 71273064}
   - component: {fileID: 71273061}
   - component: {fileID: 71273062}
@@ -254,6 +256,7 @@ MonoBehaviour:
   maxSpeed: 3
   acceleration: 50
   decceleration: 100
+  input: {fileID: -8646850660261062909, guid: fff9a99559773684cb2a4c259933b786, type: 3}
 --- !u!114 &71273062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +374,7 @@ MonoBehaviour:
   dashingTime: 0.2
   dashingCooldown: 1
   dashingCost: 1
+  input: {fileID: -4856901075592451243, guid: fff9a99559773684cb2a4c259933b786, type: 3}
   OnDash:
     m_PersistentCalls:
       m_Calls: []
@@ -448,6 +452,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &71273072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71273060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: fff9a99559773684cb2a4c259933b786, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Combat
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &90384310
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Constants;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 /// <summary>
@@ -8,10 +8,27 @@ using UnityEngine;
 /// </summary>
 public class WeaponMelee : MonoBehaviour
 {
+    #region Variables
     WeaponAttack attack;
     WeaponDetection detection;
     WeaponAnim animator;
 
+    public InputActionReference input;
+    #endregion
+
+    #region Events
+    private void OnEnable()
+    {
+        input.action.started += Attack;
+    }
+
+    private void OnDisable()
+    {
+        input.action.started -= Attack;
+    }
+    #endregion
+
+    #region Methods
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +40,13 @@ public class WeaponMelee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Inputs();
-
         detection.DetectColliders();
     }
 
-    void Inputs()
+    void Attack(InputAction.CallbackContext obj)
     {
         // Attack
-        if (!Player.player.isDashing && !Player.player.isExhausted && Input.GetMouseButton(0)) attack.PreformAttack(animator);
+        if (!Player.player.isDashing && !Player.player.isExhausted) attack.PreformAttack(animator);
     }
+    #endregion
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 /// <summary>
@@ -7,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class WeaponDetection : MonoBehaviour
 {
+    #region Variables
     public float attackRadius = 0.35f;
 
     public Transform attackOriginPoint;
@@ -18,7 +20,9 @@ public class WeaponDetection : MonoBehaviour
     float energyCost = 0.3f;
 
     bool isAttacking = false;
+    #endregion
 
+    #region Methods
     public void DetectColliders()
     {
         if (isAttacking)
@@ -49,12 +53,14 @@ public class WeaponDetection : MonoBehaviour
     {
         Player.player.health.energy -= energyCost;
     }
+    #endregion
 
-    // Debug
+    #region Debug
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Vector3 position = !attackOriginPoint ? Vector3.zero : attackOriginPoint.position;
         Gizmos.DrawWireSphere(position, attackRadius);
     }
+    #endregion
 }

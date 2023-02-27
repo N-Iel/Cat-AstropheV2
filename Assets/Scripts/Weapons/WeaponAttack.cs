@@ -8,12 +8,15 @@ using UnityEngine;
 /// </summary>
 public class WeaponAttack : MonoBehaviour
 {
+    #region variables
     [SerializeField]
     float attackCooldown = 0.2f,
           attackRadius = 0.5f;
 
     bool attackBlocked;
+    #endregion
 
+    #region Methods
     public void PreformAttack(WeaponAnim animator)
     {
         if (!attackBlocked)
@@ -29,4 +32,5 @@ public class WeaponAttack : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         attackBlocked = false;
     }
+    #endregion
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 using Constants;
 
@@ -8,14 +9,18 @@ using Constants;
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
+    #region variables
     [SerializeField]
     float maxSpeed = 1.0f, acceleration = 50f, decceleration = 100f;
     float speed;
 
-    Vector2 direcction = Vector2.zero;
+    public InputActionReference input;
     public Vector2 lastDir { get; private set; } // Last direction used that is not zero
 
+    Vector2 direcction = Vector2.zero;
+    #endregion
 
+    #region LifeCycle
     void Update()
     {
         Inputs();
@@ -27,10 +32,12 @@ public class PlayerMovement : MonoBehaviour
         if (!Player.player.isDashing && !Player.player.isDead)
             Move();
     }
+    #endregion
 
+    #region Methods
     void Inputs()
     {
-        direcction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        direcction = input.action.ReadValue<Vector2>();
     }
 
     void Animate()
@@ -57,4 +64,5 @@ public class PlayerMovement : MonoBehaviour
         speed = Mathf.Clamp(speed, 0, maxSpeed);
         Player.player.rb.velocity = direcction * speed;
     }
+    #endregion
 }

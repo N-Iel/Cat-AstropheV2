@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
-    #region Variable
+    #region Variables
     // Variables
     [NonSerialized]
     public bool isDead = false,         // Prevent player from preform all his functions
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public Shadow shadow { get; private set; }
     #endregion
 
+    #region lifeCycle
     private void Awake()
     {
         player = this;
@@ -58,4 +59,5 @@ public class Player : MonoBehaviour
         col.enabled = !isDashing && !health.isInvincible;
         shadow.enabled = isDashing;
     }
+    #endregion
 }

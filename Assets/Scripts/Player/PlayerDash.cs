@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 using Constants;
 using UnityEngine.Events;
@@ -9,26 +10,37 @@ using UnityEngine.Events;
 /// </summary>
 public class PlayerDash : MonoBehaviour
 {
+    #region Variables
     // Dash Params
     public float dashingPower = 24f,
                  dashingTime = 0.2f,
                  dashingCooldown = 1f,
                  dashingCost = 0.8f;
 
+    public InputActionReference input;
+
     [SerializeField]
     UnityEvent OnDash;  // Event used for feeback effects
 
     bool dashAvailable = true;
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region Events
+    private void OnEnable()
     {
-        DashInput();
+        input.action.started += DashInput;
     }
 
-    void DashInput()
+    private void OnDisable()
     {
-        if (dashAvailable && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift)) && !Player.player.isExhausted) StartCoroutine(Dash());
+        input.action.started -= DashInput;
+    }
+    #endregion
+
+    #region Methods
+    void DashInput(InputAction.CallbackContext obj)
+    {
+        if (dashAvailable && !Player.player.isExhausted) StartCoroutine(Dash());
     }
 
     IEnumerator Dash()
@@ -49,4 +61,5 @@ public class PlayerDash : MonoBehaviour
 
         dashAvailable = true;
     }
+    #endregion
 }
