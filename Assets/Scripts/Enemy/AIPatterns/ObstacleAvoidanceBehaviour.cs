@@ -34,10 +34,10 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
 
             Vector2 directionToObstacleNormalized = directionToObstacle.normalized;
 
-            for(int i = 0; i < Directions.eightDirection.Count; i++)
+            for(int i = 0; i < Directions.eightDirections.Count; i++)
             {
                 // We calculate how optimal is every direcction in order to get close to the obstacle (in a bad way)
-                float result = Vector2.Dot(directionToObstacleNormalized, Directions.eightDirection[i]);
+                float result = Vector2.Dot(directionToObstacleNormalized, Directions.eightDirections[i]);
 
                 float valueToPutIn = result * weight;
 
@@ -67,7 +67,7 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
             {
                 Gizmos.DrawRay(
                     transform.position,
-                    Directions.eightDirection[i] * dangersResultTemp[i]
+                    Directions.eightDirections[i] * dangersResultTemp[i]
                     );
             }
         }
@@ -82,7 +82,7 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
 
 public static class Directions
 {
-    public static List<Vector2> eightDirection = new List<Vector2>()
+    public static List<Vector2> eightDirections = new List<Vector2>()
     {
         new Vector2(0, 1).normalized,
         new Vector2(1, 1).normalized,
