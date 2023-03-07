@@ -40,6 +40,7 @@ public class TargetDetector : Detector
         else
         {
             // Target out of range
+            Debug.Log("No targets");
             colliders = null;
         }
         aiData.targets = colliders;

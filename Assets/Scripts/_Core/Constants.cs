@@ -16,5 +16,13 @@ namespace Constants
                             recovered = "recovered",
                             invincible = "invincible";
     }
+
+    public class States
+    {
+        public const string detecting = "detecting",
+                            following = "following",
+                            attacking = "attacking",
+                            recovering = "recovering";
+    }
     
 }

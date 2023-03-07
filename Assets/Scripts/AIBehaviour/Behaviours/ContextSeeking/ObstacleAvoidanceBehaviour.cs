@@ -13,11 +13,6 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
 
     float[] dangersResultTemp = null;        // Gizmo Params
 
-    /// <summary>
-    /// Apunte: Este método de aquí abajo es de tipo Anónimo, esto permite crear diferentes elementos sin tener que generar su estructura típica
-    /// En este caso un método que devolverá dos float[] y con una funcionalidad interna, sin necesidad de declarar una clase, estructura o incluso métodos al rededor.
-    /// Las prioridades se miden del (min)0 - (max)1 en función de la cercanía al obstáculo
-    /// </summary>
     public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData)
     {
         foreach (Collider2D obstacleCollider in aiData.obstacles)

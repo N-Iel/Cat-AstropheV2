@@ -56,7 +56,7 @@ public class SeekBehaviour : SteeringBehaviour
         #endregion
 
         #region Interest Dirrections
-        // If the target hasn't been reached we check for optimal directions
+        // We check for optimal directions
         Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
         for (int i = 0; i < interest.Length; i++)
         {

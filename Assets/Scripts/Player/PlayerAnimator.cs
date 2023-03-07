@@ -8,7 +8,6 @@ using Constants;
 public class PlayerAnimator : MonoBehaviour
 {
     public Animator anim;
-    WeaponAnim weaponAnim;
 
     private void Start()
     {

@@ -8,16 +8,4 @@ public class Enemy : MonoBehaviour
     // Variables
     [NonSerialized]
     public bool isDead = false;  // Prevent player from preform all his functions
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
