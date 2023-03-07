@@ -49,13 +49,13 @@ public class AIContextSteeringFollow : State
         else
         {
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-            Debug.Log(distance);
             if (distance < attackDistance)
             {
                 // Attack Behaviour
                 movementInput = Vector2.zero;
-                Debug.Log("Attacking");
+                OnMove?.Invoke(movementInput);
                 OnAttack?.Invoke();
+                Debug.Log("Attacking");
                 yield return new WaitForSeconds(attackDelay);
             }
             else

@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class EnemyAnimator : MonoBehaviour
 {
-    public Animator anim;
 
+    [SerializeField]
+    GameObject enemyModel;
+
+    Animator anim;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -32,5 +35,12 @@ public class EnemyAnimator : MonoBehaviour
                 anim.SetTrigger("attack");
                 break;
         }
+    }
+    public void UpdateLookingDir(Vector2 _dir)
+    {
+        // Flip Model
+        Vector2 lastDir = enemyModel.transform.localScale;
+        lastDir.x = Mathf.Sign(_dir.x);
+        enemyModel.transform.localScale = lastDir;
     }
 }
