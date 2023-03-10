@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Constants;
 using UnityEngine;
 
 public class Brain : MonoBehaviour
@@ -12,25 +13,25 @@ public class Brain : MonoBehaviour
     public AIData aiData { get; set; }
 
     [field: SerializeField]
-    public string currentState { get; set; }
+    public States currentState { get; set; }
 
     [field: SerializeField]
-    public string initialState { get; set; }
+    public States initialState { get; set; }
 
     private void Start()
     {
         UpdateState(initialState);
     }
 
-    public void UpdateState(string _newState)
+    public void UpdateState(States _newState)
     {
         currentState = _newState;
         foreach (State state in states)
         {
-            if (!state.isActive && (state?.triggerState == "" || state?.triggerState == currentState))
+            if (!state.isActive && (state?.triggerState == States.None || state?.triggerState == currentState))
                 StartCoroutine(state.RunBehaviour(this, aiData));
 
-            if (state?.triggerState != "" && state?.triggerState != currentState)
+            if (state?.triggerState != States.None && state?.stopState == currentState)
                 StopCoroutine(state.RunBehaviour(this, aiData));
         }
     }

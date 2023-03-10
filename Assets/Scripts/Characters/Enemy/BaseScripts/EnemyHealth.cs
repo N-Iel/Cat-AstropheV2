@@ -8,25 +8,37 @@ using UnityEngine.Events;
 /// </summary>
 public class EnemyHealth : MonoBehaviour
 {
+    #region Variables
     // Variables
+    [Header("Parameters")]
     [SerializeField]
     int maxHealth = 3;
+
     [SerializeField]
     float invincibilityTime = 0.15f;
 
-    bool isInvincible;
-    int health;
+    // Non serialized variables
+    bool isInvincible { get; set; }
+    int health { get; set; }
+    #endregion
 
-    // Eventos
+    #region Events
+    // Events
+    [Header("Events")]
     [SerializeField]
     UnityEvent<GameObject> OnHit;
     [SerializeField]
     UnityEvent OnDead;
+    #endregion
 
+    #region LifeCycle
     private void Start()
     {
         health = maxHealth;
     }
+    #endregion
+
+    #region Methods
 
     // Metodos
     public void Hit(GameObject gameObject)
@@ -51,4 +63,13 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(invincibilityTime);
         isInvincible = false;
     }
+    #endregion
+
+    #region Collider Detectors
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+            Hit(collision.gameObject);
+    }
+    #endregion
 }

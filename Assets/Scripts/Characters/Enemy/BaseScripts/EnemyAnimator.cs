@@ -9,11 +9,8 @@ public class EnemyAnimator : MonoBehaviour
     [SerializeField]
     GameObject enemyModel;
 
+    [SerializeField]
     Animator anim;
-    private void Start()
-    {
-        anim = GetComponent<Animator>();
-    }
 
     public void PlayAnimation(string _anim)
     {

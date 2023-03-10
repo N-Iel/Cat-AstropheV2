@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Constants;
 using UnityEngine;
 
 /// <summary>
@@ -7,8 +8,9 @@ using UnityEngine;
 /// </summary>
 public class AIContextSteeringDetector : State
 {
-    [Header("Detector")]
-    public float detectionDealy = 0.05f;
+    [field: Header("Detector")]
+    [SerializeField]
+    public float delay { get; set; }
 
     [SerializeField]
     List<Detector> detectors;
@@ -20,11 +22,11 @@ public class AIContextSteeringDetector : State
     [field: SerializeField]
     public override string stateName { get; set; }
     [field: SerializeField]
-    public override string triggerState { get; set; }
+    public override States triggerState { get; set; }
     [field: SerializeField]
-    public override string stopState { get; set; }
+    public override States stopState { get; set; }
+    [field: SerializeField]
     public override bool isActive { get; set; }
-
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
@@ -38,7 +40,7 @@ public class AIContextSteeringDetector : State
         if (aiData.currentTarget)
         {
             // Following Behaviour
-            originBrain.UpdateState("agresive");
+            originBrain.UpdateState(States.agresive);
         }
         else if (aiData.GetTargetCount() > 0)
         {
@@ -46,7 +48,7 @@ public class AIContextSteeringDetector : State
             aiData.currentTarget = aiData.targets[0];
         }
 
-        yield return new WaitForSeconds(detectionDealy);
+        yield return new WaitForSeconds(delay);
         StartCoroutine(RunBehaviour(originBrain, aiData));
     }
 }

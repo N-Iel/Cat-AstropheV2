@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Constants;
 using UnityEngine.Events;
 
 /// <summary>
@@ -22,9 +23,9 @@ public class AIContextSteeringFollow : State
     [field: SerializeField]
     public override string stateName { get; set ;}
     [field: SerializeField]
-    public override string triggerState { get; set ;}
+    public override States triggerState { get; set ;}
     [field: SerializeField]
-    public override string stopState { get; set ;}
+    public override States stopState { get; set ;}
     [field: SerializeField]
     bool showGizmos { get; set; }
     public override bool isActive { get; set ;}

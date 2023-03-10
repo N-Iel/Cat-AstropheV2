@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// General AIData service, it keeps a huge variety of data but not all needs to be used
+/// </summary>
 public class AIData : MonoBehaviour
 {
-    public List<Transform> targets = null; // Stores all the positions of possible targets
-    public Collider2D[] obstacles = null;  // Stores all the obstacle colliders
+    // Context AI Data
+    public List<Transform> targets { get; set; } // Stores all the positions of possible targets
+    public Collider2D[] obstacles { get; set; }  // Stores all the obstacle colliders
+    public Transform currentTarget { get; set; } // Stores the current Target detected
 
-    public Transform currentTarget;
+    // Basic Data
+    public Transform targetPosition { get; set; } // Stores the target position
 
     public int GetTargetCount() => targets == null ? 0 : targets.Count; // Prevents null Exceptions
 }

@@ -17,12 +17,12 @@ namespace Constants
                             invincible = "invincible";
     }
 
-    public class States
+    public enum States
     {
-        public const string detecting = "detecting",
-                            following = "following",
-                            attacking = "attacking",
-                            recovering = "recovering";
-    }
+        None,
+        pasive,
+        agresive,
+        exhausted
+    };
     
 }
