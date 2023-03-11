@@ -56,13 +56,13 @@ public class SeekBehaviour : SteeringBehaviour
         #endregion
 
         #region Interest Dirrections
-        // We check for optimal directions
-        Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
+        // We check for optimal s
+        Vector2 ToTarget = (targetPositionCached - (Vector2)transform.position);
         for (int i = 0; i < interest.Length; i++)
         {
-            float result = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]);
+            float result = Vector2.Dot(ToTarget.normalized, s.eights[i]);
 
-            // Only directions at least on a 90º range from the target
+            // Only s at least on a 90º range from the target
             if(result > 0)
             {
                 float valueToPutIn = result;
@@ -91,7 +91,7 @@ public class SeekBehaviour : SteeringBehaviour
                 Gizmos.color = Color.green;
                 for(int i = 0; i < interestsTemp.Length; i++)
                 {
-                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * interestsTemp[i]);
+                    Gizmos.DrawRay(transform.position, s.eights[i] * interestsTemp[i]);
                 }
                 if (!reachedLastTarget)
                 {

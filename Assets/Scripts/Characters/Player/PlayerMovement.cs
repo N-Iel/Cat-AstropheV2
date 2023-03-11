@@ -15,9 +15,9 @@ public class PlayerMovement : MonoBehaviour
     float speed;
 
     public InputActionReference input;
-    public Vector2 lastDir { get; private set; } // Last direction used that is not zero
+    public Vector2 lastDir { get; private set; } // Last  used that is not zero
 
-    Vector2 direcction = Vector2.zero;
+    Vector2 direction = Vector2.zero;
     #endregion
 
     #region LifeCycle
@@ -37,12 +37,12 @@ public class PlayerMovement : MonoBehaviour
     #region Methods
     void Inputs()
     {
-        direcction = input.action.ReadValue<Vector2>();
+       direction = input.action.ReadValue<Vector2>();
     }
 
     void Animate()
     {
-        if (direcction != Vector2.zero)
+        if (direction != Vector2.zero)
             Player.player.animator.PlayAnimation(Animations.walk);
         else
             Player.player.animator.PlayAnimation(Animations.idle);
@@ -50,19 +50,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        //Player.player.rb.MovePosition(Player.player.rb.position + direcction * speed * Time.deltaTime);
-        if (direcction.magnitude > 0 && speed >= 0)
+        //Player.player.rb.MovePosition(Player.player.rb.position +  * speed * Time.deltaTime);
+        if (direction.magnitude > 0 && speed >= 0)
         {
             speed += acceleration * maxSpeed * Time.deltaTime;
-            lastDir = direcction;
-            Player.player.animator.UpdateLookingDir(direcction);
+            lastDir = direction;
+            Player.player.animator.UpdateLookingDir(direction);
         }
         else
         {
             speed -= decceleration * maxSpeed * Time.deltaTime;
         }
         speed = Mathf.Clamp(speed, 0, maxSpeed);
-        Player.player.rb.velocity = direcction * speed;
+        Player.player.rb.velocity = direction * speed;
     }
     #endregion
 }

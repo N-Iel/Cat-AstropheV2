@@ -75,7 +75,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &451809190056736397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,8 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states: []
   <aiData>k__BackingField: {fileID: 0}
-  <currentState>k__BackingField: 
-  <initialState>k__BackingField: 
+  <currentState>k__BackingField: 0
+  <initialState>k__BackingField: 0
 --- !u!114 &451809190056736398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f57348897e60bd14b83d31fdb6735c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTarget: {fileID: 0}
 --- !u!1 &451809190103850962
 GameObject:
   m_ObjectHideFlags: 0

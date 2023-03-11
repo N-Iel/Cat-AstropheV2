@@ -23,7 +23,7 @@ public class TargetDetector : Detector
         {
             // Check if target is at sight
             Vector2 direction = (targetCollider.transform.position - transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, targetDetectionRange, obstacleLayerMask);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction , targetDetectionRange, obstacleLayerMask);
 
             // Make sure that the collider detected is on the Target Layer
             if (hit.collider != null && (targetLayerMask & (1 << hit.collider.gameObject.layer)) != 0)

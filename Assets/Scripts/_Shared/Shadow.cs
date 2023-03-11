@@ -40,7 +40,7 @@ public class Shadow : MonoBehaviour
             SpawnShadow();
     }
 
-    // Instantiate a shadow in the customTarget direction
+    // Instantiate a shadow in the customTarget 
     void SpawnShadow()
     {
         // Instantiate

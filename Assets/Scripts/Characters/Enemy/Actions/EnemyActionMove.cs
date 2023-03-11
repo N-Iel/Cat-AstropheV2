@@ -32,20 +32,20 @@ public class EnemyActionMove : MonoBehaviour
         canMove = true;
     }
 
-    public void Move(Vector2 direcction)
+    public void Move(Vector2 direction)
     {
         if (!canMove) return;
-        //Player.player.rb.MovePosition(Player.player.rb.position + direcction * speed * Time.deltaTime);
-        if (direcction.magnitude > 0 && speed >= 0)
+
+        if (direction.magnitude > 0 && speed >= 0)
         {
             speed += acceleration * maxSpeed * Time.deltaTime;
-            animator.UpdateLookingDir(direcction);
+            animator.UpdateLookingDir(direction);
         }
         else
         {
             speed -= decceleration * maxSpeed * Time.deltaTime;
         }
         speed = Mathf.Clamp(speed, 0, maxSpeed);
-        rb.velocity = direcction * speed;
+        rb.velocity = direction * speed;
     }
 }

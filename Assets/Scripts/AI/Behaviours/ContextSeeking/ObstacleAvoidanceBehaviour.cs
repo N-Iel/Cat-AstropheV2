@@ -18,8 +18,8 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
         foreach (Collider2D obstacleCollider in aiData.obstacles)
         {
             // From the data stored in AIData extract the distance to the detected obstacles
-            Vector2 directionToObstacle = obstacleCollider.ClosestPoint(transform.position) - (Vector2)transform.position;
-            float distanceToObstacle = directionToObstacle.magnitude;
+            Vector2 ToObstacle = obstacleCollider.ClosestPoint(transform.position) - (Vector2)transform.position;
+            float distanceToObstacle = ToObstacle.magnitude;
 
             // Calculate weight based on the distance to the obstacle
             float weight
@@ -27,12 +27,12 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
                 ? 1
                 : (radius - distanceToObstacle) / radius;
 
-            Vector2 directionToObstacleNormalized = directionToObstacle.normalized;
+            Vector2 ToObstacleNormalized = ToObstacle.normalized;
 
-            for(int i = 0; i < Directions.eightDirections.Count; i++)
+            for(int i = 0; i < s.eights.Count; i++)
             {
-                // We calculate how optimal is every direcction in order to get close to the obstacle (in a bad way)
-                float result = Vector2.Dot(directionToObstacleNormalized, Directions.eightDirections[i]);
+                // We calculate how optimal is every  in order to get close to the obstacle (in a bad way)
+                float result = Vector2.Dot(ToObstacleNormalized, s.eights[i]);
 
                 float valueToPutIn = result * weight;
 
@@ -62,7 +62,7 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
             {
                 Gizmos.DrawRay(
                     transform.position,
-                    Directions.eightDirections[i] * dangersResultTemp[i]
+                    s.eights[i] * dangersResultTemp[i]
                     );
             }
         }
@@ -75,9 +75,9 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
     }
 }
 
-public static class Directions
+public static class s
 {
-    public static List<Vector2> eightDirections = new List<Vector2>()
+    public static List<Vector2> eights = new List<Vector2>()
     {
         new Vector2(0, 1).normalized,
         new Vector2(1, 1).normalized,

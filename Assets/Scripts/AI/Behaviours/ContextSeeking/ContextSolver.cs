@@ -9,7 +9,7 @@ public class ContextSolver : MonoBehaviour
 
     // Gizmos params
     float[] interestGizmo = new float[0];
-    Vector2 resultDirection = Vector2.zero;
+    Vector2 result = Vector2.zero;
     float rayLength = 1;
 
     private void Start()
@@ -17,7 +17,7 @@ public class ContextSolver : MonoBehaviour
         interestGizmo= new float[8];
     }
 
-    public Vector2 GetDirectionToMove(List<SteeringBehaviour> behaviours, AIData aiData)
+    public Vector2 GetToMove(List<SteeringBehaviour> behaviours, AIData aiData)
     {
         float[] danger = new float[8];
         float[] interest = new float[8];
@@ -28,7 +28,7 @@ public class ContextSolver : MonoBehaviour
             (danger, interest) = behaviour.GetSteering(danger, interest, aiData);
         }
 
-        // Compensate interest directions with their danger value
+        // Compensate interest s with their danger value
         for (int i = 0; i < 8; i++)
         {
             interest[i] = Mathf.Clamp01(interest[i] - danger[i]);
@@ -36,18 +36,18 @@ public class ContextSolver : MonoBehaviour
 
         interestGizmo = interest;
 
-        // Calculate direction (for smoother movement)
-        Vector2 outputDirection = Vector2.zero;
+        // Calculate  (for smoother movement)
+        Vector2 output = Vector2.zero;
         for (int i = 0; i < 8; i++)
         {
-            outputDirection += Directions.eightDirections[i] * interest[i];
+            output += s.eights[i] * interest[i];
         }
-        outputDirection.Normalize();
+        output.Normalize();
 
-        resultDirection = outputDirection;
+        result = output;
 
-        // Return the calculated Direction
-        return resultDirection;
+        // Return the calculated 
+        return result;
     }
 
     private void OnDrawGizmos()
@@ -55,7 +55,7 @@ public class ContextSolver : MonoBehaviour
         if(Application.isPlaying && showGizmos)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(transform.position, resultDirection * rayLength);
+            Gizmos.DrawRay(transform.position, result * rayLength);
         }
     }
 }

@@ -13,7 +13,7 @@ public class AIData : MonoBehaviour
     public Transform currentTarget { get; set; } // Stores the current Target detected
 
     // Basic Data
-    public Transform targetPosition { get; set; } // Stores the target position
+    public Vector2 targetPosition { get; set; } // Stores the target position
 
     public int GetTargetCount() => targets == null ? 0 : targets.Count; // Prevents null Exceptions
 }

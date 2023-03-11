@@ -14,7 +14,7 @@ public class AIContextSteeringFollow : State
     Vector2 movementInput;
 
     [SerializeField]
-    ContextSolver movementDirection;
+    ContextSolver movement;
 
     [SerializeField]
     List<SteeringBehaviour> steeringBehaviours;
@@ -62,7 +62,7 @@ public class AIContextSteeringFollow : State
             else
             {
                 // Keep Following
-                movementInput = movementDirection.GetDirectionToMove(steeringBehaviours, aiData);
+                movementInput = movement.GetToMove(steeringBehaviours, aiData);
                 Debug.Log("Following");
                 OnMove?.Invoke(movementInput);
                 yield return new WaitForSeconds(followDealy);

@@ -26,13 +26,21 @@ public class Brain : MonoBehaviour
     public void UpdateState(States _newState)
     {
         currentState = _newState;
+        Debug.Log(currentState);
         foreach (State state in states)
         {
             if (!state.isActive && (state?.triggerState == States.None || state?.triggerState == currentState))
+            {
                 StartCoroutine(state.RunBehaviour(this, aiData));
+                state.isActive = true;
+            }
 
+            // This is a redundant call for security proposes
             if (state?.triggerState != States.None && state?.stopState == currentState)
+            { 
                 StopCoroutine(state.RunBehaviour(this, aiData));
+                state.isActive = false;
+            }
         }
     }
 }
