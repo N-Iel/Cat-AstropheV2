@@ -22,9 +22,9 @@ public class AIContextSteeringDetector : State
     [field: SerializeField]
     public override string stateName { get; set; }
     [field: SerializeField]
-    public override States triggerState { get; set; }
+    public override List<States> triggerStates { get; set; }
     [field: SerializeField]
-    public override States stopState { get; set; }
+    public override List<States> stopStates { get; set; }
     [field: SerializeField]
     public override bool isActive { get; set; }
 

@@ -29,17 +29,17 @@ public class Brain : MonoBehaviour
         Debug.Log(currentState);
         foreach (State state in states)
         {
-            if (!state.isActive && (state?.triggerState == States.None || state?.triggerState == currentState))
+            if (!state.isActive && state.triggerStates.Exists(x => x == States.None || x == currentState))
             {
-                StartCoroutine(state.RunBehaviour(this, aiData));
                 state.isActive = true;
+                StartCoroutine(state.RunBehaviour(this, aiData));
             }
 
             // This is a redundant call for security proposes
-            if (state?.triggerState != States.None && state?.stopState == currentState)
-            { 
-                StopCoroutine(state.RunBehaviour(this, aiData));
+            if (state.stopStates.Exists(x => x == States.None || x == currentState))
+            {
                 state.isActive = false;
+                StopCoroutine(state.RunBehaviour(this, aiData));
             }
         }
     }

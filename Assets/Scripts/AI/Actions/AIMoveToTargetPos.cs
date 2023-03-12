@@ -33,7 +33,6 @@ public class AIMoveToTargetPos : MonoBehaviour, Movement
 
     public void ExecuteMovement(Vector2 targetPosition, Rigidbody2D characterRb)
     {
-        Debug.Log(targetPosition);
         direction = getToMove(targetPosition) ;
         rb = characterRb;
         speed = 0;

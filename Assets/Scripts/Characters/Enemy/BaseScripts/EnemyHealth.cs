@@ -1,3 +1,4 @@
+using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,15 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     float invincibilityTime = 0.15f;
 
+    [SerializeField]
+    States onHitState = States.None;
+
+    [SerializeField]
+    Brain brain;
+
     // Non serialized variables
-    bool isInvincible { get; set; }
-    int health { get; set; }
+    bool isInvincible;
+    int health;
     #endregion
 
     #region Events
@@ -34,6 +41,7 @@ public class EnemyHealth : MonoBehaviour
     #region LifeCycle
     private void Start()
     {
+        // Variables
         health = maxHealth;
     }
     #endregion
@@ -46,9 +54,12 @@ public class EnemyHealth : MonoBehaviour
         if (isInvincible) return;
         if (health - 1 <= 0) Dead();
 
+        Debug.Log("Hitted");
+
         health--;
         isInvincible = true;
         StartCoroutine(Invincibility());
+        if (onHitState != States.None) brain.UpdateState(onHitState);
         OnHit?.Invoke(gameObject);
     }
 

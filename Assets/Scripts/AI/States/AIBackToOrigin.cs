@@ -14,9 +14,9 @@ public class AIBackToOrigin : State
     [field: SerializeField]
     public override string stateName { get; set; }
     [field: SerializeField]
-    public override States triggerState { get; set; }
+    public override List<States> triggerStates { get; set; }
     [field: SerializeField]
-    public override States stopState { get; set; }
+    public override List<States> stopStates { get; set; }
     public override bool isActive { get; set; }
     #endregion
 
@@ -59,6 +59,8 @@ public class AIBackToOrigin : State
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
+        if (!isActive || !characterTransform || !origin) yield break;
+
         if (Vector2.Distance(characterTransform.position, origin.position) > distanceToTargetThreshold)
         {
             // KeepAttacking

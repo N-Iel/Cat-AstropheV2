@@ -16,10 +16,10 @@ public class AILookingForPlayer : State
     public override string stateName { get; set; }      // State of the name (debug)
 
     [field: SerializeField]
-    public override States triggerState { get; set; }   // State that will make this script run
+    public override List<States> triggerStates { get; set; }   // State that will make this script run
 
     [field: SerializeField]
-    public override States stopState { get; set; }      // State that will make this script stop
+    public override List<States> stopStates { get; set; }      // State that will make this script stop
     public override bool isActive { get; set; }
     #endregion
 
