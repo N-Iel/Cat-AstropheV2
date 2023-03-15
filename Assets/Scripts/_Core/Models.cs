@@ -8,12 +8,12 @@ namespace Models
     public interface Movement
     {
         // Serializable
-        float speed { get; set; }
-        float acceleration { get; set; }
-        float maxSpeed { get; set; }
-        float decceleration { get; set; }
+        float maxSpeed { get; set; } // Vf
+        float timeToReachTarget { get; set; } // t
 
         // Non Serializable
+        float force { get; set; }
+        float distance { get; set; }
         Rigidbody2D rb { get; set; }
         Vector2 direction { get; set; }
     }

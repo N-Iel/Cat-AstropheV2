@@ -9,6 +9,9 @@ public class FBKnockback : MonoBehaviour
     Rigidbody2D rb;
 
     [SerializeField]
+    bool StopImpulse = true;
+
+    [SerializeField]
     float strength = 16.0f, delay = 0.15f;
 
     public UnityEvent OnBegin, OnDone;
@@ -19,7 +22,7 @@ public class FBKnockback : MonoBehaviour
         OnBegin?.Invoke();
         Vector2 direction = (transform.position - sender.transform.position).normalized;
         rb.AddForce( direction * strength, ForceMode2D.Impulse);
-        StartCoroutine(Reset());
+        if(StopImpulse) StartCoroutine(Reset());
     }
 
     private IEnumerator Reset()

@@ -4,20 +4,22 @@ using UnityEngine;
 using Models;
 using UnityEngine.TextCore.Text;
 
+/// <summary>
+/// Tengo que hacer un movimiento que alcance una velocidad pico y reduzca la velocidad en función de la distancia al objetivo
+/// </summary>
 public static class MainMovement
 {
     public static void ApplyMovement(Movement _movement)
     {
-        if (_movement.direction.magnitude > 0 && _movement.speed >= 0)
-        {
-            _movement.speed += _movement.acceleration * _movement.maxSpeed * Time.deltaTime;
-            //animator.UpdateLookingDir();
-        }
-        else
-        {
-            _movement.speed -= _movement.decceleration * _movement.maxSpeed * Time.deltaTime;
-        }
-        _movement.speed = Mathf.Clamp(_movement.speed, 0, _movement.maxSpeed);
-        _movement.rb.velocity = _movement.direction * _movement.speed;
+        if (_movement.force == 0) GetForce(_movement);
+        //float speed = Vector3.SmoothDamp(_movement.);
+    }
+
+    private static void GetForce(Movement _movement)
+    {
+        // F = ((Vf - Vi)*m)/(t * x)
+        _movement.force =
+            ((_movement.maxSpeed - _movement.rb.velocity.magnitude) * _movement.rb.mass)
+            / _movement.timeToReachTarget;
     }
 }

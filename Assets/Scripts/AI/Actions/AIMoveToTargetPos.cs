@@ -11,17 +11,22 @@ public class AIMoveToTargetPos : MonoBehaviour, Movement
     #region Movement
     [field: Header("Movement")]
     [field: SerializeField]
-    public float acceleration { get; set; }
+    public float timeToReachTarget { get; set; }
     [field: SerializeField]
     public float maxSpeed { get; set; }
-    [field: SerializeField]
-    public float decceleration { get; set; }
-    public float speed { get; set; }
+    public float force { get; set; }
+    public float distance { get; set; }
     public Rigidbody2D rb { get; set; }
     public Vector2 direction { get; set; }
+    #endregion
 
+    #region Custom Params
     [field: SerializeField]
     Transform originPosition;
+    Vector2 targetPos;
+    public bool canMove { get; set; }
+
+    Vector2 speed = Vector2.zero;
     #endregion
 
     #region Gizmos
@@ -33,21 +38,24 @@ public class AIMoveToTargetPos : MonoBehaviour, Movement
 
     public void ExecuteMovement(Vector2 targetPosition, Rigidbody2D characterRb)
     {
-        direction = getToMove(targetPosition) ;
+        targetPos = targetPosition;
         rb = characterRb;
-        speed = 0;
-
-        MainMovement.ApplyMovement(this);
+        canMove = true;
     }
 
-    Vector2 getToMove(Vector2 targetPos)
+    private void FixedUpdate()
     {
-        Vector2 heading = targetPos - (!originPosition
-                                        ? (Vector2)transform.position 
-                                        : (Vector2)originPosition?.position);
-        selectedDir = (heading / heading.magnitude).normalized;
-        return selectedDir;
+        if (!canMove) return;
+
+        direction = Utils.getDirection(targetPos, originPosition.position);
+        selectedDir = direction;
+        distance = Vector2.Distance(targetPos, originPosition.position);
+        speed = Vector2.SmoothDamp(originPosition.position, targetPos, ref speed, timeToReachTarget, maxSpeed);
+        rb.AddRelativeForce(direction.normalized * maxSpeed * Time.deltaTime);
+        //MainMovement.ApplyMovement(this);
     }
+
+
 
     private void OnDrawGizmos()
     {

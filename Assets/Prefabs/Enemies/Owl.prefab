@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <stateName>k__BackingField: BackToOrigin
-  <triggerState>k__BackingField: 3
-  <stopState>k__BackingField: 1
+  <triggerStates>k__BackingField: 03000000
+  <stopStates>k__BackingField: 0100000002000000
   distanceToTargetThreshold: 0.4
   movementDelay: 0.05
   <rb>k__BackingField: {fileID: 1209536761664833319}
@@ -70,7 +70,19 @@ MonoBehaviour:
         m_CallState: 2
   onOriginReached:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6961012401704895052}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &68149310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,9 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <acceleration>k__BackingField: 70
-  <maxSpeed>k__BackingField: 15
-  <decceleration>k__BackingField: 100
+  <timeToReachTarget>k__BackingField: 0
+  <maxSpeed>k__BackingField: 35
   originPosition: {fileID: 5900781964737238220}
   drawGizmos: 0
 --- !u!1 &111379747
@@ -132,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bee580bf06d3f4ba6843196a530287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 10
+  detectionRadius: 8.62
   detectionDelay: 0
   showGizmos: 1
 --- !u!1 &558652150
@@ -181,10 +192,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <stateName>k__BackingField: AttackTargetPos
-  <triggerState>k__BackingField: 2
-  <stopState>k__BackingField: 1
-  attackDelay: 0.05
+  <triggerStates>k__BackingField: 02000000
+  <stopStates>k__BackingField: 0100000003000000
   distanceToTargetThreshold: 1
+  delay: 0.5
   characterTransform: {fileID: 5900781964737238220}
   characterRb: {fileID: 1209536761664833319}
   onAttack:
@@ -202,6 +213,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onTargetReached:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5024388356743199630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,10 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <acceleration>k__BackingField: 50
-  <maxSpeed>k__BackingField: 120
-  <decceleration>k__BackingField: 100
-  originPosition: {fileID: 0}
+  <timeToReachTarget>k__BackingField: 0
+  <maxSpeed>k__BackingField: 40
+  originPosition: {fileID: 5900781964737238220}
   drawGizmos: 1
 --- !u!1 &1976851770
 GameObject:
@@ -264,14 +277,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <stateName>k__BackingField: LookingForPlayer
-  <triggerState>k__BackingField: 1
-  <stopState>k__BackingField: 2
+  <triggerStates>k__BackingField: 01000000
+  <stopStates>k__BackingField: 0200000003000000
   <delay>k__BackingField: 0.05
   <isContinuous>k__BackingField: 0
   <detector>k__BackingField: {fileID: 111379749}
   onDetect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6961012401704895052}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1001 &6315999403300899615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -351,9 +376,14 @@ PrefabInstance:
       propertyPath: <initialState>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 451809190103850962, guid: 557c318153173984081c7501c8563c9a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 451809190056736392, guid: 557c318153173984081c7501c8563c9a, type: 3}
     - {fileID: 451809190056736395, guid: 557c318153173984081c7501c8563c9a, type: 3}
+    - {fileID: 451809190056736397, guid: 557c318153173984081c7501c8563c9a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 557c318153173984081c7501c8563c9a, type: 3}
 --- !u!4 &5900781963774357029 stripped
 Transform:
@@ -365,17 +395,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 451809190745364672, guid: 557c318153173984081c7501c8563c9a, type: 3}
   m_PrefabInstance: {fileID: 6315999403300899615}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5900781964662865296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 451809190056736399, guid: 557c318153173984081c7501c8563c9a, type: 3}
+  m_PrefabInstance: {fileID: 6315999403300899615}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5900781964662865301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d043a39df84c7f43aac190454f1fd09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5900781964662865297 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 451809190056736398, guid: 557c318153173984081c7501c8563c9a, type: 3}
   m_PrefabInstance: {fileID: 6315999403300899615}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5900781964662865301}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f57348897e60bd14b83d31fdb6735c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5900781964662865301 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 451809190056736394, guid: 557c318153173984081c7501c8563c9a, type: 3}
+  m_PrefabInstance: {fileID: 6315999403300899615}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1635591411425764734
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5900781964662865301}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -483064231
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!4 &5900781964662865302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 451809190056736393, guid: 557c318153173984081c7501c8563c9a, type: 3}
@@ -419,7 +517,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5900781964737238221}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -428,3 +526,59 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9829607, y: 1.9870033}
   m_Direction: 0
+--- !u!114 &1153277484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5900781964737238221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb223f34fbb2de44b8f0a273fbd1985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  invincibilityTime: 0.15
+  onHitState: 3
+  brain: {fileID: 5900781964662865296}
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1153277485}
+        m_TargetAssemblyTypeName: FBKnockback, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDead:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1153277485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5900781964737238221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6974ca6d01e0c934599e0164b907cc2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1209536761664833319}
+  StopImpulse: 0
+  strength: 15
+  delay: 0.15
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDone:
+    m_PersistentCalls:
+      m_Calls: []

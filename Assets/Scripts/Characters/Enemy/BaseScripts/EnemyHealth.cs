@@ -79,8 +79,8 @@ public class EnemyHealth : MonoBehaviour
     #region Collider Detectors
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
-            Hit(collision.gameObject);
+        if (collision.gameObject.CompareTag("Player"))
+            Player.player.health.Hit(gameObject);
     }
     #endregion
 }
