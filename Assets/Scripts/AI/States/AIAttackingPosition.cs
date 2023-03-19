@@ -26,35 +26,24 @@ public class AIAttackingPosition : State
     [field: Header("Custom Params")]
 
     [field: SerializeField]
-    float distanceToTargetThreshold = 0.5f;
-
-    [field: SerializeField]
-    float delay = 0.5f;
+    // Test random between range
+    float ChasingTime = 5f;
 
     [field: Header("Character Components")]
-    [field: SerializeField]
-    Transform characterTransform;
 
     [field: SerializeField]
     Rigidbody2D characterRb;
 
     [field: Header("Events")]
     [field: SerializeField]
-    UnityEvent<Vector2, Rigidbody2D> onAttack;
-    [field: SerializeField]
-    UnityEvent onTargetReached;
+    UnityEvent onAttack;
     #endregion
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-        onAttack?.Invoke(aiData.targetPosition, characterRb);
-        yield return new WaitUntil(() => Vector2.Distance(characterTransform.position, aiData.targetPosition) > distanceToTargetThreshold);
+        onAttack?.Invoke();
 
-        //onTargetReached?.Invoke();
-        //aiData.targetPosition = Vector2.zero;
-        //yield return new WaitForSeconds(delay);
-
-        //originBrain.UpdateState(States.exhausted);
-        yield break;
+        yield return new WaitForSeconds(ChasingTime);
+        originBrain.UpdateState(States.exhausted);
     }
 }

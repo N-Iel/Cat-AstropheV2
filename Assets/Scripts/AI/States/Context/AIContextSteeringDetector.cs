@@ -40,7 +40,7 @@ public class AIContextSteeringDetector : State
         if (aiData.currentTarget)
         {
             // Following Behaviour
-            originBrain.UpdateState(States.agresive);
+            originBrain.UpdateState(States.aggressive);
         }
         else if (aiData.GetTargetCount() > 0)
         {

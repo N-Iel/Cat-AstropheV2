@@ -19,7 +19,11 @@ public class EnemyHealth : MonoBehaviour
     float invincibilityTime = 0.15f;
 
     [SerializeField]
-    States onHitState = States.None;
+    States triggeredState = States.None;
+
+    [SerializeField]
+    [Tooltip("Life required in order to trigger the new state, 0 == every hit")]
+    int stateTriggerHealth = 0;
 
     [SerializeField]
     Brain brain;
@@ -48,25 +52,35 @@ public class EnemyHealth : MonoBehaviour
 
     #region Methods
 
-    // Metodos
     public void Hit(GameObject gameObject)
     {
         if (isInvincible) return;
-        if (health - 1 <= 0) Dead();
+        if (health - 1 <= 0)
+        {
+            Dead();
+            return;
+        }
 
-        Debug.Log("Hitted");
-
+        // Apply dmg
         health--;
         isInvincible = true;
         StartCoroutine(Invincibility());
-        if (onHitState != States.None) brain.UpdateState(onHitState);
+
+        // Response
+        checkStateUpdate();
         OnHit?.Invoke(gameObject);
+    }
+
+    void checkStateUpdate()
+    {
+        if (triggeredState == States.None) return;
+        
+        if (stateTriggerHealth == 0 || stateTriggerHealth == health ) brain.UpdateState(triggeredState);
     }
 
     void Dead()
     {
         OnDead?.Invoke();
-        Destroy(gameObject);
     }
 
     IEnumerator Invincibility()

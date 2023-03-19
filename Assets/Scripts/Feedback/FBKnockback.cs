@@ -9,26 +9,30 @@ public class FBKnockback : MonoBehaviour
     Rigidbody2D rb;
 
     [SerializeField]
-    bool StopImpulse = true;
+    float strength = 16.0f, delay = 0.15f;
 
     [SerializeField]
-    float strength = 16.0f, delay = 0.15f;
+    [Tooltip("Add the own velocity to the force in order to cancel the inertia")]
+    bool addRbVelocity = false;
 
     public UnityEvent OnBegin, OnDone;
 
     public void PlayFeedback(GameObject sender)
     {
+        float totalForce = !addRbVelocity ? strength : strength + rb.velocity.magnitude;
+
         StopAllCoroutines();
+
         OnBegin?.Invoke();
         Vector2 direction = (transform.position - sender.transform.position).normalized;
-        rb.AddForce( direction * strength, ForceMode2D.Impulse);
-        if(StopImpulse) StartCoroutine(Reset());
+        rb.AddForce(direction * totalForce, ForceMode2D.Impulse);
+
+        StartCoroutine(Reset());
     }
 
     private IEnumerator Reset()
     {
         yield return new WaitForSeconds(delay);
-        rb.velocity = Vector3.zero;
         OnDone?.Invoke();
     }
 }

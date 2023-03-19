@@ -18,26 +18,24 @@ public class CircleAreaDetector : Detector
 
     public override void Detect(AIData aiData)
     {
-        bool targetFound = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Player"))
-            {
-                targetFound = true;
-                StartCoroutine(SetTargetPosition(aiData, collider.transform.position));
-            }
+                StartCoroutine(SetTargetPosition(aiData, collider.transform));
         }
-        if (!targetFound) StartCoroutine(SetTargetPosition(aiData, Vector2.zero));
+        //if (!targetFound) StartCoroutine(SetTargetPosition(aiData, null));
     }
 
-    IEnumerator SetTargetPosition(AIData aiData, Vector2 targetPos)
+    IEnumerator SetTargetPosition(AIData aiData, Transform target)
     {
         yield return new WaitForSeconds(detectionDelay);
-        aiData.targetPosition = targetPos;
+        //aiData.targetPosition = targetPos;
+        aiData.currentTarget = target;
+        Debug.Log("TargetUpdated");
 
         // Debug
-        detectedPos = aiData.targetPosition;
+        detectedPos = (Vector2)target?.position;
     }
 
     private void OnDrawGizmos()

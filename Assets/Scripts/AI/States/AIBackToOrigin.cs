@@ -49,7 +49,7 @@ public class AIBackToOrigin : State
     #region Events
     [Header("Events")]
     [field: SerializeField]
-    UnityEvent<Vector2, Rigidbody2D> onRecover;
+    UnityEvent onRecover;
 
     [field: SerializeField]
     UnityEvent<Brain> onOriginReached;
@@ -60,21 +60,13 @@ public class AIBackToOrigin : State
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
         if (!isActive || !characterTransform || !origin) yield break;
+        onRecover?.Invoke();
+        aiData.currentTarget = origin;
 
-        if (Vector2.Distance(characterTransform.position, origin.position) > distanceToTargetThreshold)
-        {
-            // KeepAttacking
-            onRecover?.Invoke(origin.position, rb);
-            yield return new WaitForSeconds(movementDelay);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-            onOriginReached.Invoke(originBrain);
-            // TEMPORAL
-            originBrain.UpdateState(States.pasive);
-            yield break;
-        }
-        StartCoroutine(RunBehaviour(originBrain, aiData));
+        yield return new WaitWhile(() => Vector2.Distance(characterTransform.position, origin.position) > distanceToTargetThreshold);
+        onOriginReached.Invoke(originBrain);
+        aiData.currentTarget = null;
+        rb.velocity = Vector2.zero;
+        originBrain.UpdateState(States.pasive);
     }
 }

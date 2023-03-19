@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// State that check for players info and triggers agresive states
+/// State that check for players info and triggers aggressive states
 /// </summary>
 public class AILookingForPlayer : State
 {
@@ -33,25 +33,23 @@ public class AILookingForPlayer : State
     [Tooltip("This will prevent the state from beeing deactivated")]
     public bool isContinuous { get; set; }
 
-    [field: SerializeField]
-    public Detector detector { get; set; }              // Detector used for this state
-
     [field: Header("Events")]
     [field: SerializeField]
-    UnityEvent onDetect;   
+    UnityEvent<AIData> onDetect;   
     #endregion
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-        detector.Detect(aiData);
+        if (!isActive) yield break;
 
-        if (isActive && (aiData.targetPosition != Vector2.zero || aiData.currentTarget != null))
+        onDetect.Invoke(aiData);
+
+        if (aiData.targetPosition != Vector2.zero || aiData.currentTarget != null)
         {
             Debug.Log("Target Detected");        
             
             // Following Behaviour
-            originBrain.UpdateState(States.agresive);
-            onDetect.Invoke();
+            originBrain.UpdateState(States.aggressive);
 
             if (!isContinuous) yield break;
         }

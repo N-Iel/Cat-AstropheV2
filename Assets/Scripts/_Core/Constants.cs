@@ -21,7 +21,7 @@ namespace Constants
     {
         None,
         pasive,
-        agresive,
+        aggressive,
         exhausted
     };
     
