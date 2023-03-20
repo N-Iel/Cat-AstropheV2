@@ -22,6 +22,9 @@ public class AIBackToOrigin : State
 
     #region Custom Params
 
+    [SerializeField]
+    bool resetTargetOnOrigin = true;
+
     #region Movement
     // Movemenet
     [field: Header("Movement")]
@@ -60,13 +63,15 @@ public class AIBackToOrigin : State
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
         if (!isActive || !characterTransform || !origin) yield break;
-        onRecover?.Invoke();
-        aiData.currentTarget = origin;
 
+        // Start process
+        onRecover?.Invoke();
+
+        // Wait until origin is reached
         yield return new WaitWhile(() => Vector2.Distance(characterTransform.position, origin.position) > distanceToTargetThreshold);
+
+        // Finish
+        if (resetTargetOnOrigin) aiData.currentTarget = null;
         onOriginReached.Invoke(originBrain);
-        aiData.currentTarget = null;
-        rb.velocity = Vector2.zero;
-        originBrain.UpdateState(States.pasive);
     }
 }

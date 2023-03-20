@@ -5,21 +5,21 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// State that check for players info and triggers aggressive states
+/// State that check for target info and triggers aggressive states
 /// </summary>
-public class AILookingForPlayer : State
+public class AILookingForTarget : State
 {
     #region Base Variables
     // Base Params
     [field: Header("State")]
     [field: SerializeField]
-    public override string stateName { get; set; }      // State of the name (debug)
+    public override string stateName { get; set; }              // State of the name (debug)
 
     [field: SerializeField]
-    public override List<States> triggerStates { get; set; }   // State that will make this script run
+    public override List<States> triggerStates { get; set; }    // State that will make this script run
 
     [field: SerializeField]
-    public override List<States> stopStates { get; set; }      // State that will make this script stop
+    public override List<States> stopStates { get; set; }       // State that will make this script stop
     public override bool isActive { get; set; }
     #endregion
 
@@ -27,29 +27,30 @@ public class AILookingForPlayer : State
     // Custom Params
     [field: Header("Custom Params")]
     [field: SerializeField]
-    public float delay { get; set; }                    // Delay between operations (optimization)
+    public float delay { get; set; }    // Delay between operations (optimization)
 
     [field: SerializeField]
     [Tooltip("This will prevent the state from beeing deactivated")]
     public bool isContinuous { get; set; }
+    #endregion
 
+    #region Events
     [field: Header("Events")]
     [field: SerializeField]
-    UnityEvent<AIData> onDetect;   
+    UnityEvent<AIData> onDetect;
+    [field: SerializeField]
+    UnityEvent<Brain> onDetected;
     #endregion
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
         if (!isActive) yield break;
 
-        onDetect.Invoke(aiData);
+        onDetect?.Invoke(aiData);
 
-        if (aiData.targetPosition != Vector2.zero || aiData.currentTarget != null)
+        if (aiData.currentTarget != null)
         {
-            Debug.Log("Target Detected");        
-            
-            // Following Behaviour
-            originBrain.UpdateState(States.aggressive);
+            onDetected?.Invoke(originBrain);
 
             if (!isContinuous) yield break;
         }

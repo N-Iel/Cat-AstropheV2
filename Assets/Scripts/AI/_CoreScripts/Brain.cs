@@ -26,7 +26,6 @@ public class Brain : MonoBehaviour
     public void UpdateState(States _newState)
     {
         currentState = _newState;
-        Debug.Log(currentState);
         foreach (State state in states)
         {
             if (!state.isActive && state.triggerStates.Exists(x => x == States.None || x == currentState))

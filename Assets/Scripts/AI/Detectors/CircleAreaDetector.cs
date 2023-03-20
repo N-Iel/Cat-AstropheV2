@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class CircleAreaDetector : Detector
@@ -11,6 +11,9 @@ public class CircleAreaDetector : Detector
     [Tooltip("Delay between target is detected and position is stored, improves targeting feeling")]
     float detectionDelay = 0.5f;
 
+    [SerializeField]
+    string targetTag = "Player"; 
+
     // Gizmos
     [SerializeField]
     bool showGizmos = false;
@@ -21,16 +24,14 @@ public class CircleAreaDetector : Detector
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("Player"))
+            if (collider.CompareTag(targetTag))
                 StartCoroutine(SetTargetPosition(aiData, collider.transform));
         }
-        //if (!targetFound) StartCoroutine(SetTargetPosition(aiData, null));
     }
 
     IEnumerator SetTargetPosition(AIData aiData, Transform target)
     {
         yield return new WaitForSeconds(detectionDelay);
-        //aiData.targetPosition = targetPos;
         aiData.currentTarget = target;
         Debug.Log("TargetUpdated");
 

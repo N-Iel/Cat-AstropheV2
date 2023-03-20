@@ -9,28 +9,29 @@ using UnityEngine.TextCore.Text;
 /// <summary>
 /// Move to a position while detect player collissions in order to cause Dmg
 /// </summary>
-public class AIMoveToTargetPos : MonoBehaviour, Movement
+public class AIMoveToTargetPos : MonoBehaviour
 {
     #region Movement
-    [field: Header("Movement")]
-    [field: SerializeField]
-    public float timeToReachTarget { get; set; }
-    [field: SerializeField]
-    public float maxSpeed { get; set; }
-    [field: SerializeField]
-    public Rigidbody2D rb { get; set; }
-    public float force { get; set; }
-    public float distance { get; set; }
-    public Vector2 direction { get; set; }
+    [Header("Movement")]
+    [SerializeField]
+    float timeToReachTarget;
+    [SerializeField]
+    float maxSpeed;
+    [SerializeField]
+    Transform originPosition;
+    Vector2 direction, speed;
     #endregion
 
-    #region Custom Params
-    [field: SerializeField]
+    #region Others
+    [SerializeField]
     AIData aiData;
 
-    [field: SerializeField]
-    Transform originPosition;
-    Vector2 speed;
+    [SerializeField]
+    Rigidbody2D rb;
+
+    [SerializeField]
+    [Tooltip("Optional parameter, it will update the target onEnabled")]
+    Transform newTarget;
     #endregion
 
     #region Gizmos
@@ -43,13 +44,16 @@ public class AIMoveToTargetPos : MonoBehaviour, Movement
     private void OnEnable()
     {
         speed = Vector2.zero;
+
+        if(newTarget) aiData.currentTarget = newTarget;
     }
 
     private void FixedUpdate()
     {
+        if (!aiData.currentTarget) return;
+
         // Setting up the values
         direction = Utils.getDirection(aiData.currentTarget.position, originPosition.position);
-        distance = Vector2.Distance(aiData.currentTarget.position, originPosition.position);
         speed = Vector2.SmoothDamp(originPosition.position, aiData.currentTarget.position, ref speed, timeToReachTarget, maxSpeed);
 
         // Apply movement
@@ -57,7 +61,6 @@ public class AIMoveToTargetPos : MonoBehaviour, Movement
 
         // Debug
         selectedDir = direction;
-        //MainMovement.ApplyMovement(this);
     }
 
 

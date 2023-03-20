@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Move the character to the stored position trying to damage the target
 /// </summary>
-public class AIAttackingPosition : State
+public class AIBasicAttack : State
 {
     #region Base Params
     // Base Params
@@ -27,23 +27,22 @@ public class AIAttackingPosition : State
 
     [field: SerializeField]
     // Test random between range
-    float ChasingTime = 5f;
+    float attackTimeLimit = 5f;
 
     [field: Header("Character Components")]
-
-    [field: SerializeField]
-    Rigidbody2D characterRb;
 
     [field: Header("Events")]
     [field: SerializeField]
     UnityEvent onAttack;
+    [field: SerializeField]
+    UnityEvent<Brain> onFinish;
     #endregion
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
         onAttack?.Invoke();
 
-        yield return new WaitForSeconds(ChasingTime);
-        originBrain.UpdateState(States.exhausted);
+        yield return new WaitForSeconds(attackTimeLimit);
+        onFinish?.Invoke(originBrain);
     }
 }
