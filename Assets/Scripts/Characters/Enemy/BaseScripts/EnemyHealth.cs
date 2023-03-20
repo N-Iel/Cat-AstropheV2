@@ -26,6 +26,9 @@ public class EnemyHealth : MonoBehaviour
     int stateTriggerHealth = 0;
 
     [SerializeField]
+    bool resetPositionOnEnable = false;
+
+    [SerializeField]
     Brain brain;
 
     // Non serialized variables
@@ -43,10 +46,10 @@ public class EnemyHealth : MonoBehaviour
     #endregion
 
     #region LifeCycle
-    private void Start()
+    private void OnEnable()
     {
-        // Variables
         health = maxHealth;
+        if (resetPositionOnEnable) gameObject.transform.localPosition = Vector3.zero;
     }
     #endregion
 

@@ -23,6 +23,7 @@ public class AIMoveToTargetPos : MonoBehaviour
     #endregion
 
     #region Others
+    [Header("Components")]
     [SerializeField]
     AIData aiData;
 
@@ -30,8 +31,16 @@ public class AIMoveToTargetPos : MonoBehaviour
     Rigidbody2D rb;
 
     [SerializeField]
+    [Tooltip("Optional parameter, used for rotation or flip")]
+    EnemyAnimator animator;
+
+    [SerializeField]
     [Tooltip("Optional parameter, it will update the target onEnabled")]
     Transform newTarget;
+
+    [Header("Others")]
+    [SerializeField]
+    bool rotateSprite = false;
     #endregion
 
     #region Gizmos
@@ -57,13 +66,14 @@ public class AIMoveToTargetPos : MonoBehaviour
         speed = Vector2.SmoothDamp(originPosition.position, aiData.currentTarget.position, ref speed, timeToReachTarget, maxSpeed);
 
         // Apply movement
-        rb.AddForce(direction.normalized * speed.magnitude);
+        rb.AddForce(direction * speed.magnitude);
+
+        // Extra
+        if (rotateSprite && animator) animator.RotatoToLookingDir(direction);
 
         // Debug
         selectedDir = direction;
     }
-
-
 
     private void OnDrawGizmos()
     {

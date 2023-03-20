@@ -23,6 +23,11 @@ public class Brain : MonoBehaviour
         UpdateState(initialState);
     }
 
+    private void OnEnable()
+    {
+        UpdateState(initialState);
+    }
+
     public void UpdateState(States _newState)
     {
         currentState = _newState;
