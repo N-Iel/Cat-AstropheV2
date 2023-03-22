@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class UIController : MonoBehaviour
+public class ExitGame : MonoBehaviour
 {
-    
-
-    public void ExitGame()
+    public void Exit()
     {
         Debug.Log("Exitting game");
         Application.Quit();

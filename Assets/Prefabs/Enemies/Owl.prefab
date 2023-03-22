@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 476141230159671104}
-  - component: {fileID: 476141230159671109}
   - component: {fileID: 476141230159671110}
   - component: {fileID: 476141230159671111}
   m_Layer: 7
@@ -36,22 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &476141230159671109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 476141230159671107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8092650b5d5a85e42a51a7a8886e1736, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 1
-  enemyModel: {fileID: 476141230240466459}
-  renderer: {fileID: 1401031739917525919}
-  anim: {fileID: 476141230240466457}
 --- !u!114 &476141230159671110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +80,7 @@ GameObject:
   - component: {fileID: 476141230240466456}
   - component: {fileID: 6302891047782511507}
   - component: {fileID: 5166047984212268529}
+  - component: {fileID: 1068928416244315000}
   - component: {fileID: 6302891048551763194}
   - component: {fileID: 6302891048551763195}
   m_Layer: 7
@@ -183,7 +167,7 @@ Animator:
   m_GameObject: {fileID: 476141230240466459}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a317878a1017ee84b88cb91a33a6e1c3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -326,6 +310,19 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1068928416244315000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476141230240466459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8092650b5d5a85e42a51a7a8886e1736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1
 --- !u!114 &6302891048551763194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,34 +389,10 @@ MonoBehaviour:
   addRbVelocity: 1
   OnBegin:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1351757826839423320}
-        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
-        m_MethodName: set_canMove
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnDone:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1351757826839423320}
-        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
-        m_MethodName: set_canMove
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &476141231351151868
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +531,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6302891047756435443}
         m_TargetAssemblyTypeName: AIChangeState, Assembly-CSharp
         m_MethodName: nextState
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -595,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed016fc1decae347b4c8d160fe6dd27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brain: {fileID: 476141230159671110}
   targetState: 2
 --- !u!1 &6302891049024686112
 GameObject:
@@ -679,7 +653,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3787992876183157807}
         m_TargetAssemblyTypeName: AIChangeState, Assembly-CSharp
         m_MethodName: nextState
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -705,7 +679,7 @@ MonoBehaviour:
   originPosition: {fileID: 476141230240466458}
   aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
-  animator: {fileID: 476141230159671109}
+  animator: {fileID: 1068928416244315000}
   newTarget: {fileID: 0}
   rotateSprite: 1
   drawGizmos: 1
@@ -721,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed016fc1decae347b4c8d160fe6dd27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brain: {fileID: 476141230159671110}
   targetState: 3
 --- !u!1 &6302891049615930093
 GameObject:
@@ -733,8 +708,8 @@ GameObject:
   - component: {fileID: 6302891049615930090}
   - component: {fileID: 6302891049615930091}
   - component: {fileID: 6302891049615930088}
-  - component: {fileID: 6302891049615930098}
   - component: {fileID: 6302891049615930099}
+  - component: {fileID: 1011393641753760034}
   m_Layer: 7
   m_Name: Exhausted
   m_TagString: Untagged
@@ -773,7 +748,7 @@ MonoBehaviour:
   <triggerStates>k__BackingField: 03000000
   <stopStates>k__BackingField: 0100000002000000
   resetTargetOnOrigin: 1
-  distanceToTargetThreshold: 2
+  distanceToTargetThreshold: 4
   movementDelay: 0.05
   <rb>k__BackingField: {fileID: 5166047984212268529}
   characterTransform: {fileID: 476141230240466458}
@@ -844,17 +819,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6302891049615930098}
-        m_TargetAssemblyTypeName: AIChangeState, Assembly-CSharp
-        m_MethodName: nextState
-        m_Mode: 0
+      - m_Target: {fileID: 1011393641753760034}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &6302891049615930088
 MonoBehaviour:
@@ -873,23 +848,10 @@ MonoBehaviour:
   originPosition: {fileID: 476141230240466458}
   aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
-  animator: {fileID: 476141230159671109}
+  animator: {fileID: 1068928416244315000}
   newTarget: {fileID: 476141230159671104}
   rotateSprite: 1
   drawGizmos: 1
---- !u!114 &6302891049615930098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6302891049615930093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed016fc1decae347b4c8d160fe6dd27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetState: 1
 --- !u!114 &6302891049615930099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,3 +866,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5166047984212268529}
   velocity: {x: 0, y: 0}
+--- !u!114 &1011393641753760034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6302891049615930093}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e410278c378d3904b9e28a60cf696543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brain: {fileID: 476141230159671110}
+  model: {fileID: 476141230240466459}
+  animator: {fileID: 1068928416244315000}

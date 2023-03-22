@@ -9,49 +9,54 @@ public class EnemyAnimator : MonoBehaviour
     [SerializeField]
     float rotationSpeed = 1f;
 
-    [SerializeField]
-    GameObject enemyModel;
-
-    [SerializeField]
-    SpriteRenderer renderer;
-
-    [SerializeField]
+    SpriteRenderer sprRenderer;
     Animator anim;
 
-    public void PlayAnimation(string _anim)
+    private void Start()
+    {
+        sprRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+    }
+
+    public void PlayAnimation(newAnimations _anim)
     {
         switch (_anim)
         { 
-            case Animations.walk:
+            case newAnimations.idle:
                 anim.SetBool("isWalking", true);
                 break;
 
-            case Animations.hit:
+            case newAnimations.hit:
                 anim.SetTrigger("onHit");
                 break;
 
-            case Animations.dead:
+            case newAnimations.dead:
                 anim.SetBool("isDead", true);
                 break;
 
-            case Animations.attack:
+            case newAnimations.attack:
                 anim.SetTrigger("attack");
+                break;
+
+            case newAnimations.reset:
+                anim.SetTrigger("originReached");
                 break;
         }
     }
+
     public void UpdateLookingDir(Vector2 _dir)
     {
         // Flip Model
-        Vector2 lastDir = enemyModel.transform.localScale;
+        Vector2 lastDir = gameObject.transform.localScale;
         lastDir.x = Mathf.Sign(_dir.x);
-        enemyModel.transform.localScale = lastDir;
+        gameObject.transform.localScale = lastDir;
     }
 
     public void RotatoToLookingDir(Vector2 _dir)
     {
         // Rotate model
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, _dir) * Quaternion.Euler(0, 0, 90);
-        enemyModel.transform.localRotation = rotation;
-        renderer.flipY = Mathf.Abs(enemyModel.transform.localEulerAngles.z) > 90;
+        gameObject.transform.localRotation = rotation;
+        sprRenderer.flipY = Mathf.Abs(gameObject.transform.localEulerAngles.z) > 85;
     }
 }
