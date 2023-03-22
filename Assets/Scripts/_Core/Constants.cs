@@ -24,5 +24,4 @@ namespace Constants
         aggressive,
         exhausted
     };
-    
 }

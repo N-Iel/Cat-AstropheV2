@@ -14,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     float maxSpeed = 1.0f, acceleration = 50f, decceleration = 100f;
     float speed;
 
-    public InputActionReference input;
+    [SerializeField]
+    InputActionReference input;
     public Vector2 lastDir { get; private set; } // Last  used that is not zero
 
     Vector2 direction = Vector2.zero;

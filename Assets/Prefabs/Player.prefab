@@ -292,7 +292,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Combat
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1301249654263092172
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b6bb1bc2f5a2c4b9ede79b1ea39a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3
+  maxSpeed: 7
   acceleration: 50
   decceleration: 100
   input: {fileID: -8646850660261062909, guid: fff9a99559773684cb2a4c259933b786, type: 3}
