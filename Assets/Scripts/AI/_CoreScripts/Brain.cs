@@ -40,7 +40,6 @@ public class Brain : MonoBehaviour
         if (currentState == _newState) return;
 
         currentState = _newState;
-        Debug.Log(_newState);
 
         foreach (State state in states)
         {

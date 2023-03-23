@@ -38,14 +38,25 @@ public class AIMoveToTargetPos : MonoBehaviour
     [SerializeField]
     bool rotateSprite = false;
     public bool canMove { get; set; }
+
+    Shadow shadow;
     #endregion
 
     #region Gizmos
     [field: Header("Debug")]
     [SerializeField]
     bool drawGizmos = false;
+
+    [SerializeField]
+    float shadowMagnitud = 10f;
+
     Vector2 selectedDir = Vector2.zero;
     #endregion 
+
+    private void Start()
+    {
+        shadow = GetComponent<Shadow>();
+    }
 
     private void FixedUpdate()
     {
@@ -59,6 +70,9 @@ public class AIMoveToTargetPos : MonoBehaviour
 
         // Extra
         if (rotateSprite && animator) animator.RotatoToLookingDir(direction);
+
+        // Shadow
+        if (shadow) shadow.enabled = rb.velocity.magnitude > shadowMagnitud;
 
         // Debug
         selectedDir = direction;

@@ -91,6 +91,7 @@ MonoBehaviour:
   postMortenDelay: 1
   model: {fileID: 476141230240466459}
   animator: {fileID: 1068928416244315000}
+  rb: {fileID: 5166047984212268529}
 --- !u!1 &476141230159671107
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &476141230159671104
 Transform:
   m_ObjectHideFlags: 0
@@ -123,6 +124,7 @@ Transform:
   m_Children:
   - {fileID: 476141230240466458}
   - {fileID: 3218324358240256091}
+  - {fileID: 2509066044783309039}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -428,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb223f34fbb2de44b8f0a273fbd1985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 3
   invincibilityTime: 0.15
   triggeredState: 3
   stateTriggerHealth: 3
@@ -452,6 +454,30 @@ MonoBehaviour:
   OnDead:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 6302891048551763195}
+        m_TargetAssemblyTypeName: FBKnockback, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5166047984212268529}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody2D, UnityEngine
+        m_MethodName: set_freezeRotation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 916426537}
         m_TargetAssemblyTypeName: AIChangeState, Assembly-CSharp
         m_MethodName: nextState
@@ -462,7 +488,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &6302891048551763195
 MonoBehaviour:
@@ -534,6 +560,37 @@ Transform:
   - {fileID: 1008506972}
   m_Father: {fileID: 3218324358240256091}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5136975759094230475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2509066044783309039}
+  m_Layer: 7
+  m_Name: Shadows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2509066044783309039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136975759094230475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 476141230159671104}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5325329374905964830
 GameObject:
@@ -676,7 +733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRadius: 15
-  detectionDelay: 0
   targetTag: Player
   showGizmos: 1
 --- !u!114 &6302891047756435443
@@ -704,6 +760,7 @@ GameObject:
   - component: {fileID: 6302891049024686113}
   - component: {fileID: 3787992876183157806}
   - component: {fileID: 1351757826839423320}
+  - component: {fileID: 2860735083384643971}
   - component: {fileID: 3787992876183157807}
   m_Layer: 7
   m_Name: Aggressive
@@ -742,7 +799,7 @@ MonoBehaviour:
   <stateName>k__BackingField: AttackTargetPos
   <triggerStates>k__BackingField: 02000000
   <stopStates>k__BackingField: 010000000300000004000000
-  attackTimeLimit: 3
+  attackTimeLimit: 10
   onAttack:
     m_PersistentCalls:
       m_Calls:
@@ -785,6 +842,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2860735083384643971}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3787992876183157807}
         m_TargetAssemblyTypeName: AIChangeState, Assembly-CSharp
         m_MethodName: nextState
@@ -812,6 +881,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2860735083384643971}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1351757826839423320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,9 +911,25 @@ MonoBehaviour:
   aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
   animator: {fileID: 1068928416244315000}
-  newTarget: {fileID: 0}
   rotateSprite: 1
   drawGizmos: 1
+  shadowMagnitud: 6
+--- !u!114 &2860735083384643971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6302891049024686112}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a4af213e127b4438f40414b0008fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frecuency: 0.1
+  customTarget: {fileID: 476141230240466459}
+  shadowRender: {fileID: 2790078498516478655, guid: 1bd4d9337be3fa94db241bd2a92d5114, type: 3}
+  shadowParent: {fileID: 5136975759094230475}
 --- !u!114 &3787992876183157807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -896,12 +993,12 @@ MonoBehaviour:
   <stateName>k__BackingField: BackToOrigin
   <triggerStates>k__BackingField: 03000000
   <stopStates>k__BackingField: 010000000200000004000000
-  resetTargetOnOrigin: 1
   distanceToTargetThreshold: 4
   movementDelay: 0.05
   <rb>k__BackingField: {fileID: 5166047984212268529}
   characterTransform: {fileID: 476141230240466458}
   origin: {fileID: 476141230159671104}
+  resetTargetOnOrigin: 1
   onRecover:
     m_PersistentCalls:
       m_Calls:
@@ -989,9 +1086,9 @@ MonoBehaviour:
   aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
   animator: {fileID: 1068928416244315000}
-  newTarget: {fileID: 476141230159671104}
   rotateSprite: 1
   drawGizmos: 1
+  shadowMagnitud: 10
 --- !u!114 &1011393641753760034
 MonoBehaviour:
   m_ObjectHideFlags: 0

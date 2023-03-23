@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8744933f12e1fd04a99b19d665b4e5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 2811822796082578110, guid: fff9a99559773684cb2a4c259933b786, type: 3}
+  input: {fileID: -7101621543293788469, guid: 26409c3f05145b64e9f18834ea480334, type: 3}
 --- !u!114 &1301249654178823171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: fff9a99559773684cb2a4c259933b786, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 26409c3f05145b64e9f18834ea480334, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -323,7 +323,7 @@ MonoBehaviour:
   maxSpeed: 7
   acceleration: 50
   decceleration: 100
-  input: {fileID: -8646850660261062909, guid: fff9a99559773684cb2a4c259933b786, type: 3}
+  input: {fileID: -501859911246826876, guid: 26409c3f05145b64e9f18834ea480334, type: 3}
 --- !u!114 &1301249654263092162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,7 +373,7 @@ MonoBehaviour:
   dashingTime: 0.2
   dashingCooldown: 1
   dashingCost: 1
-  input: {fileID: -4856901075592451243, guid: fff9a99559773684cb2a4c259933b786, type: 3}
+  input: {fileID: -8394047383394001350, guid: 26409c3f05145b64e9f18834ea480334, type: 3}
   OnDash:
     m_PersistentCalls:
       m_Calls: []
@@ -406,6 +406,7 @@ MonoBehaviour:
   customTarget: {fileID: 1301249654341055828}
   shadowRender: {fileID: 2790078498516478655, guid: 1bd4d9337be3fa94db241bd2a92d5114, type: 3}
   shadowParent: {fileID: 0}
+  flipSprite: 1
 --- !u!114 &1301249654263092171
 MonoBehaviour:
   m_ObjectHideFlags: 0

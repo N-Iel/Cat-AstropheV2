@@ -42,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     UnityEvent<GameObject> OnHit;
     [SerializeField]
-    UnityEvent OnDead;
+    UnityEvent<GameObject> OnDead;
     #endregion
 
     #region LifeCycle
@@ -58,15 +58,17 @@ public class EnemyHealth : MonoBehaviour
     public void Hit(GameObject gameObject)
     {
         if (isInvincible) return;
+
+        isInvincible = true;
+
         if (health - 1 <= 0)
         {
-            Dead();
+            Dead(gameObject);
             return;
         }
 
         // Apply dmg
         health--;
-        isInvincible = true;
         StartCoroutine(Invincibility());
 
         // Response
@@ -81,9 +83,9 @@ public class EnemyHealth : MonoBehaviour
         if (stateTriggerHealth == 0 || stateTriggerHealth == health ) brain.UpdateState(triggeredState);
     }
 
-    void Dead()
+    void Dead(GameObject gameObject)
     {
-        OnDead?.Invoke();
+        OnDead?.Invoke(gameObject);
     }
 
     IEnumerator Invincibility()

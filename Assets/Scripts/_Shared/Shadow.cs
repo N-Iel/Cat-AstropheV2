@@ -44,9 +44,10 @@ public class Shadow : MonoBehaviour
     void SpawnShadow()
     {
         // Instantiate
-        SpriteRenderer currentGhost = Instantiate(shadowRender, transform.position, transform.rotation, shadowParent.transform);
+        SpriteRenderer currentGhost = Instantiate(shadowRender, target.transform.position, target.transform.rotation, shadowParent.transform);
         currentGhost.sprite = targetRenderer.sprite;
-        currentGhost.flipX = target.transform.localScale.x < 0;
+        currentGhost.flipX = targetRenderer.flipX;
+        currentGhost.flipY = targetRenderer.flipY;
         counter = frecuency;
     }
 }

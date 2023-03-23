@@ -3,20 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Al morir, el búho recibirá el knockback del golpe, dejará de acelerar y al x tiempo desaparecerá y será posible que vuelva a aparecer
-/// Resumen:
-///     - Desactivar movimiento
-///     - Desactivar collider
-///     - Activar rotación en el rb
-///     - Invocar un método a los x milisegunos para triggerear la animación y al acabar esta:
-///         - Mover el modelo al 0,0
-///         - Desactivar el gameobject completo
-/// </summary>
 public class onOwlDead : MonoBehaviour
 {
     [SerializeField]
     float postMortenDelay = 1.0f;
+
+    [SerializeField]
+    float rotationForce = 1.0f;
 
     [Header("Components")]
     [SerializeField]
@@ -24,9 +17,20 @@ public class onOwlDead : MonoBehaviour
 
     [SerializeField]
     EnemyAnimator animator;
+
+    [SerializeField]
+    Rigidbody2D rb;
+    //public void Start()
+    //{
+    //    // TODO Preguntar porque esto no va
+    //    //animator = model.GetComponent<EnemyAnimator>();
+    //    //rb = model.GetComponent<Rigidbody2D>();
+    //}
+
     public void onDead()
     {
         animator.PlayAnimation(newAnimations.dead);
+        rb.AddTorque(rotationForce, ForceMode2D.Impulse);
         Invoke("PostMorten", postMortenDelay);
     }
 
@@ -34,6 +38,7 @@ public class onOwlDead : MonoBehaviour
     {
         Debug.Log("postmorten");
         this.enabled = false;
+        rb.freezeRotation = true;
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
         model.transform.parent.gameObject.SetActive(false);
