@@ -13,4 +13,9 @@ public class AIData : MonoBehaviour
     public Transform currentTarget { get; set; } // Stores the current Target detected
 
     public int GetTargetCount() => targets == null ? 0 : targets.Count; // Prevents null Exceptions
+
+    private void OnDisable()
+    {
+        currentTarget = null;
+    }
 }

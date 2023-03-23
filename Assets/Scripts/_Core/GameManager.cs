@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Started");
+
     }
 
     private void Update()
@@ -42,9 +42,6 @@ public class GameManager : MonoBehaviour
 
     void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene: " + scene.name);
-        Debug.Log("Mode: " + mode);
-
         onStart?.Invoke();
     }
 

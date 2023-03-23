@@ -77,8 +77,6 @@ public class PlayerHealth : MonoBehaviour
         if (Player.player.isDead) return;
         if (Player.player.isExhausted) Dead();
 
-        Debug.Log(sender.name);
-
         isInvincible = true;
         energy = Mathf.Floor(energy);
         energy -= hitEnergyCost;

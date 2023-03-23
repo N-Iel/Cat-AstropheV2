@@ -265,6 +265,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e124219a4e604f84fb8f4a83f6b922b6, type: 3}
+--- !u!1 &301420132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 476141230240466459, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+  m_PrefabInstance: {fileID: 604205563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &337733530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +277,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337733532}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bf328c6e02885548a0b8e8de23edb38, type: 3}
   m_Name: 
@@ -658,7 +663,64 @@ PrefabInstance:
       propertyPath: m_Name
       value: Owl
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2152242693772651409, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 604205566}
+    - target: {fileID: 2152242693772651409, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: model
+      value: 
+      objectReference: {fileID: 301420132}
+    - target: {fileID: 2152242693772651409, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: isDead
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891048551763194, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: OnDead.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891048551763194, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: OnDead.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891048551763194, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: OnDead.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891048551763194, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: OnDead.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891048551763194, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: OnDead.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891049615930091, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: onOriginReached.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891049615930091, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: onOriginReached.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891049615930091, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: onOriginReached.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491123566}
+    - target: {fileID: 6302891049615930091, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: onOriginReached.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891049615930091, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: onOriginReached.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302891049615930091, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: onOriginReached.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6302891049615930099, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
 --- !u!4 &604205564 stripped
 Transform:
@@ -670,6 +732,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 476141230159671107, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
   m_PrefabInstance: {fileID: 604205563}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &604205566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 476141230159671110, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+  m_PrefabInstance: {fileID: 604205563}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604205565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d043a39df84c7f43aac190454f1fd09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &645355530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,6 +1749,17 @@ Transform:
   m_Father: {fileID: 1645767795}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1491123566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1011393641753760034, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+  m_PrefabInstance: {fileID: 604205563}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e410278c378d3904b9e28a60cf696543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1551808241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2050,6 +2134,10 @@ PrefabInstance:
     - target: {fileID: 476141230159671107, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
       propertyPath: m_Name
       value: Owl
+      objectReference: {fileID: 0}
+    - target: {fileID: 476141230159671107, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1011393641753760034, guid: 43668b4654f3b854ea47dfb7dd283c93, type: 3}
       propertyPath: animator

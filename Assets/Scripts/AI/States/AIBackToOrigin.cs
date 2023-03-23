@@ -17,13 +17,11 @@ public class AIBackToOrigin : State
     public override List<States> triggerStates { get; set; }
     [field: SerializeField]
     public override List<States> stopStates { get; set; }
-    public override bool isActive { get; set; }
+    public override IEnumerator corutine { get; set; }
+
     #endregion
 
     #region Custom Params
-
-    [SerializeField]
-    bool resetTargetOnOrigin = true;
 
     #region Movement
     // Movemenet
@@ -49,6 +47,10 @@ public class AIBackToOrigin : State
     Transform origin;
     #endregion
 
+    [Header("Others")]
+    [SerializeField]
+    bool resetTargetOnOrigin = true;
+
     #region Events
     [Header("Events")]
     [field: SerializeField]
@@ -56,19 +58,24 @@ public class AIBackToOrigin : State
 
     [field: SerializeField]
     UnityEvent<Brain> onOriginReached;
+
+    [field: SerializeField]
+    public override UnityEvent onCorutineStop { get; set; }
     #endregion
 
     #endregion
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-        if (!isActive || !characterTransform || !origin) yield break;
+        if (!characterTransform || !origin) yield break;
+        // Update target
+        aiData.currentTarget = origin;
 
         // Start process
         onRecover?.Invoke();
 
         // Wait until origin is reached
-        yield return new WaitWhile(() => Vector2.Distance(characterTransform.position, origin.position) > distanceToTargetThreshold);
+        yield return new WaitWhile(() => Vector2.Distance(characterTransform.position, aiData.currentTarget.position) > distanceToTargetThreshold);
 
         // Finish
         if (resetTargetOnOrigin) aiData.currentTarget = null;

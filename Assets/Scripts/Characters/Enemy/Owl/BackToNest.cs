@@ -14,13 +14,21 @@ public class BackToNest : MonoBehaviour
     [SerializeField]
     GameObject model;
 
-    [SerializeField]
     EnemyAnimator animator;
+    Rigidbody2D rb;
 
-    private void OnEnable()
+    private void Awake()
+    {
+        animator = model.GetComponent<EnemyAnimator>();
+        rb = model.GetComponent<Rigidbody2D>();
+    }
+
+    public void StartNestting()
     {
         animator.PlayAnimation(newAnimations.reset);
         model.transform.localPosition = Vector3.zero;
+        rb.velocity = Vector2.zero;
+
         Invoke("UpdateState", 0.12f);
     }
 

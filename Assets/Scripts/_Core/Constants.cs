@@ -37,6 +37,7 @@ namespace Constants
         None,
         pasive,
         aggressive,
-        exhausted
+        exhausted,
+        dead
     };
 }

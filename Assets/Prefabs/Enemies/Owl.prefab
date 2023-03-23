@@ -1,5 +1,96 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1008506971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008506972}
+  - component: {fileID: 1008506974}
+  - component: {fileID: 1008506973}
+  m_Layer: 7
+  m_Name: Dead
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1008506972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008506971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 476141231351151859}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1008506974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008506971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6616ef0160cb1784b9cefba90288bd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <stateName>k__BackingField: OwlDead
+  <triggerStates>k__BackingField: 04000000
+  <stopStates>k__BackingField: 010000000200000003000000
+  delay: 0
+  onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6302891047782511507}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1008506973}
+        m_TargetAssemblyTypeName: onOwlDead, Assembly-CSharp
+        m_MethodName: onDead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1008506973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008506971}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd97230505bb6c14db6b1f956a3190a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postMortenDelay: 1
+  model: {fileID: 476141230240466459}
+  animator: {fileID: 1068928416244315000}
 --- !u!1 &476141230159671107
 GameObject:
   m_ObjectHideFlags: 0
@@ -51,6 +142,7 @@ MonoBehaviour:
   - {fileID: 6302891047756435437}
   - {fileID: 3787992876183157806}
   - {fileID: 6302891049615930091}
+  - {fileID: 1008506974}
   <aiData>k__BackingField: {fileID: 476141230159671111}
   <currentState>k__BackingField: 0
   <initialState>k__BackingField: 1
@@ -83,6 +175,7 @@ GameObject:
   - component: {fileID: 1068928416244315000}
   - component: {fileID: 6302891048551763194}
   - component: {fileID: 6302891048551763195}
+  - component: {fileID: 916426537}
   m_Layer: 7
   m_Name: Model
   m_TagString: Enemy
@@ -335,10 +428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb223f34fbb2de44b8f0a273fbd1985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 1
   invincibilityTime: 0.15
   triggeredState: 3
-  stateTriggerHealth: 1
+  stateTriggerHealth: 3
   resetPositionOnEnable: 1
   brain: {fileID: 476141230159671110}
   OnHit:
@@ -359,17 +452,17 @@ MonoBehaviour:
   OnDead:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 476141230159671107}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 916426537}
+        m_TargetAssemblyTypeName: AIChangeState, Assembly-CSharp
+        m_MethodName: nextState
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &6302891048551763195
 MonoBehaviour:
@@ -393,6 +486,20 @@ MonoBehaviour:
   OnDone:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &916426537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476141230240466459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed016fc1decae347b4c8d160fe6dd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brain: {fileID: 476141230159671110}
+  targetState: 4
 --- !u!1 &476141231351151868
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +531,7 @@ Transform:
   - {fileID: 6302891047756435434}
   - {fileID: 6302891049024686113}
   - {fileID: 6302891049615930090}
+  - {fileID: 1008506972}
   m_Father: {fileID: 3218324358240256091}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -507,7 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <stateName>k__BackingField: LookingForPlayer
   <triggerStates>k__BackingField: 01000000
-  <stopStates>k__BackingField: 03000000
+  <stopStates>k__BackingField: 0300000004000000
   <delay>k__BackingField: 0.05
   <isContinuous>k__BackingField: 1
   onDetect:
@@ -540,6 +648,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  <onCorutineStop>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6302891047756435442}
+        m_TargetAssemblyTypeName: UnityEngine.MonoBehaviour, UnityEngine
+        m_MethodName: StopAllCoroutines
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6302891047756435442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bee580bf06d3f4ba6843196a530287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 7
+  detectionRadius: 15
   detectionDelay: 0
   targetTag: Player
   showGizmos: 1
@@ -618,23 +741,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <stateName>k__BackingField: AttackTargetPos
   <triggerStates>k__BackingField: 02000000
-  <stopStates>k__BackingField: 0100000003000000
-  attackTimeLimit: 5
+  <stopStates>k__BackingField: 010000000300000004000000
+  attackTimeLimit: 3
   onAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1351757826839423320}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 6302891047782511507}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
@@ -647,13 +758,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1351757826839423320}
+        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
+        m_MethodName: set_canMove
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onFinish:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1351757826839423320}
+        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
+        m_MethodName: set_canMove
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 3787992876183157807}
         m_TargetAssemblyTypeName: AIChangeState, Assembly-CSharp
         m_MethodName: nextState
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  <onCorutineStop>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1351757826839423320}
+        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
+        m_MethodName: set_canMove
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -669,13 +819,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6302891049024686112}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeToReachTarget: 0.3
-  maxSpeed: 20
+  speed: 17
   originPosition: {fileID: 476141230240466458}
   aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
@@ -708,7 +858,6 @@ GameObject:
   - component: {fileID: 6302891049615930090}
   - component: {fileID: 6302891049615930091}
   - component: {fileID: 6302891049615930088}
-  - component: {fileID: 6302891049615930099}
   - component: {fileID: 1011393641753760034}
   m_Layer: 7
   m_Name: Exhausted
@@ -746,7 +895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <stateName>k__BackingField: BackToOrigin
   <triggerStates>k__BackingField: 03000000
-  <stopStates>k__BackingField: 0100000002000000
+  <stopStates>k__BackingField: 010000000200000004000000
   resetTargetOnOrigin: 1
   distanceToTargetThreshold: 4
   movementDelay: 0.05
@@ -756,21 +905,9 @@ MonoBehaviour:
   onRecover:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1351757826839423320}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 6302891049615930088}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
+        m_MethodName: set_canMove
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -796,21 +933,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 6302891049615930088}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
+        m_MethodName: set_canMove
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6302891049615930099}
-        m_TargetAssemblyTypeName: AIUpdateRB, Assembly-CSharp
-        m_MethodName: UpdateVelocity
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -820,9 +945,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1011393641753760034}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+        m_TargetAssemblyTypeName: BackToNest, Assembly-CSharp
+        m_MethodName: StartNestting
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -831,28 +956,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  <onCorutineStop>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6302891049615930088}
+        m_TargetAssemblyTypeName: AIMoveToTargetPos, Assembly-CSharp
+        m_MethodName: set_canMove
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6302891049615930088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6302891049615930093}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToReachTarget: 0.1
-  maxSpeed: 25
-  originPosition: {fileID: 476141230240466458}
-  aiData: {fileID: 476141230159671111}
-  rb: {fileID: 5166047984212268529}
-  animator: {fileID: 1068928416244315000}
-  newTarget: {fileID: 476141230159671104}
-  rotateSprite: 1
-  drawGizmos: 1
---- !u!114 &6302891049615930099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -861,11 +980,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6302891049615930093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20405b746f67a5b4b9c09a5f667bbde3, type: 3}
+  m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToReachTarget: 0.1
+  speed: 17
+  originPosition: {fileID: 476141230240466458}
+  aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
-  velocity: {x: 0, y: 0}
+  animator: {fileID: 1068928416244315000}
+  newTarget: {fileID: 476141230159671104}
+  rotateSprite: 1
+  drawGizmos: 1
 --- !u!114 &1011393641753760034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,11 +999,10 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6302891049615930093}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e410278c378d3904b9e28a60cf696543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 476141230159671110}
   model: {fileID: 476141230240466459}
-  animator: {fileID: 1068928416244315000}

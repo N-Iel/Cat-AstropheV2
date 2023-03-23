@@ -28,7 +28,9 @@ public class AIContextSteeringFollow : State
     public override List<States> stopStates { get; set ;}
     [field: SerializeField]
     bool showGizmos { get; set; }
-    public override bool isActive { get; set ;}
+    public override IEnumerator corutine { get; set; }
+    public override UnityEvent onCorutineStop { get; set; }
+
 
     [Header("Events")]
     public UnityEvent OnAttack;
@@ -36,7 +38,6 @@ public class AIContextSteeringFollow : State
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-        isActive = true;
 
         // Following script content 
         if (aiData.currentTarget == null)
@@ -44,7 +45,6 @@ public class AIContextSteeringFollow : State
             // Stop following
             Debug.Log(gameObject.name + " stopped following");
             movementInput = Vector2.zero;
-            isActive = false;
             yield break;
         }
         else
@@ -69,7 +69,8 @@ public class AIContextSteeringFollow : State
             }
         }
 
-        StartCoroutine(RunBehaviour(originBrain, aiData));
+        corutine = RunBehaviour(originBrain, aiData);
+        StartCoroutine(corutine);
     }
 
     // It will generate dots on the detected obstacles for debug

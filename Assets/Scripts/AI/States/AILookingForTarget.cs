@@ -20,7 +20,7 @@ public class AILookingForTarget : State
 
     [field: SerializeField]
     public override List<States> stopStates { get; set; }       // State that will make this script stop
-    public override bool isActive { get; set; }
+    public override IEnumerator corutine { get; set; }
     #endregion
 
     #region Custom Variables
@@ -40,22 +40,19 @@ public class AILookingForTarget : State
     UnityEvent<AIData> onDetect;
     [field: SerializeField]
     UnityEvent<Brain> onDetected;
+    [field: SerializeField]
+    public override UnityEvent onCorutineStop { get; set; }
+
     #endregion
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-        if (!isActive) yield break;
-
-        onDetect?.Invoke(aiData);
-
-        if (aiData.currentTarget != null)
+        while (aiData.currentTarget == null)
         {
-            onDetected?.Invoke(originBrain);
+            onDetect?.Invoke(aiData);
+            yield return new WaitForSeconds(delay);
+        };
 
-            if (!isContinuous) yield break;
-        }
-
-        yield return new WaitForSeconds(delay);
-        StartCoroutine(RunBehaviour(originBrain, aiData));
+        onDetected?.Invoke(originBrain);
     }
 }

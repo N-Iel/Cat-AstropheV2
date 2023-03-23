@@ -16,10 +16,10 @@ public class AIMoveToTargetPos : MonoBehaviour
     [SerializeField]
     float timeToReachTarget;
     [SerializeField]
-    float maxSpeed;
+    float speed;
     [SerializeField]
     Transform originPosition;
-    Vector2 direction, speed;
+    Vector2 direction;
     #endregion
 
     #region Others
@@ -34,13 +34,10 @@ public class AIMoveToTargetPos : MonoBehaviour
     [Tooltip("Optional parameter, used for rotation or flip")]
     EnemyAnimator animator;
 
-    [SerializeField]
-    [Tooltip("Optional parameter, it will update the target onEnabled")]
-    Transform newTarget;
-
     [Header("Others")]
     [SerializeField]
     bool rotateSprite = false;
+    public bool canMove { get; set; }
     #endregion
 
     #region Gizmos
@@ -48,25 +45,17 @@ public class AIMoveToTargetPos : MonoBehaviour
     [SerializeField]
     bool drawGizmos = false;
     Vector2 selectedDir = Vector2.zero;
-    #endregion
-
-    private void OnEnable()
-    {
-        speed = Vector2.zero;
-
-        if(newTarget) aiData.currentTarget = newTarget;
-    }
+    #endregion 
 
     private void FixedUpdate()
     {
-        if (!aiData.currentTarget) return;
+        if (!aiData.currentTarget || !canMove) return;
 
         // Setting up the values
         direction = Utils.getDirection(aiData.currentTarget.position, originPosition.position);
-        speed = Vector2.SmoothDamp(originPosition.position, aiData.currentTarget.position, ref speed, timeToReachTarget, maxSpeed);
 
         // Apply movement
-        rb.AddForce(direction * speed.magnitude);
+        rb.AddForce(direction * speed);
 
         // Extra
         if (rotateSprite && animator) animator.RotatoToLookingDir(direction);

@@ -18,33 +18,44 @@ public class Brain : MonoBehaviour
     [field: SerializeField]
     public States initialState { get; set; }
 
-    private void Start()
-    {
-        UpdateState(initialState);
-    }
-
     private void OnEnable()
     {
         UpdateState(initialState);
     }
 
-    public void UpdateState(States _newState)
+    private void OnDisable()
     {
-        currentState = _newState;
-        Debug.Log(_newState);
         foreach (State state in states)
         {
-            if (!state.isActive && state.triggerStates.Exists(x => x == States.None || x == currentState))
+            if(state.corutine != null)
             {
-                state.isActive = true;
-                StartCoroutine(state.RunBehaviour(this, aiData));
+                StopCoroutine(state?.corutine);
+                state.corutine = null;
+            }
+        }
+    }
+
+    public void UpdateState(States _newState)
+    {
+        if (currentState == _newState) return;
+
+        currentState = _newState;
+        Debug.Log(_newState);
+
+        foreach (State state in states)
+        {
+            if (state.corutine == null && state.triggerStates.Exists(x => x == States.None || x == currentState))
+            {
+                state.corutine = state.RunBehaviour(this, aiData);
+                StartCoroutine(state.corutine);
             }
 
             // This is a redundant call for security proposes
-            if (state.stopStates.Exists(x => x == States.None || x == currentState))
+            if (state.corutine != null && state.stopStates.Exists(x => x == States.None || x == currentState))
             {
-                state.isActive = false;
-                StopCoroutine(state.RunBehaviour(this, aiData));
+                StopCoroutine(state?.corutine);
+                state.onCorutineStop?.Invoke();
+                state.corutine = null;
             }
         }
     }

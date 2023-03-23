@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Constants;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This script requires an enemy with the full context seeking setUp
@@ -25,13 +26,12 @@ public class AIContextSteeringDetector : State
     public override List<States> triggerStates { get; set; }
     [field: SerializeField]
     public override List<States> stopStates { get; set; }
-    [field: SerializeField]
-    public override bool isActive { get; set; }
+    public override IEnumerator corutine { get; set; }
+    public override UnityEvent onCorutineStop { get; set; }
+
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-        isActive = true;
-
         foreach (Detector detector in detectors)
         {
             detector.Detect(aiData);
@@ -49,6 +49,7 @@ public class AIContextSteeringDetector : State
         }
 
         yield return new WaitForSeconds(delay);
-        StartCoroutine(RunBehaviour(originBrain, aiData));
+        corutine = RunBehaviour(originBrain, aiData);
+        StartCoroutine(corutine);
     }
 }

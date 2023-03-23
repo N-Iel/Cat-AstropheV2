@@ -18,7 +18,9 @@ public class AIBasicAttack : State
     public override List<States> triggerStates { get; set; }
     [field: SerializeField]
     public override List<States> stopStates { get; set; }
-    public override bool isActive { get; set; }
+    public override IEnumerator corutine { get; set; }
+
+
     #endregion
 
     #region Custom Params
@@ -36,8 +38,9 @@ public class AIBasicAttack : State
     UnityEvent onAttack;
     [field: SerializeField]
     UnityEvent<Brain> onFinish;
+    [field: SerializeField]
+    public override UnityEvent onCorutineStop { get; set; }
     #endregion
-
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
         onAttack?.Invoke();
