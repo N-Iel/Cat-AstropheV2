@@ -49,6 +49,7 @@ public class EnemyHealth : MonoBehaviour
     private void OnEnable()
     {
         health = maxHealth;
+        isInvincible = false;
         if (resetPositionOnEnable) gameObject.transform.localPosition = Vector3.zero;
     }
     #endregion

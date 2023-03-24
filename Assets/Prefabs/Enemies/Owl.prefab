@@ -376,15 +376,15 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476141230240466459}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.02, y: 0.07}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.34481347
 --- !u!50 &5166047984212268529
 Rigidbody2D:
   serializedVersion: 4
@@ -906,9 +906,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToReachTarget: 0.3
   speed: 17
+  speedVariation: 1
   originPosition: {fileID: 476141230240466458}
+  dynamicSpeed: 1
+  ratePerSecond: 0.5
   aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
   animator: {fileID: 1068928416244315000}
@@ -1081,9 +1083,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToReachTarget: 0.1
   speed: 17
+  speedVariation: 0.2
   originPosition: {fileID: 476141230240466458}
+  dynamicSpeed: 0
+  ratePerSecond: 0.2
   aiData: {fileID: 476141230159671111}
   rb: {fileID: 5166047984212268529}
   animator: {fileID: 1068928416244315000}

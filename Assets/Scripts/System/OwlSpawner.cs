@@ -16,6 +16,10 @@ public class OwlSpawner : MonoBehaviour
     int maxOwlsSpawned = 1;
 
     [SerializeField]
+    [Range(1, 5)]
+    float initialspawnDelay = 4;
+
+    [SerializeField]
     [Range(1,100)]
     float spawnDelay = 1;
 
@@ -23,7 +27,7 @@ public class OwlSpawner : MonoBehaviour
     {
         if (owls.Count <= 0) { Debug.Log("No Owls available"); return;};
         if (maxOwlsSpawned > owls.Count) maxOwlsSpawned = owls.Count;
-        InvokeRepeating("SpawnOwl",0 ,spawnDelay);
+        InvokeRepeating("SpawnOwl", initialspawnDelay, spawnDelay);
     }
 
     private void SpawnOwl()

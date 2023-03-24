@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-    
-
     public void ExitGame()
     {
         Debug.Log("Exitting game");

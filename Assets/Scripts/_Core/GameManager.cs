@@ -7,12 +7,37 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region Variables
+
+    #region Params
+    [Header("Parameters")]
+    [SerializeField]
+    float initialDelay = 0f;
+    #endregion
+
+    #region Components
+    [Header("Components")]
     [SerializeField]
     InputActionReference input;
+    #endregion
 
+    #region Events
     [Header("Events")]
     [SerializeField]
-    UnityEvent onAwake, onStart, onPause, onResume;
+    UnityEvent onAwake;
+    [SerializeField]
+    UnityEvent onStart;
+    [SerializeField]
+    UnityEvent onDelayedStart;
+    [SerializeField]
+    UnityEvent onPause;
+    [SerializeField]
+    UnityEvent onResume;
+    #endregion
+
+    #endregion
+
+    #region LifeCycle
     private void Awake()
     {
         onAwake?.Invoke();
@@ -32,20 +57,25 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
+        Invoke("DelayedStart", initialDelay);
     }
 
     private void Update()
     {
         
     }
+    #endregion
+
+    #region Methods
+    void DelayedStart()
+    {
+        onDelayedStart?.Invoke();
+    }
 
     void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         onStart?.Invoke();
     }
-
-    #region Pause
     void PauseController(InputAction.CallbackContext obj)
     {
         if (Time.timeScale == 0)

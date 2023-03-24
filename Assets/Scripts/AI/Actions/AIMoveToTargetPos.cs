@@ -14,22 +14,29 @@ public class AIMoveToTargetPos : MonoBehaviour
     #region Movement
     [Header("Movement")]
     [SerializeField]
-    float timeToReachTarget;
+    float speed = 10;
     [SerializeField]
-    float speed;
+    [Tooltip("Limit on how much speed can increase or decrease every time it applies")]
+    float speedVariation = 0.2f;
     [SerializeField]
     Transform originPosition;
+
+    [Header("Dynamic speed")]
+    [SerializeField]
+    bool dynamicSpeed = false;
+    [SerializeField]
+    [Tooltip("Ammount of speed reduce every second")]
+    float ratePerSecond = 0.2f;
     Vector2 direction;
+    float bufferSpeed;
     #endregion
 
     #region Others
     [Header("Components")]
     [SerializeField]
     AIData aiData;
-
     [SerializeField]
     Rigidbody2D rb;
-
     [SerializeField]
     [Tooltip("Optional parameter, used for rotation or flip")]
     EnemyAnimator animator;
@@ -37,19 +44,16 @@ public class AIMoveToTargetPos : MonoBehaviour
     [Header("Others")]
     [SerializeField]
     bool rotateSprite = false;
-    public bool canMove { get; set; }
-
+    [SerializeField]
+    float shadowMagnitud = 10f;
     Shadow shadow;
+    public bool canMove { get; set; }
     #endregion
 
     #region Gizmos
     [field: Header("Debug")]
     [SerializeField]
     bool drawGizmos = false;
-
-    [SerializeField]
-    float shadowMagnitud = 10f;
-
     Vector2 selectedDir = Vector2.zero;
     #endregion 
 
@@ -58,15 +62,22 @@ public class AIMoveToTargetPos : MonoBehaviour
         shadow = GetComponent<Shadow>();
     }
 
+    private void OnEnable()
+    {
+        bufferSpeed = speed;
+    }
+
     private void FixedUpdate()
     {
         if (!aiData.currentTarget || !canMove) return;
 
         // Setting up the values
         direction = Utils.getDirection(aiData.currentTarget.position, originPosition.position);
+        bufferSpeed -= Random.Range(ratePerSecond - speedVariation, ratePerSecond + speedVariation) * Time.deltaTime;
+        if(!drawGizmos) Debug.Log(bufferSpeed);
 
         // Apply movement
-        rb.AddForce(direction * speed);
+        rb.AddForce(direction * (!dynamicSpeed ? bufferSpeed : Random.Range(bufferSpeed - speedVariation, bufferSpeed + speedVariation)));
 
         // Extra
         if (rotateSprite && animator) animator.RotatoToLookingDir(direction);
