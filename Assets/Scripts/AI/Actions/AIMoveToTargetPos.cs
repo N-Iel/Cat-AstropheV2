@@ -62,14 +62,13 @@ public class AIMoveToTargetPos : MonoBehaviour
         shadow = GetComponent<Shadow>();
     }
 
-    private void OnEnable()
-    {
-        bufferSpeed = speed;
-    }
-
     private void FixedUpdate()
     {
-        if (!aiData.currentTarget || !canMove) return;
+        if (!aiData.currentTarget || !canMove)
+        {
+            bufferSpeed = speed;
+            return;
+        }
 
         // Setting up the values
         direction = Utils.getDirection(aiData.currentTarget.position, originPosition.position);
