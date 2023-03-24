@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Constants;
 using System;
+using RengeGames.HealthBars;
 
 /// <summary>
 /// This script will manage all the elements relative with the energy
@@ -21,32 +22,33 @@ public class PlayerHealth : MonoBehaviour
 
     #region variables
     [SerializeField]
-    float recoverRatio = 0.1f,  // Amount of energy recovered per cycle
-          recoverTime = 0.5f,   // Time Between recovery
-          maxEnergy = 3.0f,     // Maximum amount of energy
-          hitEnergyCost = 1.0f; // Amount of energy consumed onHit
+    float recoverTime = 0.5f,           // Time Between recovery
+          hitEnergyCost = 1.0f,         // Amount of energy consumed onHit
+          recoverRatio = 0.1f,          // Amount of energy recovered per cycle
+          specialRecoverRatio = 0.1f;   // Amount of energy recovered on critical status
 
     [SerializeField]
     float invincibilityTime = 2.0f;
-    [SerializeField]
-    Image energyBar;
+    public float energy { get; set; }        // Current amount of energy
+    public bool isInvincible { get; set; }
 
+    [Header("Components")]
+    [SerializeField]
+    RadialSegmentedHealthBar energyBar;
 
     [Header("Events")]
     [SerializeField]
     UnityEvent<GameObject> OnHit;
-    UnityEvent OnDeath;  // Events used for feeback effects
 
-    [NonSerialized]
-    public float energy;        // Current amount of energy
-    [NonSerialized]
-    public bool isInvincible = false;
+    [SerializeField]
+    UnityEvent<GameObject> OnDeath;  // Events used for feeback effects
     #endregion
 
     #region lifeCycle
     void Start()
     {
-        energy = maxEnergy;
+        energy = energyBar.SegmentCount.Value;
+        isInvincible = false;
         StartCoroutine(RecoverEnergy());
     }
 
@@ -65,7 +67,7 @@ public class PlayerHealth : MonoBehaviour
 
         while (!Player.player.isDead)
         {
-            energy = Mathf.Clamp(energy + recoverRatio, 0, maxEnergy);
+            energy = Mathf.Clamp(energy + (!Player.player.isExhausted ? recoverRatio : specialRecoverRatio), 0, energyBar.SegmentCount.Value);
 
             yield return new WaitForSeconds(recoverTime);
         }
@@ -75,7 +77,7 @@ public class PlayerHealth : MonoBehaviour
     public void Hit(GameObject sender)
     {
         if (Player.player.isDead) return;
-        if (Player.player.isExhausted) Dead();
+        if (Player.player.isExhausted) Dead(sender);
 
         isInvincible = true;
         energy = Mathf.Floor(energy);
@@ -90,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
 
     void UpdateEnergyStatus()
     {
-        energyBar.fillAmount = energy / maxEnergy;
+        energyBar.SetPercent(energy / energyBar.SegmentCount.Value);
 
         // Player exhausted
         if (energy <= 0 && !Player.player.isExhausted)
@@ -110,12 +112,15 @@ public class PlayerHealth : MonoBehaviour
 
     #region States
     // Updates player status to dead
-    void Dead()
+    void Dead(GameObject sender)
     {
         Player.player.isDead = true;
 
-        OnDeath?.Invoke();
+        OnDeath?.Invoke(sender);
+
         Player.player.animator.PlayAnimation(Animations.dead);
+        Player.player.rb.velocity = Vector2.zero;
+        Player.player.rb.isKinematic = true;
 
         energy = 0;
     }
