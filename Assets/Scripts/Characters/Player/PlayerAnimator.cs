@@ -7,11 +7,13 @@ using Constants;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    public Animator anim;
+    public Animator anim { get; private set; }
+    public AudioSource source { get; private set; }
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
     }
 
     public void PlayAnimation(string _anim)

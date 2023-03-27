@@ -10,7 +10,9 @@ public class ProjectManager : MonoBehaviour
     // ButtonsSoundsTest
     [SerializeField]
     AudioClip[] clicks, selects;
+    [field: SerializeField]
     public AudioClip onClick { get; private set; }
+    [field: SerializeField]
     public AudioClip onSelect { get; private set; }
     void Awake()
     {
@@ -26,8 +28,8 @@ public class ProjectManager : MonoBehaviour
 
     private void InitializeSounds()
     {
-        onClick = clicks[Random.Range(0, clicks.Length)];
-        onSelect = selects[Random.Range(0, selects.Length)];
+        //onClick = clicks[Random.Range(0, clicks.Length)];
+        //onSelect = selects[Random.Range(0, selects.Length)];
         Debug.Log("Selected click: " + onClick);
         Debug.Log("Select sound: " + onSelect);
     }

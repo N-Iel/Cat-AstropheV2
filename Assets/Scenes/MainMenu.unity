@@ -2243,7 +2243,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d5157a76d8d203a4d8c06bf81fd4f77d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3084,6 +3084,8 @@ MonoBehaviour:
   selects:
   - {fileID: 8300000, guid: 46500a7d157fe5842a1b14820389d455, type: 3}
   - {fileID: 8300000, guid: 3a87b8113979818499a7e9d8a15109a2, type: 3}
+  <onClick>k__BackingField: {fileID: 8300000, guid: c2df5c295e317664f93a8b3eb23f504c, type: 3}
+  <onSelect>k__BackingField: {fileID: 8300000, guid: 3a87b8113979818499a7e9d8a15109a2, type: 3}
 --- !u!4 &2013272081
 Transform:
   m_ObjectHideFlags: 0
