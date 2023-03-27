@@ -10,10 +10,9 @@ public class WeaponAttack : MonoBehaviour
 {
     #region variables
     [SerializeField]
-    float attackCooldown = 0.2f,
-          attackRadius = 0.5f;
+    float attackRadius = 0.5f;
 
-    bool attackBlocked;
+    public bool attackBlocked { get; set; }
     #endregion
 
     #region Methods
@@ -23,14 +22,7 @@ public class WeaponAttack : MonoBehaviour
         {
             attackBlocked = true;
             animator.PlayAnimation(Animations.attack);
-            StartCoroutine(Attack());
         }
-    }
-
-    private IEnumerator Attack()
-    {
-        yield return new WaitForSeconds(attackCooldown);
-        attackBlocked = false;
     }
     #endregion
 }

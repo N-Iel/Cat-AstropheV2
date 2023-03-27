@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Constants;
+using MoreMountains.Feedbacks;
 
 public class PlayerAnimator : MonoBehaviour
 {
     public Animator anim { get; private set; }
     public AudioSource source { get; private set; }
+
+    public delegate void OnFlip();
+    public static event OnFlip onFlip;
 
     private void Start()
     {
@@ -48,5 +52,8 @@ public class PlayerAnimator : MonoBehaviour
         Vector2 lastDir = Player.player.model.transform.localScale;
         lastDir.x = Mathf.Sign(_dir.x);
         Player.player.model.transform.localScale = lastDir;
+
+        // Flip Weapon
+        onFlip();
     }
 }
