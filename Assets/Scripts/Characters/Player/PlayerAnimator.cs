@@ -13,7 +13,7 @@ public class PlayerAnimator : MonoBehaviour
 
     // Eventos
     [SerializeField]
-    UnityEvent onDash;
+    UnityEvent OnDash;
 
     public delegate void OnFlip();
     public static event OnFlip onFlip;
@@ -38,7 +38,7 @@ public class PlayerAnimator : MonoBehaviour
 
             case Animations.dash:
                 Debug.Log("dash");
-                onDash?.Invoke();
+                OnDash?.Invoke();
                 anim?.SetTrigger("onDash");
                 break;
 
