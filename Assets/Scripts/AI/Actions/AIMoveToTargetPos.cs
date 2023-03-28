@@ -73,7 +73,6 @@ public class AIMoveToTargetPos : MonoBehaviour
         // Setting up the values
         direction = Utils.getDirection(aiData.currentTarget.position, originPosition.position);
         bufferSpeed -= Random.Range(ratePerSecond - speedVariation, ratePerSecond + speedVariation) * Time.deltaTime;
-        if(!drawGizmos) Debug.Log(bufferSpeed);
 
         // Apply movement
         rb.AddForce(direction * (!dynamicSpeed ? bufferSpeed : Random.Range(bufferSpeed - speedVariation, bufferSpeed + speedVariation)));

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using UnityEngine.Events;
+using Constants;
 
 /// <summary>
 /// Script used for collider detection on attack time
@@ -9,15 +11,21 @@ using UnityEngine;
 public class WeaponDetection : MonoBehaviour
 {
     #region Variables
-    public float attackRadius = 0.35f;
-
-    public Transform attackOriginPoint;
+    [field: Header("Attack")]
+    [field: SerializeField]
+    public float attackRadius { get; set; }
+    [field: SerializeField]
+    public Transform attackOriginPoint { get; set; }
 
     [Header("Player Attr")]
     [SerializeField]
     bool isPlayerWeapon;
     [SerializeField]
     float energyCost = 0.3f;
+
+    [Header("Components")]
+    [SerializeField]
+    WeaponAnim anim;
 
     bool isAttacking = false;
     #endregion
@@ -41,6 +49,7 @@ public class WeaponDetection : MonoBehaviour
     public void EnableDetection()
     {
         isAttacking = true;
+        Invoke("DisableDetection", 0.3f);
         if (isPlayerWeapon) ConsumeEnergy();
     }
 

@@ -24,7 +24,7 @@ public class WeaponAnim : MonoBehaviour
 
     // Events
     [SerializeField]
-    UnityEvent onAttack, onExhausted, onRecover;
+    UnityEvent onAttack, onHit, onExhausted, onRecover;
 
     private void OnEnable()
     {
@@ -41,12 +41,16 @@ public class WeaponAnim : MonoBehaviour
         PlayerAnimator.onFlip -= Flip;
     }
 
-    public void PlayAnimation(string _anim)
+    public void PlayAnimation(newAnimations _anim)
     {
         switch (_anim)
         {
-            case Animations.attack:
+            case newAnimations.attack:
                 onAttack?.Invoke();
+                break;
+
+            case newAnimations.hit:
+                onHit?.Invoke(); 
                 break;
         }
     }
@@ -66,6 +70,12 @@ public class WeaponAnim : MonoBehaviour
     private void Flip()
     {
         if (Player.player.isExhausted) return;
-        rotationFB.RemapCurveOne = -90 * transform.localScale.x;
+        // Scale
+        Vector2 lastDir = gameObject.transform.localScale;
+        lastDir.x = Mathf.Sign(Player.player.animator.sprite.flipX ? -1 : 1);
+        gameObject.transform.localScale = lastDir;
+
+        // Rotation
+        rotationFB.RemapCurveOne = -90 * (Player.player.animator.sprite.flipX ? -1 : 1);
     }
 }

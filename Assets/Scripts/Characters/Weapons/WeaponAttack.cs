@@ -21,7 +21,7 @@ public class WeaponAttack : MonoBehaviour
         if (!attackBlocked)
         {
             attackBlocked = true;
-            animator.PlayAnimation(Animations.attack);
+            animator.PlayAnimation(newAnimations.attack);
         }
     }
     #endregion

@@ -8,8 +8,12 @@ using MoreMountains.Feedbacks;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    public Animator anim { get; private set; }
-    public AudioSource source { get; private set; }
+    Animator anim;
+    public SpriteRenderer sprite { get; private set; }
+
+    // Eventos
+    [SerializeField]
+    UnityEvent onDash;
 
     public delegate void OnFlip();
     public static event OnFlip onFlip;
@@ -17,7 +21,7 @@ public class PlayerAnimator : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
-        source = GetComponent<AudioSource>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     public void PlayAnimation(string _anim)
@@ -25,23 +29,25 @@ public class PlayerAnimator : MonoBehaviour
         switch (_anim)
         {
             case Animations.idle:
-                anim.SetBool("isWalking", false);
+                anim?.SetBool("isWalking", false);
                 break;
 
             case Animations.walk:
-                anim.SetBool("isWalking", true);
+                anim?.SetBool("isWalking", true);
                 break;
 
             case Animations.dash:
-                anim.SetTrigger("onDash");
+                Debug.Log("dash");
+                onDash?.Invoke();
+                anim?.SetTrigger("onDash");
                 break;
 
             case Animations.hit:
-                anim.SetTrigger("onHit");
+                anim?.SetTrigger("onHit");
                 break;
 
             case Animations.dead:
-                anim.SetBool("isDead", true);
+                anim?.SetBool("isDead", true);
                 break;
         }
     }
@@ -49,9 +55,7 @@ public class PlayerAnimator : MonoBehaviour
     public void UpdateLookingDir(Vector2 _dir)
     {
         // Flip Model
-        Vector2 lastDir = Player.player.model.transform.localScale;
-        lastDir.x = Mathf.Sign(_dir.x);
-        Player.player.model.transform.localScale = lastDir;
+        sprite.flipX = _dir.x < 0;
 
         // Flip Weapon
         onFlip();
