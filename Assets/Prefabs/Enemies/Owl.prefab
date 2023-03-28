@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd97230505bb6c14db6b1f956a3190a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postMortenDelay: 4
+  postMortenDelay: 3
   rotationForce: 1
   model: {fileID: 476141230240466459}
   animator: {fileID: 1068928416244315000}
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476141230240466459}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0a82a086afdc494db67a8b50f091d1e, type: 3}
   m_Name: 
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 2977262980978615154}
   - component: {fileID: 5572901748688267770}
   m_Layer: 7
-  m_Name: onComplete
+  m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -927,7 +927,7 @@ GameObject:
   - component: {fileID: 7105614094548872071}
   - component: {fileID: 8981980544186751601}
   m_Layer: 7
-  m_Name: onStart
+  m_Name: Shake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1042,19 +1042,19 @@ MonoBehaviour:
           m_CallState: 2
   DebugActive: 0
   FeedbacksList:
-  - rid: 288762081148928059
-  - rid: 288762081148928060
+  - rid: 288762088898428930
+  - rid: 288762088898428931
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   ForceStopFeedbacksOnDisable: 1
   references:
     version: 2
     RefIds:
-    - rid: 288762081148928059
+    - rid: 288762088898428930
       type: {class: MMF_CinemachineImpulse, ns: MoreMountains.FeedbacksForThirdParty, asm: MoreMountains.Feedbacks.Cinemachine}
       data:
         Active: 1
-        UniqueID: 592384782
+        UniqueID: -556534179
         Label: Cinemachine Impulse
         ChannelMode: 0
         Channel: 0
@@ -1160,11 +1160,11 @@ MonoBehaviour:
           m_PropagationSpeed: 343
         Velocity: {x: 0.7, y: 0.7, z: 0}
         ClearImpulseOnStop: 0
-    - rid: 288762081148928060
+    - rid: 288762088898428931
       type: {class: MMF_PositionShake, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
       data:
         Active: 1
-        UniqueID: -243936795
+        UniqueID: 862712815
         Label: Position Shake
         ChannelMode: 0
         Channel: 0
@@ -1444,7 +1444,19 @@ MonoBehaviour:
         m_Calls: []
     OnComplete:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 8981980544186751601}
+          m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
+          m_MethodName: PlayFeedbacks
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   DebugActive: 0
   FeedbacksList:
   - rid: 288762081148928047

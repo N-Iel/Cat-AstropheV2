@@ -31,10 +31,8 @@ public class WeaponDetection : MonoBehaviour
     {
         if (isAttacking)
         {
-            Debug.Log("Detecting");
             foreach (Collider2D collider in Physics2D.OverlapCircleAll(attackOriginPoint.position, attackRadius))
             {
-                Debug.Log(collider.name);
                 if (collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hitted");
@@ -54,6 +52,7 @@ public class WeaponDetection : MonoBehaviour
     public void DisableDetection()
     {
         isAttacking = false;
+        Debug.Log("Deshabilitando");
     }
 
     void ConsumeEnergy()
