@@ -18,6 +18,11 @@ public class EnemyAnimator : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        sprRenderer.enabled = true;
+    }
+
     public void PlayAnimation(newAnimations _anim)
     {
         switch (_anim)

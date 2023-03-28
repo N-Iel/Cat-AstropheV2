@@ -48,10 +48,6 @@ public class WeaponAnim : MonoBehaviour
             case newAnimations.attack:
                 onAttack?.Invoke();
                 break;
-
-            case newAnimations.hit:
-                onHit?.Invoke(); 
-                break;
         }
     }
     void FadeOutWeapon()

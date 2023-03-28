@@ -23,10 +23,6 @@ public class WeaponDetection : MonoBehaviour
     [SerializeField]
     float energyCost = 0.3f;
 
-    [Header("Components")]
-    [SerializeField]
-    WeaponAnim anim;
-
     bool isAttacking = false;
     #endregion
 
