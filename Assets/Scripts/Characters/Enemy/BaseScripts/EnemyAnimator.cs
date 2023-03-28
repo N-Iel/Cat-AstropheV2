@@ -12,7 +12,7 @@ public class EnemyAnimator : MonoBehaviour
     SpriteRenderer sprRenderer;
     Animator anim;
 
-    private void Start()
+    private void Awake()
     {
         sprRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
