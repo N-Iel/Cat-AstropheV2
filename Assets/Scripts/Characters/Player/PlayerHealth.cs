@@ -44,9 +44,12 @@ public class PlayerHealth : MonoBehaviour
     [Header("Events")]
     [SerializeField]
     UnityEvent<GameObject> OnHit;
-
     [SerializeField]
     UnityEvent<GameObject> OnDeath;  // Events used for feeback effects
+    [SerializeField]
+    UnityEvent OnSegmentRecovered;  // Events used for feeback effects
+    [SerializeField]
+    UnityEvent EnergyWarning;  // Events used for feeback effects
     #endregion
 
     #region lifeCycle
@@ -91,8 +94,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddEnergy(float _energy)
     {
-        if (Mathf.Abs(_energy) >= 1)
-            Debug.Log("Hit?");
         energy = Mathf.Clamp(energy + _energy, 0, energyBar.SegmentCount.Value - restrictedSegments);
         energyBar.SetRemovedSegments(energyBar.SegmentCount.Value - energy);
 
@@ -127,7 +128,7 @@ public class PlayerHealth : MonoBehaviour
         {
             recoverSegment = 0;
             AddRestrictedSegments(-1);
-            // OnSegmentRecoveredFeedback;
+            OnSegmentRecovered?.Invoke();
             return;
         }
         recoverSegment += _recovered;
