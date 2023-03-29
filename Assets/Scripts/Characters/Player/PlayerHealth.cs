@@ -91,11 +91,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddEnergy(float _energy)
     {
+        if (Mathf.Abs(_energy) >= 1)
+            Debug.Log("Hit?");
         energy = Mathf.Clamp(energy + _energy, 0, energyBar.SegmentCount.Value - restrictedSegments);
         energyBar.SetRemovedSegments(energyBar.SegmentCount.Value - energy);
 
         // Player exhausted
-        if (energy <= 0 && !Player.player.isExhausted)
+        if (energy <= 0 && Mathf.Abs(_energy) >= 1 && !Player.player.isExhausted)
         {
             onExhausted();
             Player.player.isExhausted = true;
@@ -111,9 +113,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddRestrictedSegments(float _restriction)
     {
-        restrictedSegments = Mathf.Clamp(restrictedSegments + _restriction, 0, energyBar.SegmentCount.Value);
-        brokenBar.SetRemovedSegments(brokenBar.SegmentCount.Value - restrictedSegments);
-        AddEnergy(0);
+        int energyConsume = restrictedSegments >= energyBar.SegmentCount.Value - 1 && _restriction > 0 ? -1 : 0;
+        restrictedSegments = Mathf.Clamp(restrictedSegments + _restriction, 0, energyBar.SegmentCount.Value - 1);
+        brokenBar.SetRemovedSegments(brokenBar.SegmentCount.Value - (restrictedSegments - recoverSegment));
+        AddEnergy(energyConsume);
     }
 
     public void RecoverRestrictedSegments(float _recovered)

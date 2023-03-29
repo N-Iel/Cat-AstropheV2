@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
     }
     void PauseController(InputAction.CallbackContext obj)
     {
+        if (Player.player.isDead)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
+        }
         if (Time.timeScale == 0)
         {
             onResume?.Invoke();
