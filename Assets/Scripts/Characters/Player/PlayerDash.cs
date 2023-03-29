@@ -40,6 +40,7 @@ public class PlayerDash : MonoBehaviour
     #region Methods
     void DashInput(InputAction.CallbackContext obj)
     {
+        if (Time.timeScale == 0) return;
         if (dashAvailable && !Player.player.isExhausted) StartCoroutine(Dash());
     }
 
@@ -47,7 +48,7 @@ public class PlayerDash : MonoBehaviour
     {
         // Update Player state
         Player.player.animator.PlayAnimation(Animations.dash);
-        Player.player.health.energy -= dashingCost;
+        Player.player.health.AddEnergy(-dashingCost);
         Player.player.isDashing = true;
         dashAvailable = false;
 
@@ -60,6 +61,11 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
 
         dashAvailable = true;
+    }
+
+    void OnEnemyAvoided()
+    {
+        Player.player.health.RecoverRestrictedSegments(0.2f);
     }
     #endregion
 }

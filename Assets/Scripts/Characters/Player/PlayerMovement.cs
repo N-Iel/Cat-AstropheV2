@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     #region LifeCycle
     void Update()
     {
+        if (Time.timeScale == 0) return;
         Inputs();
         Animate();
     }

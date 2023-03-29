@@ -32,9 +32,14 @@ public class PlayerHealth : MonoBehaviour
     public float energy { get; set; }        // Current amount of energy
     public bool isInvincible { get; set; }
 
+    float restrictedSegments = 0f;
+    float recoverSegment = 0f;
+
     [Header("Components")]
     [SerializeField]
     RadialSegmentedHealthBar energyBar;
+    [SerializeField]
+    RadialSegmentedHealthBar brokenBar;
 
     [Header("Events")]
     [SerializeField]
@@ -51,11 +56,6 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = false;
         StartCoroutine(RecoverEnergy());
     }
-
-    void Update()
-    {
-        if(!Player.player.isDead) UpdateEnergyStatus();
-    }
     #endregion
 
     #region Energy
@@ -67,7 +67,7 @@ public class PlayerHealth : MonoBehaviour
 
         while (!Player.player.isDead)
         {
-            energy = Mathf.Clamp(energy + (!Player.player.isExhausted ? recoverRatio : specialRecoverRatio), 0, energyBar.SegmentCount.Value);
+            AddEnergy(!Player.player.isExhausted ? recoverRatio : specialRecoverRatio);
 
             yield return new WaitForSeconds(recoverTime);
         }
@@ -80,19 +80,19 @@ public class PlayerHealth : MonoBehaviour
         if (Player.player.isExhausted) Dead(sender);
 
         isInvincible = true;
-        //energy = Mathf.Floor(energy);
-        energy -= hitEnergyCost;
+        AddRestrictedSegments(1);
 
         StopAllCoroutines();
         StartCoroutine(RecoverEnergy());
 
         OnHit?.Invoke(sender);
-        Player.player.animator.PlayAnimation(Animations.hit);
+        Player.player.animator.PlayAnimation(Animations.hit);     
     }
 
-    void UpdateEnergyStatus()
+    public void AddEnergy(float _energy)
     {
-        energyBar.SetPercent(energy / energyBar.SegmentCount.Value);
+        energy = Mathf.Clamp(energy + _energy, 0, energyBar.SegmentCount.Value - restrictedSegments);
+        energyBar.SetRemovedSegments(energyBar.SegmentCount.Value - energy);
 
         // Player exhausted
         if (energy <= 0 && !Player.player.isExhausted)
@@ -107,6 +107,29 @@ public class PlayerHealth : MonoBehaviour
             onRecover();
             Player.player.isExhausted = false;
         }
+    }
+
+    public void AddRestrictedSegments(float _restriction)
+    {
+        restrictedSegments = Mathf.Clamp(restrictedSegments + _restriction, 0, energyBar.SegmentCount.Value);
+        brokenBar.SetRemovedSegments(brokenBar.SegmentCount.Value - restrictedSegments);
+        AddEnergy(0);
+    }
+
+    public void RecoverRestrictedSegments(float _recovered)
+    {
+        Debug.Log("Recovering");
+        if (restrictedSegments <= 0) return;
+        if (recoverSegment + _recovered >= 1)
+        {
+            recoverSegment = 0;
+            AddRestrictedSegments(-1);
+            // OnSegmentRecoveredFeedback;
+            return;
+        }
+        recoverSegment += _recovered;
+        brokenBar.SetRemovedSegments((brokenBar.SegmentCount.Value - restrictedSegments) + recoverSegment);
+        // OnSegmentRecoverFeedback;
     }
     #endregion
 

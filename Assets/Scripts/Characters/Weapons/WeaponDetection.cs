@@ -24,6 +24,7 @@ public class WeaponDetection : MonoBehaviour
     float energyCost = 0.3f;
 
     bool isAttacking = false;
+    List<int> enemyId = new List<int>();
     #endregion
 
     #region Methods
@@ -37,6 +38,12 @@ public class WeaponDetection : MonoBehaviour
                 {
                     Debug.Log("Enemy hitted");
                     collider.GetComponent<EnemyHealth>().Hit(gameObject);
+                    if (!enemyId.Contains(collider.GetInstanceID())) 
+                    {
+                        Player.player.health.RecoverRestrictedSegments(0.2f);
+                        Player.player.health.AddEnergy(energyCost / 2);
+                        enemyId.Add(collider.GetInstanceID());
+                    }
                 }
             }
         }
@@ -44,20 +51,16 @@ public class WeaponDetection : MonoBehaviour
 
     public void EnableDetection()
     {
+        enemyId.Clear();
         isAttacking = true;
         Invoke("DisableDetection", 0.3f);
-        if (isPlayerWeapon) ConsumeEnergy();
+        if (isPlayerWeapon) Player.player.health.AddEnergy(-energyCost);
     }
 
     public void DisableDetection()
     {
         isAttacking = false;
         Debug.Log("Deshabilitando");
-    }
-
-    void ConsumeEnergy()
-    {
-        Player.player.health.energy -= energyCost;
     }
     #endregion
 
