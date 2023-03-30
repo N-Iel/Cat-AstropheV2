@@ -28,6 +28,18 @@ namespace Constants
         Duck
     }
 
+    public enum GoodSeasons
+    {
+        Spring,
+        autumn
+    }
+
+    public enum BadSeasons
+    {
+        Winter,
+        Summer
+    }
+
     public enum newAnimations
     {
         dash,
