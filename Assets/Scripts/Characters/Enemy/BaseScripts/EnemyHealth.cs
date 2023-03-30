@@ -13,6 +13,9 @@ public class EnemyHealth : MonoBehaviour
     // Variables
     [Header("Parameters")]
     [SerializeField]
+    Enemies id;
+
+    [SerializeField]
     int maxHealth = 3;
 
     [SerializeField]
@@ -43,6 +46,9 @@ public class EnemyHealth : MonoBehaviour
     UnityEvent<GameObject> OnHit;
     [SerializeField]
     UnityEvent<GameObject> OnDead;
+
+    public delegate void OnKill(Enemies id);
+    public static event OnKill onKill;
     #endregion
 
     #region LifeCycle
@@ -87,6 +93,7 @@ public class EnemyHealth : MonoBehaviour
     void Dead(GameObject gameObject)
     {
         OnDead?.Invoke(gameObject);
+        onKill(id);
     }
 
     IEnumerator Invincibility()

@@ -19,6 +19,15 @@ namespace Constants
                             invincible = "invincible";
     }
 
+    public enum Enemies
+    {
+        Owl,
+        Mouse,
+        Deer,
+        Bear,
+        Duck
+    }
+
     public enum newAnimations
     {
         dash,
