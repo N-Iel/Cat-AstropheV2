@@ -28,6 +28,14 @@ namespace Constants
         Duck
     }
 
+    public enum Seasons
+    {
+        Spring,
+        autumn,
+        Winter,
+        Summer
+    }
+
     public enum GoodSeasons
     {
         Spring,

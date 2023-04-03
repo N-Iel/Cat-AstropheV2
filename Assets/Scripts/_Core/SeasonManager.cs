@@ -10,6 +10,8 @@ public class SeasonManager : MonoBehaviour
 {
     [Header("Params")]
     [SerializeField]
+    Seasons initialSeason = Seasons.Spring;
+    [SerializeField]
     [Range(0, 5)]
     int maxGoodEnemies;
     [SerializeField]
@@ -19,16 +21,20 @@ public class SeasonManager : MonoBehaviour
     float goodAmountPerEnemy;
     [SerializeField]
     float badAmountPerEnemy;
-
-    [Header("Bars")]
     [SerializeField]
-    RadialSegmentedHealthBar goodBar;
+    float badAmountIncreaseAmount;
+    [SerializeField]
+    float badAmountIncreaseRate;
+
+    [field: Header("Bars")]
+    [field: SerializeField]
+    public RadialSegmentedHealthBar goodBar { get; set; }
     [SerializeField]
     TextMeshProUGUI goodName;
     [SerializeField]
     TextMeshProUGUI goodNumber;
-    [SerializeField]
-    RadialSegmentedHealthBar badBar;
+    [field: SerializeField]
+    public RadialSegmentedHealthBar badBar { get; set; }
     [SerializeField]
     TextMeshProUGUI badName;
     [SerializeField]
@@ -37,19 +43,40 @@ public class SeasonManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI seasonText;
 
+    public static SeasonManager seasonManager { get; private set; }
+    List<Season> availableSeasons = new List<Season>();
     Enemies goodEnemy, badEnemy;
     int goodEnemyCount, badEnemyCount;
+
+    // Randomness
     System.Random random = new System.Random();
     Array enemies, goodSeasons, badSeasons;
 
+    private void Awake()
+    {
+        seasonManager = this;
+    }
+
     private void OnEnable()
     {
+        // Events
         EnemyHealth.onKill += OnEnemyKilled;
+
+        // Lists
         enemies = Enum.GetValues(typeof(Enemies));
         goodSeasons = Enum.GetValues(typeof(GoodSeasons));
         badSeasons = Enum.GetValues(typeof(BadSeasons));
-        seasonText.text = GoodSeasons.Spring.ToString();
+
+        foreach (GameObject season in GameObject.FindGameObjectsWithTag("Season"))
+        {
+            availableSeasons.Add(season.GetComponent<Season>());
+        };
+
+        // Initialization
+        seasonText.text = initialSeason.ToString();
         ResetEnemyNumbers();
+        TriggerNewSeason(initialSeason.ToString());
+        StartCoroutine(IncreaseBadBar());
     }
 
     private void OnDisable()
@@ -103,18 +130,40 @@ public class SeasonManager : MonoBehaviour
     void OnSeasonChange(bool isGood)
     {
         string newSeason = seasonText.text;
+
+        // Bar Managemenet
         if (isGood)
         {
-            badBar.SetRemovedSegments(Mathf.Clamp(badBar.RemoveSegments.Value - 3, 3, 10));
+            badBar.SetRemovedSegments(Mathf.Clamp(badBar.RemoveSegments.Value + 3, 3, 10));
             goodBar.SetRemovedSegments(10);
             do seasonText.text = goodSeasons.GetValue(random.Next(goodSeasons.Length)).ToString(); while (newSeason == seasonText.text);
         }
         else
         {
-            goodBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value - 3, 3, 10));
+            goodBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value + 3, 3, 10));
             badBar.SetRemovedSegments(10);
             do seasonText.text = badSeasons.GetValue(random.Next(badSeasons.Length)).ToString(); while (newSeason == seasonText.text);
         }
+
+        StopAllCoroutines();
+        TriggerNewSeason(seasonText.text);
+        StartCoroutine(IncreaseBadBar());
+    }
+
+    void TriggerNewSeason(string _season)
+    {
+        Debug.Log(_season);
+        availableSeasons.Find((season) => season.season.ToString() == _season).StartSeason();
+    }
+
+    IEnumerator IncreaseBadBar()
+    {
+        if (badBar.RemoveSegments.Value <= 3 || goodBar.RemoveSegments.Value <= 3)
+            OnSeasonChange(goodBar.RemoveSegments.Value == 3);
+
+        badBar.AddRemoveSegments(-badAmountIncreaseAmount);
+        yield return new WaitForSeconds(badAmountIncreaseRate);
+        StartCoroutine(IncreaseBadBar());
     }
 
     void Update()

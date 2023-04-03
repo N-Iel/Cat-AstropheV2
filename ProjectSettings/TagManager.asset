@@ -9,6 +9,8 @@ TagManager:
   - Detection
   - Limit
   - Ground
+  - FxTemporaire
+  - Season
   layers:
   - Default
   - TransparentFX

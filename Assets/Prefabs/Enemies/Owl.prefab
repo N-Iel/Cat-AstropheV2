@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb223f34fbb2de44b8f0a273fbd1985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   maxHealth: 3
   invincibilityTime: 0.15
   triggeredState: 3
@@ -1901,8 +1902,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f42a434785f304e9d6a71f46a96891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 17
-  speedVariation: 1
+  speed: 23
+  speedVariation: 8
   originPosition: {fileID: 476141230240466458}
   dynamicSpeed: 1
   ratePerSecond: 0.5
