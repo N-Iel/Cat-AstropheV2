@@ -23,6 +23,7 @@ public class ProjectManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        Cursor.lockState = CursorLockMode.Locked;
         InitializeSounds();
     }
 

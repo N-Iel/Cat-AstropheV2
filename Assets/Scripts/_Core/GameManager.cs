@@ -62,7 +62,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.R) && Time.timeScale == 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     #endregion
 

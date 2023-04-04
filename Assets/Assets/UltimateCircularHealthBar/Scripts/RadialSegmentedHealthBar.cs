@@ -259,8 +259,8 @@ namespace RengeGames.HealthBars {
         }
 
         private void Start() {
-            UCHBExtensions.SetGizmoIconEnabled(typeof(RadialSegmentedHealthBar), false);
-            UCHBExtensions.SetGizmoIconEnabled(typeof(CompoundHealthBar), false);
+            //UCHBExtensions.SetGizmoIconEnabled(typeof(RadialSegmentedHealthBar), false);
+            //UCHBExtensions.SetGizmoIconEnabled(typeof(CompoundHealthBar), false);
         }
 
         private void Update() {

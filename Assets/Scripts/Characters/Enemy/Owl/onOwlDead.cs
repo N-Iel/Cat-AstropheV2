@@ -37,10 +37,11 @@ public class onOwlDead : MonoBehaviour
     private void PostMorten()
     {
         Debug.Log("postmorten");
-        this.enabled = false;
         rb.freezeRotation = true;
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
+
+        this.enabled = false;
         model.transform.parent.gameObject.SetActive(false);
     }
 }
