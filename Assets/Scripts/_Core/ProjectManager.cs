@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ProjectManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class ProjectManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        Cursor.lockState = CursorLockMode.Locked;
+        if(SceneManager.GetActiveScene().name != "MainMenu") Cursor.lockState = CursorLockMode.Locked;
         InitializeSounds();
     }
 
