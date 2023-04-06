@@ -16,6 +16,13 @@ public class AIContextSteeringFollow : State
     [SerializeField]
     ContextSolver movement;
 
+    [field: Header("Detector")]
+    [SerializeField]
+    public float delay { get; set; }
+
+    [SerializeField]
+    List<Detector> detectors;
+
     [SerializeField]
     List<SteeringBehaviour> steeringBehaviours;
 
@@ -27,58 +34,26 @@ public class AIContextSteeringFollow : State
     [field: SerializeField]
     public override List<States> stopStates { get; set ;}
     [field: SerializeField]
-    bool showGizmos { get; set; }
     public override IEnumerator corutine { get; set; }
     public override UnityEvent onCorutineStop { get; set; }
 
 
     [Header("Events")]
-    public UnityEvent OnAttack;
     public UnityEvent<Vector2> OnMove;
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-
-        // Following script content 
-        if (aiData.currentTarget == null)
+        do
         {
-            // Stop following
-            Debug.Log(gameObject.name + " stopped following");
-            movementInput = Vector2.zero;
-            yield break;
-        }
-        else
-        {
-            float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-            if (distance < attackDistance)
+            foreach (Detector detector in detectors)
             {
-                // Attack Behaviour
-                movementInput = Vector2.zero;
-                OnMove?.Invoke(movementInput);
-                OnAttack?.Invoke();
-                Debug.Log("Attacking");
-                yield return new WaitForSeconds(attackDelay);
+                detector.Detect(aiData);
             }
-            else
-            {
-                // Keep Following
-                movementInput = movement.GetToMove(steeringBehaviours, aiData);
-                Debug.Log("Following");
-                OnMove?.Invoke(movementInput);
-                yield return new WaitForSeconds(followDealy);
-            }
-        }
 
-        corutine = RunBehaviour(originBrain, aiData);
-        StartCoroutine(corutine);
-    }
-
-    // It will generate dots on the detected obstacles for debug
-    private void OnDrawGizmosSelected()
-    {
-        if (!showGizmos) return;
-
-        Gizmos.DrawWireSphere(transform.position, attackDistance);
-        Debug.DrawRay(transform.position, Vector2.right * attackDistance, Color.magenta);
+            movementInput = movement.GetToMove(steeringBehaviours, aiData);
+            Debug.Log("Following");
+            OnMove?.Invoke(movementInput);
+            yield return new WaitForSeconds(followDealy);
+        } while (true);
     }
 }

@@ -7,15 +7,14 @@ using UnityEngine;
 public class EnemyAnimator : MonoBehaviour
 {
     [SerializeField]
-    float rotationSpeed = 1f;
-
     SpriteRenderer sprRenderer;
+    [SerializeField]
     Animator anim;
 
     private void Awake()
     {
-        sprRenderer = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        if(!sprRenderer) sprRenderer = GetComponent<SpriteRenderer>();
+        if(!anim) anim = GetComponent<Animator>();
     }
 
     private void OnEnable()

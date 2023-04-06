@@ -34,6 +34,7 @@ public class AIDead : State
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
         yield return new WaitForSeconds(delay);
+        Debug.Log("Dead");
         onDead.Invoke();
     }
 }

@@ -50,7 +50,7 @@ public class Brain : MonoBehaviour
             }
 
             // This is a redundant call for security proposes
-            if (state.corutine != null && state.stopStates.Exists(x => x == States.None || x == currentState))
+            if (state.corutine != null && state.stopStates.Exists(x => x == currentState))
             {
                 StopCoroutine(state?.corutine);
                 state.onCorutineStop?.Invoke();
