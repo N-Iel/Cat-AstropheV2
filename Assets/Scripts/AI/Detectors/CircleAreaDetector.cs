@@ -12,12 +12,8 @@ public class CircleAreaDetector : Detector
     // Gizmos
     [SerializeField]
     bool showGizmos = false;
-    Vector2 detectedPos;
-
-    private void OnDisable()
-    {
-        detectedPos = Vector2.zero;
-    }
+    Vector2 detectedPos = Vector2.zero;
+    Vector2 initialPos = Vector2.zero;
 
     public override void Detect(AIData aiData)
     {
@@ -27,7 +23,12 @@ public class CircleAreaDetector : Detector
             if (collider.CompareTag(targetTag))
             {
                 aiData.currentTarget = collider.transform;
-                detectedPos = (Vector2)aiData.currentTarget.position;
+                detectedPos = aiData.currentTarget.position;
+                if (aiData.detectedPos == Vector2.zero)
+                {
+                    aiData.detectedPos = aiData.currentTarget.position;
+                    initialPos = aiData.detectedPos;
+                }
                 break;
             }
         }
@@ -35,7 +36,7 @@ public class CircleAreaDetector : Detector
 
     private void OnDrawGizmos()
     {
-        if (!showGizmos || detectedPos == Vector2.zero) return;
+        if (!showGizmos) return;
 
         // Area of effect
         Gizmos.color = Color.red;
@@ -47,5 +48,9 @@ public class CircleAreaDetector : Detector
         // Detected Pos
         Gizmos.color = Color.magenta;
         Gizmos.DrawSphere(detectedPos, 0.3f);
+
+        // initial Pos
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(initialPos, 0.3f);
     }
 }

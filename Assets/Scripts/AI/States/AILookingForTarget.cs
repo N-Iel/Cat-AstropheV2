@@ -47,10 +47,15 @@ public class AILookingForTarget : State
 
     public override IEnumerator RunBehaviour(Brain originBrain, AIData aiData)
     {
-        while (aiData.currentTarget == null)
+        while (aiData.currentTarget == null || isContinuous)
         {
             onDetect?.Invoke(aiData);
             yield return new WaitForSeconds(delay);
+
+            if (isContinuous && originBrain.currentState == States.pasive && aiData.currentTarget != null)
+            {
+                onDetected?.Invoke(originBrain);
+            }
         };
 
         onDetected?.Invoke(originBrain);
