@@ -7,10 +7,19 @@ using UnityEngine;
 /// </summary>
 public class Shadow : MonoBehaviour
 {
+    [Header("Parameters")]
     [SerializeField]
     float frecuency = 0.2f;
+    //[SerializeField]
+    //[Tooltip("Prevent shadow from flipX")]
+    //bool flipXInverted = false;
+
+    [Header("Components")]
     [SerializeField]
-    [Tooltip("Introduce a gameobject to take as shadow target")]
+    [Tooltip("Introduce a gameobject with the Scale reference")]
+    GameObject scaleReference;
+    [SerializeField]
+    [Tooltip("Introduce a gameobject with the sprite reference")]
     GameObject customTarget;
     [SerializeField]
     SpriteRenderer shadowRender;
@@ -47,9 +56,10 @@ public class Shadow : MonoBehaviour
         SpriteRenderer currentGhost = Instantiate(shadowRender, target.transform.position, target.transform.rotation, shadowParent.transform);
         currentGhost.sprite = targetRenderer.sprite;
 
-        currentGhost.transform.localScale = target.transform.localScale;
+        currentGhost.transform.localScale = scaleReference ? scaleReference.transform.localScale : target.transform.localScale;
         currentGhost.flipX = targetRenderer.flipX;
         currentGhost.flipY = targetRenderer.flipY;
+        //if (flipXInverted) currentGhost.flipX = !currentGhost.flipX;
 
         counter = frecuency;
     }

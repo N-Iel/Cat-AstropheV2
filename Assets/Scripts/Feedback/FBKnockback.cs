@@ -25,7 +25,8 @@ public class FBKnockback : MonoBehaviour
 
         OnBegin?.Invoke();
         Vector2 direction = (transform.position - sender.transform.position).normalized;
-        rb.AddForce(direction * totalForce, ForceMode2D.Impulse);
+        //rb.AddForce(direction * totalForce, ForceMode2D.Impulse);
+        rb.velocity += direction * totalForce;
 
         StartCoroutine(Reset());
     }
