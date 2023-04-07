@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1008506972}
   - component: {fileID: 1008506974}
   - component: {fileID: 1008506973}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Dead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 476141230159671104}
   - component: {fileID: 476141230159671110}
   - component: {fileID: 476141230159671111}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Owl
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 6302891048551763195}
   - component: {fileID: 916426537}
   - component: {fileID: 281457405540979101}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Model
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -421,7 +421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8092650b5d5a85e42a51a7a8886e1736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 1
+  sprRenderer: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &6302891048551763194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,7 +639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 476141231351151859}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5759790791396275305}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Feedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2977262980978615154}
   - component: {fileID: 5572901748688267770}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -915,7 +916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7105614094548872071}
   - component: {fileID: 8981980544186751601}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Shake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1266,7 +1267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2509066044783309039}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Shadows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1297,7 +1298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3218324358240256091}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: IA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1330,7 +1331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2149632490769573854}
   - component: {fileID: 8905909308519813532}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: onDead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1621,7 +1622,7 @@ GameObject:
   - component: {fileID: 6302891047756435437}
   - component: {fileID: 6302891047756435442}
   - component: {fileID: 6302891047756435443}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Pasive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1747,7 +1748,7 @@ GameObject:
   - component: {fileID: 1351757826839423320}
   - component: {fileID: 2860735083384643971}
   - component: {fileID: 3787992876183157807}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Aggressive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1943,7 +1944,7 @@ GameObject:
   - component: {fileID: 6302891049615930091}
   - component: {fileID: 6302891049615930088}
   - component: {fileID: 1011393641753760034}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Exhausted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2101,7 +2102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7689953489202122069}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2134,7 +2135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1835892235237149044}
   - component: {fileID: 2637991869819401638}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: onHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2520,6 +2521,14 @@ PrefabInstance:
     - target: {fileID: 2822468007096910444, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_Name
       value: Custom Smoke Poof
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822468007096910444, guid: 4e4978903640d944884e6f2838151504, type: 3}
+      propertyPath: m_Layer
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822468007096910446, guid: 4e4978903640d944884e6f2838151504, type: 3}
+      propertyPath: m_Layer
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 2822468007097081420, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_RootOrder

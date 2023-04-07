@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyActionMove : MonoBehaviour
 {
     #region Variables
-    [Header("Parámeters")]
-    [SerializeField]
-    float maxSpeed;
+    [field: Header("Parameters")]
+    [field: SerializeField]
+    public float maxSpeed { get; set; }
 
     [SerializeField]
     float acceleration;
@@ -15,13 +15,18 @@ public class EnemyActionMove : MonoBehaviour
     [SerializeField]
     float decceleration;
 
+    [Header("Speed variations")]
     [SerializeField]
-    [Range(1,10)]
+    bool useSpeedVariation = true;
+
+    [SerializeField]
+    [Range(1, 10)]
     float speedVariationLimit;
 
     [SerializeField]
     [Tooltip("Amount of time used before randomize speed variation again")]
     [Range(0.5f, 5f)]
+
     float variationRateLimit;
     public bool canMove { get; set; }
 
@@ -35,17 +40,26 @@ public class EnemyActionMove : MonoBehaviour
     // Private variables
     public float speed { get; set; }
     float speedVariation;
+    float originalMaxSpeed;
     #endregion
 
     private void Start()
     {
         canMove = true;
-        StartCoroutine(UpdateSpeedVariation());
+        originalMaxSpeed = maxSpeed;
+        if (useSpeedVariation)
+            StartCoroutine(UpdateSpeedVariation());
+        else
+            speedVariation = 0;
     }
 
     public void Move(Vector2 direction)
     {
-        if (!canMove) return;
+        if (!canMove)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
 
         if (direction.magnitude > 0 && speed >= 0)
         {
@@ -60,6 +74,12 @@ public class EnemyActionMove : MonoBehaviour
         rb.velocity = direction * speed;
     }
 
+    public void ResetMaxSpeed()
+    {
+        maxSpeed = originalMaxSpeed;
+        rb.velocity = Vector2.zero;
+    }
+
     IEnumerator UpdateSpeedVariation()
     {
         float _speedVariation = Random.Range(-speedVariationLimit, speedVariationLimit);
@@ -67,8 +87,7 @@ public class EnemyActionMove : MonoBehaviour
         {
             speedVariation = Mathf.Lerp(speedVariation, _speedVariation, 0.5f);
         } while (Mathf.Approximately(speedVariation, _speedVariation));
-        Debug.Log($"New speed: {speedVariation}");
-        float variationRate = Random.Range(0.5f,variationRateLimit);
+        float variationRate = Random.Range(0.5f,variationRateLimit); 
         yield return new WaitForSeconds(variationRate);
         StartCoroutine(UpdateSpeedVariation());
     }
