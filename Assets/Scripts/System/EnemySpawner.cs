@@ -45,9 +45,14 @@ public class EnemySpawner : MonoBehaviour
         GameObject _enemy = enemies.Find(enemy => !enemy.activeInHierarchy);
 
         if (!_enemy){ FillPool(); return;}
+        Vector2 spawnPos = Vector2.zero;
+        do
+        {
+            float angle = Random.Range(1f, enemies.Count + 1) * Mathf.PI * 2f / enemies.Count;
+            spawnPos = (Vector2)Player.player.transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
 
-        float angle = Random.Range(1, enemies.Count + 1) * Mathf.PI * 2f / enemies.Count;
-        _enemy.transform.position = (Vector2)Player.player.transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+        } while (Utils.isOnWall(spawnPos));
+        _enemy.transform.position = spawnPos;
         _enemy.SetActive(true);
     }
 
@@ -64,6 +69,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(Player.player.transform.position, radius);
     }
 }

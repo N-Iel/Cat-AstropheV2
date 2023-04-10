@@ -16,4 +16,15 @@ public static class Utils
     {
         Time.timeScale = _timeScale;
     }
+
+    // Check wallClipping
+    public static bool isOnWall(Vector2 _pos)
+    {
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(_pos, 0.1f))
+        {
+            if (collider.CompareTag("Ground"))
+                return true;
+        }
+        return false;
+    }
 }

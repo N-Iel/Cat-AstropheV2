@@ -17,6 +17,8 @@ public class CircleAreaDetector : Detector
 
     public override void Detect(AIData aiData)
     {
+        if (!gameObject.activeInHierarchy) return;
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
         foreach (Collider2D collider in colliders)
         {
