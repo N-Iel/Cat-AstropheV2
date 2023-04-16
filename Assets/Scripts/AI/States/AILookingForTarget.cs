@@ -50,18 +50,13 @@ public class AILookingForTarget : State
         while (aiData.currentTarget == null || isContinuous)
         {
             onDetect?.Invoke(aiData);
-            Debug.Log("detecting");
             yield return new WaitForSeconds(delay);
-            Debug.Log("afterwait");
 
             if (isContinuous && originBrain.currentState == States.pasive && aiData.currentTarget != null)
             {
-                Debug.Log("detected");
                 onDetected?.Invoke(originBrain);
             }
-            Debug.Log("end");
         };
-        Debug.Log("notDet");
         onDetected?.Invoke(originBrain);
     }
 }

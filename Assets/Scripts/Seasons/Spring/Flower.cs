@@ -25,6 +25,8 @@ public class Flower : MonoBehaviour
 
     async void OnFlowerLooted()
     {
+        if (_renderer.enabled == false) return;
+
         SeasonManager.seasonManager.badBar.AddRemoveSegments(AmountReduced);
         transform.localPosition = originalPos;
         _renderer.enabled = false;

@@ -24,28 +24,17 @@ namespace Constants
         Owl,
         Mouse,
         Deer,
-        Bear,
         Duck
     }
 
     public enum Seasons
     {
+        Default,
         Spring,
-        autumn,
+        Autumn,
         Winter,
-        Summer
-    }
-
-    public enum GoodSeasons
-    {
-        Spring,
-        autumn
-    }
-
-    public enum BadSeasons
-    {
-        Winter,
-        Summer
+        Summer,
+        Dark,
     }
 
     public enum newAnimations

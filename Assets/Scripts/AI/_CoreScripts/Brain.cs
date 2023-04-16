@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Constants;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Brain : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class Brain : MonoBehaviour
         if (currentState == _newState) return;
 
         currentState = _newState;
-        Debug.Log(gameObject.name + " " + _newState);
+        //Debug.Log(gameObject.name + " " + _newState);
 
         foreach (State state in states)
         {

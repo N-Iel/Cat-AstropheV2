@@ -34,6 +34,7 @@ public class Shadow : MonoBehaviour
     void Start()
     {
         counter = frecuency;
+        if (!shadowParent) shadowParent = GameObject.Find("Shadows");
 
         // In case the target is a customTarget it will be selected instead of the gameobject
         target = customTarget ? customTarget : gameObject;
