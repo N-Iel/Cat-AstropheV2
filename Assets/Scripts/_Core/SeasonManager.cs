@@ -79,13 +79,15 @@ public class SeasonManager : MonoBehaviour
 
         // Initialization
         seasonText.text = initialSeason.ToString();
-        Debug.Log(availableSeasons);
         currentSeason = availableSeasons.Find((season) => season.season == initialSeason);
         currentSeason.StartSeason();
+
         ResetEnemyNumbers();
         StartCoroutine(IncreaseBadBar());
         goodAmountIncreaseAmount = 0;
-        StartCoroutine(IncreaseGoodBar());
+
+        // Progresión automática de la barra buena
+        // StartCoroutine(IncreaseGoodBar());
     }
 
     private void OnDisable()
@@ -171,13 +173,16 @@ public class SeasonManager : MonoBehaviour
     {
         string _season;
 
+        // Real end check
         if (currentSeason.season == Seasons.Winter && realEnding && isGood)
             _season = Seasons.Dark.ToString();
         else
             _season = isGood ? currentSeason.goodSeason.ToString() : currentSeason.badSeason.ToString();
 
+        currentSeason.StopSeason();
         currentSeason = availableSeasons.Find((season) => season.season.ToString() == _season);
         currentSeason.StartSeason();
+
         seasonText.text = currentSeason.season.ToString();
         SeasonsPlayed++;
         RealEndingSequence();

@@ -38,11 +38,17 @@ public class SeasonSpring : Season
     public override void StartSeason()
     {
         InvokeRepeating("generateFlowers", 0, flowerSpawnRate);
+        Flower.flowercollected += CheckObjetive;
+        count = 0;
     }
 
     public override void StopSeason()
     {
         CancelInvoke();
+        Flower.flowercollected -= CheckObjetive;
+
+        foreach (GameObject flower in flowers)
+            flower.gameObject.SetActive(false);
     }
 
     void generateFlowers()
@@ -57,5 +63,9 @@ public class SeasonSpring : Season
         flower.SetActive(true);
     }
 
-    public override void CheckObjetive(){}
+    public override void CheckObjetive()
+    {
+        Debug.Log("Flower collected");
+        count++;
+    }
 }

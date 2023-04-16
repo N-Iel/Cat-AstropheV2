@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bee580bf06d3f4ba6843196a530287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 30
+  detectionRadius: 20
   targetTag: Player
   showGizmos: 1
 --- !u!114 &6302891047756435443
@@ -1915,6 +1915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frecuency: 0.1
+  scaleReference: {fileID: 0}
   customTarget: {fileID: 476141230240466459}
   shadowRender: {fileID: 2790078498516478655, guid: 1bd4d9337be3fa94db241bd2a92d5114, type: 3}
   shadowParent: {fileID: 5136975759094230475}
