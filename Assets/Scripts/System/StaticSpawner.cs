@@ -18,6 +18,14 @@ public class StaticSpawner : MonoBehaviour
     [Range(1,100)]
     float spawnDelay = 1;
 
+    private void OnDisable()
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.SetActive(false);
+        }
+    }
+
     private void Start()
     {
         if (enemies.Count <= 0) { Debug.Log("No Enemies available"); return;};

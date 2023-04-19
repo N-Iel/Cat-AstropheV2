@@ -45,6 +45,11 @@ public class WeaponDetection : MonoBehaviour
                         enemyId.Add(collider.GetInstanceID());
                     }
                 }
+
+                if (collider.CompareTag("Rock"))
+                {
+                    collider.GetComponent<Rock>().Hit(gameObject);
+                }
             }
         }
     }

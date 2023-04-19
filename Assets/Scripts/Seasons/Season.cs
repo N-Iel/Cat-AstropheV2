@@ -11,8 +11,16 @@ public abstract class Season : MonoBehaviour
     public abstract Seasons goodSeason { get; set; }
     public abstract Seasons badSeason { get; set; }
 
+    public delegate void ObjetiveAdded();
+    public static event ObjetiveAdded objetiveAdded;
 
     public abstract void StartSeason();
     public abstract void StopSeason();
     public abstract void CheckObjetive();
+
+    public void TriggerEvent()
+    {
+        objetiveAdded.Invoke();
+    }
+
 }

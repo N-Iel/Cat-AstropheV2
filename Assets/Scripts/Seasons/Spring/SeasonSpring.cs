@@ -66,6 +66,7 @@ public class SeasonSpring : Season
     public override void CheckObjetive()
     {
         Debug.Log("Flower collected");
+        TriggerEvent();
         count++;
     }
 }

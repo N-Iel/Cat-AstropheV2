@@ -27,4 +27,13 @@ public static class Utils
         }
         return false;
     }
+
+    // Change state of gameObjects on a list
+    public static List<GameObject> updateListItems(List<GameObject> _list, bool isActive)
+    {
+        foreach (GameObject item in _list)
+            item.SetActive(isActive);
+
+        return _list;
+    }
 }

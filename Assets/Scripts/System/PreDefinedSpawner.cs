@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,11 @@ public class PreDefinedSpawner : MonoBehaviour
 
     // Enemies will be pooled in order to improve preformance
     List<GameObject> enemies = new List<GameObject>();
+
+    private void OnDisable()
+    {
+        parent.transform.MMDestroyAllChildren();
+    }
 
     // Start is called before the first frame update
     void Start()

@@ -20,6 +20,5 @@ public class AISetPlayerAsTarget : MonoBehaviour
     public void UpdateOffsetPos()
     {
         followTarget.Offset = followTarget.Offset.MMSetX(Random.Range(-14f, 14f));
-        Debug.Log(followTarget.Offset);
     }
 }

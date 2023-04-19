@@ -19,18 +19,27 @@ public class SeasonSummer : Season
     [field: SerializeField]
     public override Seasons badSeason { get; set; }
 
-    public override void CheckObjetive()
-    {
-        
-    }
+    [SerializeField]
+    List<GameObject> rocks;
 
     public override void StartSeason()
     {
         Debug.Log("Summer Started, The rivers has dried, break the rocks and make that waters run again through the river.");
+        rocks = Utils.updateListItems(rocks, true);
+        Rock.rockDestroyed += CheckObjetive;
     }
 
     public override void StopSeason()
     {
         Debug.Log("Summer Stoped, i hope you got it, otherwhise we are pretty much done");
+        rocks = Utils.updateListItems(rocks, false);
+        Rock.rockDestroyed -= CheckObjetive;
+    }
+
+    public override void CheckObjetive()
+    {
+        Debug.Log("Rock Destroyed");
+        TriggerEvent();
+        count++;
     }
 }

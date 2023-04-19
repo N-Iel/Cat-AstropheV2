@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SeasonManager : MonoBehaviour
 {
@@ -49,6 +50,10 @@ public class SeasonManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI seasonText;
 
+    [Header("Event")]
+    [SerializeField]
+    UnityEvent<Seasons> OnNewSeason;
+
     public static SeasonManager seasonManager { get; private set; }
     List<Season> availableSeasons = new List<Season>();
     Season currentSeason;
@@ -67,7 +72,8 @@ public class SeasonManager : MonoBehaviour
     private void OnEnable()
     {
         // Events
-        EnemyHealth.onKill += OnEnemyKilled;
+        //EnemyHealth.onKill += OnEnemyKilled;
+        Season.objetiveAdded += IncreaseGoodBar;
 
         // Lists
         enemies = Enum.GetValues(typeof(Enemies));
@@ -80,9 +86,10 @@ public class SeasonManager : MonoBehaviour
         // Initialization
         seasonText.text = initialSeason.ToString();
         currentSeason = availableSeasons.Find((season) => season.season == initialSeason);
+        OnNewSeason.Invoke(currentSeason.season);
         currentSeason.StartSeason();
 
-        ResetEnemyNumbers();
+        //ResetEnemyNumbers();
         StartCoroutine(IncreaseBadBar());
         goodAmountIncreaseAmount = 0;
 
@@ -92,7 +99,8 @@ public class SeasonManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EnemyHealth.onKill -= OnEnemyKilled;
+        //EnemyHealth.onKill -= OnEnemyKilled;
+        Season.objetiveAdded -= IncreaseGoodBar;
     }
 
     void Update()
@@ -112,6 +120,7 @@ public class SeasonManager : MonoBehaviour
             ResetEnemyNumbers();
     }
 
+    // TODO Revisar mecánica, por ahora la quito ya que me parece un poco abrumador todo. Puede que con una buena progresión añada profundidad
     void OnEnemyKilled(Enemies id)
     {
         if(id == goodEnemy && goodBar.RemoveSegments.Value > 3)
@@ -160,7 +169,8 @@ public class SeasonManager : MonoBehaviour
         }
         else
         {
-            goodBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value + 3, 3, 10));
+            //goodBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value + 3, 3, 10));
+            goodBar.SetRemovedSegments(10);
             badBar.SetRemovedSegments(10);
         }
 
@@ -181,6 +191,7 @@ public class SeasonManager : MonoBehaviour
 
         currentSeason.StopSeason();
         currentSeason = availableSeasons.Find((season) => season.season.ToString() == _season);
+        OnNewSeason.Invoke(currentSeason.season);
         currentSeason.StartSeason();
 
         seasonText.text = currentSeason.season.ToString();
@@ -195,11 +206,9 @@ public class SeasonManager : MonoBehaviour
         StartCoroutine(IncreaseBadBar());
     }
 
-    IEnumerator IncreaseGoodBar()
+    void IncreaseGoodBar()
     {
-        goodBar.AddRemoveSegments(-goodAmountIncreaseAmount);
-        yield return new WaitForSeconds(goodAmountIncreaseRate);
-        StartCoroutine(IncreaseGoodBar());
+        goodBar.AddRemoveSegments(-(7.1f / currentSeason.goal));
     }
 
     void RealEndingSequence()

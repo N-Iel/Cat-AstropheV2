@@ -19,6 +19,9 @@ public class SeasonAutumn : Season
     [field: SerializeField]
     public override Seasons badSeason { get; set; }
 
+    [SerializeField]
+    List<GameObject> trees;
+
     public override void StartSeason()
     {
         Debug.Log("Autumn Started, Take out those leafs from the trees, the are supouse to fall but...");
@@ -30,11 +33,15 @@ public class SeasonAutumn : Season
     {
         Debug.Log("Autumn stoped, you filled the ground with leafs? I hope so");
         Tree.treeHitted -= CheckObjetive;
+
+        foreach (GameObject tree in trees)
+            tree.SetActive(true);
     }
 
     public override void CheckObjetive() 
     {
         Debug.Log("Tree Hitted");
+        TriggerEvent();
         count++;
     }
 }
