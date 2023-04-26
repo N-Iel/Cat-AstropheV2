@@ -20,6 +20,9 @@ public class EnemyAnimator : MonoBehaviour
     private void OnEnable()
     {
         sprRenderer.enabled = true;
+        Color color =  sprRenderer.color;
+        color.a = 1f;
+        sprRenderer.color = color;
     }
 
     public void PlayAnimation(newAnimations _anim)

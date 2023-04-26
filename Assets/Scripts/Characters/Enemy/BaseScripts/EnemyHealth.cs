@@ -66,13 +66,13 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isInvincible) return;
 
-        isInvincible = true;
-
-        if (health - 1 <= 0)
+        if (!isInvincible && health - 1 <= 0)
         {
             Dead(gameObject);
             return;
         }
+
+        isInvincible = true;
 
         // Apply dmg
         health--;
@@ -93,7 +93,7 @@ public class EnemyHealth : MonoBehaviour
     void Dead(GameObject gameObject)
     {
         OnDead?.Invoke(gameObject);
-        onKill(id);
+        try { onKill(id); } catch { throw; };
     }
 
     IEnumerator Invincibility()

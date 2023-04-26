@@ -34,7 +34,7 @@ public class PreDefinedSpawner : MonoBehaviour
 
     private void OnDisable()
     {
-        parent.transform.MMDestroyAllChildren();
+        try { parent.transform.MMDestroyAllChildren(); } catch { throw; }
     }
 
     // Start is called before the first frame update

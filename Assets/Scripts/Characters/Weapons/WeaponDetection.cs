@@ -37,7 +37,7 @@ public class WeaponDetection : MonoBehaviour
                 if (collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hitted");
-                    collider.GetComponent<EnemyHealth>().Hit(gameObject);
+                    try { collider.GetComponent<EnemyHealth>().Hit(gameObject); } catch { throw; };
                     if (!enemyId.Contains(collider.GetInstanceID())) 
                     {
                         Player.player.health.RecoverRestrictedSegments(0.2f);
