@@ -51,7 +51,6 @@ public class AIContextSteeringFollow : State
             }
 
             movementInput = movement.GetToMove(steeringBehaviours, aiData);
-            Debug.Log("Following");
             OnMove?.Invoke(movementInput);
             yield return new WaitForSeconds(followDealy);
         } while (true);

@@ -15,7 +15,7 @@ public class Tree : MonoBehaviour
         if (!hitted && collision.CompareTag("Player") && Player.player.isDashing)
         {
             hitted = true;
-            treeHitted.Invoke();
+            treeHitted?.Invoke();
             gameObject.SetActive(false);
         }
     }
@@ -25,7 +25,7 @@ public class Tree : MonoBehaviour
         if (!hitted && collision.CompareTag("Player") && Player.player.isDashing)
         {
             hitted = true;
-            treeHitted.Invoke();
+            treeHitted?.Invoke();
             gameObject.SetActive(false);
         }
     }

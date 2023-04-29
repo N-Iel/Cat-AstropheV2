@@ -122,7 +122,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void RecoverRestrictedSegments(float _recovered)
     {
-        Debug.Log("Recovering");
         if (restrictedSegments <= 0) return;
         if (recoverSegment + _recovered >= 1)
         {

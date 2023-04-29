@@ -12,12 +12,15 @@ public class SeasonManager : MonoBehaviour
     [Header("Params")]
     [SerializeField]
     Seasons initialSeason = Seasons.Spring;
+    //[SerializeField]
+    //[Range(0, 5)]
+    //int maxGoodEnemies;
+    //[SerializeField]
+    //[Range(0, 5)]
+    //int maxBadEnemies;
     [SerializeField]
-    [Range(0, 5)]
-    int maxGoodEnemies;
-    [SerializeField]
-    [Range(0, 5)]
-    int maxBadEnemies;
+    [Tooltip("Time required for faborable enemies to change")]
+    float updateEnemiesRate;
     [SerializeField]
     float badAmountPerEnemy;
     [SerializeField]
@@ -72,7 +75,7 @@ public class SeasonManager : MonoBehaviour
     private void OnEnable()
     {
         // Events
-        //EnemyHealth.onKill += OnEnemyKilled;
+        EnemyHealth.onKill += OnEnemyKilled;
         Season.objetiveAdded += IncreaseGoodBar;
 
         // Lists
@@ -89,7 +92,7 @@ public class SeasonManager : MonoBehaviour
         OnNewSeason.Invoke(currentSeason.season);
         currentSeason.StartSeason();
 
-        //ResetEnemyNumbers();
+        InvokeRepeating("ResetEnemyNumbers",0,updateEnemiesRate);
         StartCoroutine(IncreaseBadBar());
         goodAmountIncreaseAmount = 0;
 
@@ -99,15 +102,15 @@ public class SeasonManager : MonoBehaviour
 
     private void OnDisable()
     {
-        //EnemyHealth.onKill -= OnEnemyKilled;
+        EnemyHealth.onKill -= OnEnemyKilled;
         Season.objetiveAdded -= IncreaseGoodBar;
     }
 
     void Update()
     {
         // Seasons
-        if (badBar.RemoveSegments.Value <= 3 || (goodBar.RemoveSegments.Value <= 3 && currentSeason.count >= currentSeason.goal))
-            OnSeasonChange(currentSeason.count >= currentSeason.goal);
+        if (badBar.RemoveSegments.Value <= 3 || goodBar.RemoveSegments.Value <= 3)
+            OnSeasonChange(goodBar.RemoveSegments.Value <= 3);
 
         //DEBUG
         if (Input.GetKeyDown(KeyCode.Z))
@@ -127,35 +130,37 @@ public class SeasonManager : MonoBehaviour
         {
             // Subir Barra buena
             goodBar.AddRemoveSegments(-goodAmountPerEnemy);
-            goodEnemyCount++;
-            goodNumber.text = (maxGoodEnemies - goodEnemyCount).ToString();
+            badBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value, 3, 10));
+            //goodEnemyCount++;
+            //goodNumber.text = (maxGoodEnemies - goodEnemyCount).ToString();
         }
         else if(id == badEnemy && badBar.RemoveSegments.Value > 3)
         {
             // Subir velocidad barra mala
             badBar.AddRemoveSegments(-badAmountPerEnemy);
-            badEnemyCount++;
-            badNumber.text = (maxBadEnemies - badEnemyCount).ToString();
+            badBar.SetRemovedSegments(Mathf.Clamp(badBar.RemoveSegments.Value, 3, 10));
+            //badEnemyCount++;
+            //badNumber.text = (maxBadEnemies - badEnemyCount).ToString();
         }
 
-        if (goodEnemyCount >= maxGoodEnemies || badEnemyCount >= maxBadEnemies)
-            ResetEnemyNumbers();
+        //if (goodEnemyCount >= maxGoodEnemies || badEnemyCount >= maxBadEnemies)
+        //    ResetEnemyNumbers();
     }
 
     void ResetEnemyNumbers()
     {
         // Actualizar número bueno
-        maxGoodEnemies = UnityEngine.Random.Range(1, 5);
+        //maxGoodEnemies = UnityEngine.Random.Range(1, 5);
         goodEnemy = (Enemies)enemies.GetValue(random.Next(enemies.Length));
-        goodEnemyCount = 0;
-        goodNumber.text = maxGoodEnemies.ToString();
+        //goodEnemyCount = 0;
+        //goodNumber.text = maxGoodEnemies.ToString();
         goodName.text = goodEnemy.ToString();
 
         // Actualizar número malo
-        maxBadEnemies = UnityEngine.Random.Range(1, 5);
+        //maxBadEnemies = UnityEngine.Random.Range(1, 5);
         do badEnemy = (Enemies)enemies.GetValue(random.Next(enemies.Length)); while (badEnemy == goodEnemy);
-        badEnemyCount = 0;
-        badNumber.text = maxBadEnemies.ToString();
+        //badEnemyCount = 0;
+        //badNumber.text = maxBadEnemies.ToString();
         badName.text = badEnemy.ToString();
     }
 

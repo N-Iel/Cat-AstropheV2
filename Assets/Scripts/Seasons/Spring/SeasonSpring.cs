@@ -23,16 +23,18 @@ public class SeasonSpring : Season
     [SerializeField]
     float flowerSpawnRate = 3f;
 
+    [SerializeField]
+    Transform flowerParent;
+
     // Objetives
     List<GameObject> flowers = new List<GameObject>();
 
     private void Awake()
     {
-        foreach (Transform flower in transform)
+        foreach (Transform flower in flowerParent)
         {
             flowers.Add(flower.gameObject);
         }
-        Debug.Log($"Flowers: {flowers.Count}");
     }
 
     public override void StartSeason()
@@ -65,7 +67,6 @@ public class SeasonSpring : Season
 
     public override void CheckObjetive()
     {
-        Debug.Log("Flower collected");
         TriggerEvent();
         count++;
     }

@@ -29,6 +29,10 @@ public class EnemyHealth : MonoBehaviour
     int stateTriggerHealth = 0;
 
     [SerializeField]
+    [Tooltip("Restore health on enable")]
+    bool restoreOnEnable = true;
+
+    [SerializeField]
     bool resetPositionOnEnable = false;
 
     [SerializeField]
@@ -52,9 +56,13 @@ public class EnemyHealth : MonoBehaviour
     #endregion
 
     #region LifeCycle
+    private void Start()
+    {
+        RestoreHealth();
+    }
     private void OnEnable()
     {
-        health = maxHealth;
+        if (restoreOnEnable) RestoreHealth();
         isInvincible = false;
         if (resetPositionOnEnable) gameObject.transform.localPosition = Vector3.zero;
     }
@@ -93,7 +101,12 @@ public class EnemyHealth : MonoBehaviour
     void Dead(GameObject gameObject)
     {
         OnDead?.Invoke(gameObject);
-        try { onKill(id); } catch { throw; };
+        onKill?.Invoke(id);
+    }
+
+    public void RestoreHealth()
+    {
+        health = maxHealth;
     }
 
     IEnumerator Invincibility()

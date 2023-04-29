@@ -34,16 +34,15 @@ public class WeaponDetection : MonoBehaviour
         {
             foreach (Collider2D collider in Physics2D.OverlapCircleAll(attackOriginPoint.position, attackRadius))
             {
-                if (collider.CompareTag("Enemy"))
+                if (collider.CompareTag("Enemy") && !enemyId.Contains(collider.GetInstanceID()))
                 {
-                    Debug.Log("Enemy hitted");
-                    try { collider.GetComponent<EnemyHealth>().Hit(gameObject); } catch { throw; };
-                    if (!enemyId.Contains(collider.GetInstanceID())) 
-                    {
-                        Player.player.health.RecoverRestrictedSegments(0.2f);
-                        Player.player.health.AddEnergy(energyCost / 2);
-                        enemyId.Add(collider.GetInstanceID());
-                    }
+                    EnemyHealth _enemyHealth = collider.GetComponent<EnemyHealth>();
+                    if (_enemyHealth != null)
+                        _enemyHealth.Hit(gameObject);
+
+                    Player.player.health.RecoverRestrictedSegments(0.2f);
+                    Player.player.health.AddEnergy(energyCost / 2);
+                    enemyId.Add(collider.GetInstanceID());
                 }
 
                 if (collider.CompareTag("Rock"))

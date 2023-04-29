@@ -3664,6 +3664,7 @@ MonoBehaviour:
   invincibilityTime: 0.15
   triggeredState: 0
   stateTriggerHealth: -1
+  restoreOnEnable: 0
   resetPositionOnEnable: 0
   brain: {fileID: 3888864977151101550}
   OnHit:
