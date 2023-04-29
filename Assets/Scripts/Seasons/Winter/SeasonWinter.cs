@@ -2,6 +2,7 @@ using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SeasonWinter : Season
 {
@@ -22,11 +23,16 @@ public class SeasonWinter : Season
     [SerializeField]
     List<GameObject> frozenParts;
 
+    [field: Header("Events")]
+    [field: SerializeField]
+    public override UnityEvent onSeasonStart { get; set; }
+
     public override void StartSeason()
     {
         Debug.Log("Winter Started, Melth down that river, we need water to drink!");
         frozenParts = Utils.updateListItems(frozenParts, true);
         FrozenPart.melted += CheckObjetive;
+        onSeasonStart.Invoke();
     }
 
     public override void StopSeason()

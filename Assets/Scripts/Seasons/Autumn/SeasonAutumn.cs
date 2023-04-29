@@ -2,6 +2,7 @@ using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SeasonAutumn : Season
 {
@@ -22,10 +23,15 @@ public class SeasonAutumn : Season
     [SerializeField]
     List<GameObject> trees;
 
+    [field: Header("Events")]
+    [field: SerializeField]
+    public override UnityEvent onSeasonStart { get; set; }
+
     public override void StartSeason()
     {
         Debug.Log("Autumn Started, Take out those leafs from the trees, the are supouse to fall but...");
         Tree.treeHitted += CheckObjetive;
+        onSeasonStart.Invoke();
         count = 0;
     }
 

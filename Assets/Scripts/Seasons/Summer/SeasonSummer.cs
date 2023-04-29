@@ -2,6 +2,7 @@ using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SeasonSummer : Season
 {
@@ -22,11 +23,16 @@ public class SeasonSummer : Season
     [SerializeField]
     List<GameObject> rocks;
 
+    [field: Header("Events")]
+    [field: SerializeField]
+    public override UnityEvent onSeasonStart { get; set; }
+
     public override void StartSeason()
     {
         Debug.Log("Summer Started, The rivers has dried, break the rocks and make that waters run again through the river.");
         rocks = Utils.updateListItems(rocks, true);
         Rock.rockDestroyed += CheckObjetive;
+        onSeasonStart.Invoke();
     }
 
     public override void StopSeason()

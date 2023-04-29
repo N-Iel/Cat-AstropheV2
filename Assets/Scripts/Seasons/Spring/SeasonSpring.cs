@@ -2,6 +2,7 @@ using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SeasonSpring : Season
 {
@@ -29,6 +30,10 @@ public class SeasonSpring : Season
     // Objetives
     List<GameObject> flowers = new List<GameObject>();
 
+    [field: Header("Events")]
+    [field: SerializeField]
+    public override UnityEvent onSeasonStart { get; set; }
+
     private void Awake()
     {
         foreach (Transform flower in flowerParent)
@@ -41,6 +46,7 @@ public class SeasonSpring : Season
     {
         InvokeRepeating("generateFlowers", 0, flowerSpawnRate);
         Flower.flowercollected += CheckObjetive;
+        onSeasonStart.Invoke();
         count = 0;
     }
 

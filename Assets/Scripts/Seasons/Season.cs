@@ -2,6 +2,7 @@ using Constants;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Season : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public abstract class Season : MonoBehaviour
     public abstract Seasons season { get; set; }
     public abstract Seasons goodSeason { get; set; }
     public abstract Seasons badSeason { get; set; }
+    public abstract UnityEvent onSeasonStart { get; set; }
 
     public delegate void ObjetiveAdded();
     public static event ObjetiveAdded objetiveAdded;
