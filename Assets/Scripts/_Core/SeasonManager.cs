@@ -37,21 +37,36 @@ public class SeasonManager : MonoBehaviour
     bool realEnding = true;
 
     [field: Header("Bars")]
+
+    // GoodBar
     [field: SerializeField]
     public RadialSegmentedHealthBar goodBar { get; set; }
     [SerializeField]
     TextMeshProUGUI goodName;
     [SerializeField]
     TextMeshProUGUI goodNumber;
+    [SerializeField]
+    AudioClip onGoodEnemyKill;
+    [SerializeField]
+    AudioClip onGoodBarCompleted;
+
+    // BadBar
     [field: SerializeField]
     public RadialSegmentedHealthBar badBar { get; set; }
     [SerializeField]
     TextMeshProUGUI badName;
     [SerializeField]
     TextMeshProUGUI badNumber;
+    [SerializeField]
+    AudioClip onBadBarCompleted;
 
+    [Header("Components")]
     [SerializeField]
     TextMeshProUGUI seasonText;
+    [SerializeField]
+    AudioSource effectsSource;
+    [SerializeField]
+    AudioSource musicSource;
 
     [Header("Event")]
     [SerializeField]
@@ -61,7 +76,6 @@ public class SeasonManager : MonoBehaviour
     List<Season> availableSeasons = new List<Season>();
     Season currentSeason;
     Enemies goodEnemy, badEnemy;
-    int goodEnemyCount, badEnemyCount;
 
     // Randomness
     System.Random random = new System.Random();
@@ -130,7 +144,9 @@ public class SeasonManager : MonoBehaviour
         {
             // Subir Barra buena
             goodBar.AddRemoveSegments(-goodAmountPerEnemy);
-            badBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value, 3, 10));
+            goodBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value, 3, 10));
+            effectsSource.pitch += 0.5f;
+            effectsSource.PlayOneShot(onGoodEnemyKill);
             //goodEnemyCount++;
             //goodNumber.text = (maxGoodEnemies - goodEnemyCount).ToString();
         }
@@ -139,6 +155,7 @@ public class SeasonManager : MonoBehaviour
             // Subir velocidad barra mala
             badBar.AddRemoveSegments(-badAmountPerEnemy);
             badBar.SetRemovedSegments(Mathf.Clamp(badBar.RemoveSegments.Value, 3, 10));
+            if (badBar.RemoveSegments.Value <= 5) musicSource.pitch = 2;
             //badEnemyCount++;
             //badNumber.text = (maxBadEnemies - badEnemyCount).ToString();
         }
@@ -166,19 +183,24 @@ public class SeasonManager : MonoBehaviour
 
     void OnSeasonChange(bool isGood)
     {
+        effectsSource.pitch = 1;
+
         // Bar Managemenet
         if (isGood)
         {
             badBar.SetRemovedSegments(Mathf.Clamp(badBar.RemoveSegments.Value + 3, 3, 10));
             goodBar.SetRemovedSegments(10);
+            effectsSource.PlayOneShot(onGoodBarCompleted);
         }
         else
         {
             //goodBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value + 3, 3, 10));
             goodBar.SetRemovedSegments(10);
             badBar.SetRemovedSegments(10);
+            effectsSource.PlayOneShot(onBadBarCompleted);
         }
 
+        musicSource.pitch = 1;
         StopAllCoroutines();
         TriggerNewSeason(isGood);
         StartCoroutine(IncreaseBadBar());
