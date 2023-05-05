@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 {
     #region variables
     [SerializeField]
-    float maxSpeed = 1.0f, acceleration = 50f, decceleration = 100f;
+    float maxSpeed = 15f, autumnSpeed = 18f, acceleration = 50f, decceleration = 100f;
     float speed;
 
     [SerializeField]
@@ -58,12 +58,31 @@ public class PlayerMovement : MonoBehaviour
             speed += acceleration * maxSpeed * Time.deltaTime;
             lastDir = direction;
             Player.player.animator.UpdateLookingDir(direction);
+
+            if (SeasonManager.seasonManager.currentSeason != null)
+            {
+                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Winter && Player.player.health.recoverRatio < 0)
+                    Player.player.health.recoverRatio *= -1;
+
+                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Summer && Player.player.health.recoverRatio > 0)
+                    Player.player.health.recoverRatio *= -1;
+
+            }
         }
         else
         {
             speed -= decceleration * maxSpeed * Time.deltaTime;
+
+            if (SeasonManager.seasonManager.currentSeason != null)
+            {
+                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Summer && Player.player.health.recoverRatio < 0)
+                    Player.player.health.recoverRatio *= -1;
+
+                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Winter && Player.player.health.recoverRatio > 0)
+                    Player.player.health.recoverRatio *= -1;
+            }
         }
-        speed = Mathf.Clamp(speed, 0, maxSpeed);
+        speed = Mathf.Clamp(speed, 0, SeasonManager.seasonManager?.currentSeason?.season == Seasons.Autumn ? autumnSpeed : maxSpeed);
         Player.player.rb.velocity = direction * speed;
     }
     #endregion

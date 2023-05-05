@@ -30,21 +30,21 @@ public class SeasonWinter : Season
     public override void StartSeason()
     {
         Debug.Log("Winter Started, Melth down that river, we need water to drink!");
-        frozenParts = Utils.updateListItems(frozenParts, true);
-        FrozenPart.melted += CheckObjetive;
+        //frozenParts = Utils.updateListItems(frozenParts, true);
+        //FrozenPart.melted += CheckObjetive;
         onSeasonStart.Invoke();
     }
 
     public override void StopSeason()
     {
         Debug.Log("Winter stoped, if we run out of water because of you, i will make you pay");
-        frozenParts = Utils.updateListItems(frozenParts, false);
-        FrozenPart.melted -= CheckObjetive;
+        //frozenParts = Utils.updateListItems(frozenParts, false);
+        //FrozenPart.melted -= CheckObjetive;
     }
 
     public override void CheckObjetive() 
     {
-        TriggerEvent();
-        count++;
+        //TriggerEvent();
+        //count++;
     }
 }

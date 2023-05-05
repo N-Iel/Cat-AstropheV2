@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1256154945}
   - component: {fileID: 1256154946}
   - component: {fileID: 7244413481943766716}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnDead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1349,7 +1349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124964743}
-  m_Layer: 31
+  m_Layer: 7
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1384,7 +1384,7 @@ GameObject:
   - component: {fileID: 647102574064664760}
   - component: {fileID: 647102574064664761}
   - component: {fileID: 647102574064664762}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Recover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1531,7 +1531,7 @@ GameObject:
   - component: {fileID: 647102574120587442}
   - component: {fileID: 647102574120587443}
   - component: {fileID: 3870196218270138849}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Pasive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1696,7 +1696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 647102574464051151}
   - component: {fileID: 108274743}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2701,7 +2701,7 @@ GameObject:
   - component: {fileID: 2822468006989737613}
   - component: {fileID: 2822468006989698861}
   - component: {fileID: 2577751497689420153}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Custom Smoke Poof big
   m_TagString: FxTemporaire
   m_Icon: {fileID: 0}
@@ -7452,7 +7452,7 @@ GameObject:
   - component: {fileID: 3270996133066111224}
   - component: {fileID: 3270996133066111227}
   - component: {fileID: 758756791}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7630,7 +7630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3270996133437827577}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7665,7 +7665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3270996133552486534}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Feedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7705,7 +7705,7 @@ GameObject:
   - component: {fileID: 3270996133934534234}
   - component: {fileID: 3270996133934534232}
   - component: {fileID: 3270996133934534233}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Aggressive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7947,7 +7947,7 @@ GameObject:
   - component: {fileID: 3270996134483863301}
   - component: {fileID: 3270996134483863300}
   - component: {fileID: 3270996134483863310}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Deer
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -8072,6 +8072,7 @@ MonoBehaviour:
   invincibilityTime: 0.15
   triggeredState: 0
   stateTriggerHealth: -1
+  restoreOnEnable: 1
   resetPositionOnEnable: 0
   brain: {fileID: 3270996134483863307}
   OnHit:
@@ -8140,7 +8141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3270996134791306438}
   - component: {fileID: 3270996134791306439}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Dead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8203,7 +8204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4979871756255738554}
   - component: {fileID: 1749127968645299379}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnDetected
   m_TagString: Untagged
   m_Icon: {fileID: 0}

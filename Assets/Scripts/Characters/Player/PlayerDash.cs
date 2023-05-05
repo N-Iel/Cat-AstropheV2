@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Constants;
 using UnityEngine.Events;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 /// <summary>
 /// Preforms all the task related with dashing
@@ -49,6 +50,7 @@ public class PlayerDash : MonoBehaviour
         // Update Player state
         Player.player.animator.PlayAnimation(Animations.dash);
         Player.player.health.AddEnergy(-dashingCost);
+        Physics2D.IgnoreLayerCollision(6, 7, true);
         Player.player.isDashing = true;
         dashAvailable = false;
 
@@ -57,15 +59,11 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
 
         Player.player.isDashing = false;
+        Physics2D.IgnoreLayerCollision(6, 7, false);
 
         yield return new WaitForSeconds(dashingCooldown);
 
         dashAvailable = true;
-    }
-
-    void OnEnemyAvoided()
-    {
-        Player.player.health.RecoverRestrictedSegments(0.2f);
     }
     #endregion
 }

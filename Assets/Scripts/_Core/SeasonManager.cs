@@ -3,6 +3,7 @@ using RengeGames.HealthBars;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -74,7 +75,7 @@ public class SeasonManager : MonoBehaviour
 
     public static SeasonManager seasonManager { get; private set; }
     List<Season> availableSeasons = new List<Season>();
-    Season currentSeason;
+    public Season currentSeason { get; private set; }
     Enemies goodEnemy, badEnemy;
 
     // Randomness
@@ -86,7 +87,7 @@ public class SeasonManager : MonoBehaviour
         seasonManager = this;
     }
 
-    private void OnEnable()
+    private async void OnEnable()
     {
         // Events
         EnemyHealth.onKill += OnEnemyKilled;
@@ -99,6 +100,8 @@ public class SeasonManager : MonoBehaviour
         {
             availableSeasons.Add(season.GetComponent<Season>());
         };
+
+        await Task.Delay(4000);
 
         // Initialization
         seasonText.text = initialSeason.ToString();
@@ -155,7 +158,8 @@ public class SeasonManager : MonoBehaviour
             // Subir velocidad barra mala
             badBar.AddRemoveSegments(-badAmountPerEnemy);
             badBar.SetRemovedSegments(Mathf.Clamp(badBar.RemoveSegments.Value, 3, 10));
-            if (badBar.RemoveSegments.Value <= 5) musicSource.pitch = 2;
+            if (badBar.RemoveSegments.Value <= 5) musicSource.pitch = 1.05f;
+            if (badBar.RemoveSegments.Value <= 6) musicSource.pitch = 1.1f;
             //badEnemyCount++;
             //badNumber.text = (maxBadEnemies - badEnemyCount).ToString();
         }

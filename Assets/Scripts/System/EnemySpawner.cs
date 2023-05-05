@@ -1,80 +1,115 @@
+using Constants;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-/// <summary>
-/// enemy spawner will instantiate enemies arround the player, out of their field of view
-/// </summary>
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : Spawner
 {
-    [field: Header("Spawn params")]
+    [field: Header("Base Params")]
     [field: SerializeField]
-    public float spawnRate { get; set; }
+    public override Enemies EnemyType { get; set; }
     [field: SerializeField]
-    public float spawnLimit { get; set; }
+    public override GameObject enemyPrefab { get; set; }
+    [field: SerializeField]
+    public override GameObject spawnParent { get; set; }
+    [field: SerializeField]
+    public override int spawnLimit { get; set; }
+    [field: SerializeField]
+    public override float spawnRate { get; set; }
+    [field: SerializeField]
+    public override float initialSpawnDelay { get; set; }
+    [SerializeField]
+    bool showGizmos = false;
 
-    [SerializeField]
-    [Range(0f, 5f)]
-    float spawnOffset;
 
-    [SerializeField]
-    float radius;
+    [field: Header("Random Spawn")]
+    [field: SerializeField]
+    public override float spawnRadius { get; set; }
+    [field: SerializeField]
+    public override float spawnOffset { get; set; }
 
-    [Header("Spawn pool")]
-    [SerializeField]
-    GameObject prefab;
-    [SerializeField]
-    GameObject parent;
+    [field: Header("Defined Spawn")]
+    [field: SerializeField]
+    public override List<GameObject> spawnPoints { get; set; }
 
     // Enemies will be pooled in order to improve preformance
     List<GameObject> enemies = new List<GameObject>();
 
     private void OnDisable()
     {
-        parent.transform.MMDestroyAllChildren();
+        try { spawnParent.transform.MMDestroyAllChildren(); } catch { throw; }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        FillPool();
-        InvokeRepeating("Spawn", 0, spawnRate);
+        //FillPool();
+        InvokeRepeating("Spawn", initialSpawnDelay, spawnRate);
     }
 
-    void Spawn()
+    public override void Spawn()
     {
-        // Spawn limit check
-        if (enemies.FindAll((enemy) => enemy.activeInHierarchy).Count >= spawnLimit) return;
+        GameObject _enemy;
 
-        GameObject _enemy = enemies.Find(enemy => !enemy.activeInHierarchy);
+        if (spawnLimit != -1 && enemies.FindAll((enemy) => enemy.activeInHierarchy).Count >= spawnLimit) return;
 
-        if (!_enemy){ FillPool(); return;}
-        Vector2 spawnPos = Vector2.zero;
         do
         {
-            float angle = Random.Range(1f, enemies.Count + 1) * Mathf.PI * 2f / enemies.Count;
-            spawnPos = (Vector2)Player.player.transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+            FillPool();
+            _enemy = enemies.Find(enemy => !enemy.activeInHierarchy);
+        } while (!_enemy);
 
-        } while (Utils.isOnWall(spawnPos));
-        _enemy.transform.position = spawnPos;
+        if (spawnPoints.Count > 0)
+            StaticSpawn(_enemy);
+        else
+            RandomSpawn(_enemy);
+
         _enemy.SetActive(true);
     }
 
-    void FillPool()
+    // Used for spawnPoint
+    public override void StaticSpawn(GameObject _enemy)
     {
-        Debug.Log("Enemies Added");
-        while (enemies.Count < spawnLimit)
+        // filtrar spawns sin hijos
+        List<GameObject> availableSpawnPoint = spawnPoints.FindAll(point => point.transform.childCount == 0);
+        // Con la length coger un index aleatorio
+        int index = Random.Range(0, availableSpawnPoint.Count);
+        // Asignar el enemigo a ese spawnpoint
+        _enemy.transform.SetParent(availableSpawnPoint[index].transform);
+        _enemy.transform.localPosition = Vector2.zero;
+    }
+
+    // Used for randomSpawns
+    public override void RandomSpawn(GameObject _enemy)
+    {
+        Vector2 spawnPos;
+        do
         {
-            GameObject _enemy = Instantiate(prefab, Vector2.zero, Quaternion.identity, parent.transform);
+            float angle = Random.Range(1f, enemies.Count + 1) * Mathf.PI * 2f / enemies.Count;
+            spawnPos = (Vector2)Player.player.transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
+
+        } while (Utils.isOnWall(spawnPos));
+        _enemy.transform.position = spawnPos;
+    }
+
+    public override void FillPool()
+    {            
+        while (enemies.Count < spawnLimit || spawnLimit == -1)
+        {
+            GameObject _enemy = Instantiate(enemyPrefab, Vector2.zero, Quaternion.identity, spawnParent.transform);
             _enemy.SetActive(false);
             enemies.Add(_enemy);
+
+            if (spawnLimit == -1)
+                return;
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(Player.player.transform.position, radius);
+        if (!showGizmos) return;
+
+        Gizmos.DrawWireSphere(Player.player.transform.position, spawnRadius);
     }
 }

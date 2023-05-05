@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 253136399}
   - component: {fileID: 253136401}
   - component: {fileID: 253136400}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1058,7 +1058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2022829661}
-  m_Layer: 31
+  m_Layer: 7
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492278265468637461}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: Shadows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1121,7 +1121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492278265607221945}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1155,7 +1155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1492278265726067654}
   - component: {fileID: 1492278265726067655}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: Feedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1273,7 +1273,7 @@ GameObject:
   - component: {fileID: 1492278266179216312}
   - component: {fileID: 1492278266179216315}
   - component: {fileID: 1173642585}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1452,7 +1452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1492278266409011078}
   - component: {fileID: 1492278266409011079}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: Dead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1533,7 +1533,7 @@ GameObject:
   - component: {fileID: 1492278266640677957}
   - component: {fileID: 1492278266640677956}
   - component: {fileID: 1492278266640677966}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: Mouse
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1756,7 +1756,7 @@ GameObject:
   - component: {fileID: 1492278267165086997}
   - component: {fileID: 1492278267165086996}
   - component: {fileID: 1492278267165086999}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: Aggressive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1929,7 +1929,7 @@ GameObject:
   - component: {fileID: 6186249135887919177}
   - component: {fileID: 8783988558658373566}
   - component: {fileID: 2427111242484638131}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnDead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3243,11 +3243,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2822468007096910444, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_Layer
-      value: 31
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2822468007096910446, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_Layer
-      value: 31
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2822468007096910446, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_IsActive

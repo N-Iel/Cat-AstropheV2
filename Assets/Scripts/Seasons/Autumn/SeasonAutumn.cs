@@ -30,24 +30,24 @@ public class SeasonAutumn : Season
     public override void StartSeason()
     {
         Debug.Log("Autumn Started, Take out those leafs from the trees, the are supouse to fall but...");
-        Tree.treeHitted += CheckObjetive;
+        //Tree.treeHitted += CheckObjetive;
         onSeasonStart.Invoke();
-        count = 0;
+        //count = 0;
     }
 
     public override void StopSeason()
     {
         Debug.Log("Autumn stoped, you filled the ground with leafs? I hope so");
-        Tree.treeHitted -= CheckObjetive;
+        //Tree.treeHitted -= CheckObjetive;
 
-        foreach (GameObject tree in trees)
-            tree.SetActive(true);
+        //foreach (GameObject tree in trees)
+        //    tree.SetActive(true);
     }
 
     public override void CheckObjetive() 
     {
-        Debug.Log("Tree Hitted");
-        TriggerEvent();
-        count++;
+        //Debug.Log("Tree Hitted");
+        //TriggerEvent();
+        //count++;
     }
 }

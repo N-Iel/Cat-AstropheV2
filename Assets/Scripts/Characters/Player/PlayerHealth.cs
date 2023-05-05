@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Constants;
 using System;
 using RengeGames.HealthBars;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 /// <summary>
 /// This script will manage all the elements relative with the energy
@@ -23,9 +24,10 @@ public class PlayerHealth : MonoBehaviour
     #region variables
     [SerializeField]
     float recoverTime = 0.5f,           // Time Between recovery
-          hitEnergyCost = 1.0f,         // Amount of energy consumed onHit
-          recoverRatio = 0.1f,          // Amount of energy recovered per cycle
-          specialRecoverRatio = 0.1f;   // Amount of energy recovered on critical status
+          hitEnergyCost = 1.0f;         // Amount of energy consumed onHit
+
+    [field: SerializeField]
+    public float recoverRatio { get; set; }
 
     [SerializeField]
     float invincibilityTime = 2.0f;
@@ -70,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
 
         while (!Player.player.isDead)
         {
-            AddEnergy(!Player.player.isExhausted ? recoverRatio : specialRecoverRatio);
+            AddEnergy(!Player.player.isExhausted ? recoverRatio : recoverRatio * 2);
 
             yield return new WaitForSeconds(recoverTime);
         }

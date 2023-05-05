@@ -36,44 +36,44 @@ public class SeasonSpring : Season
 
     private void Awake()
     {
-        foreach (Transform flower in flowerParent)
-        {
-            flowers.Add(flower.gameObject);
-        }
+        //foreach (Transform flower in flowerParent)
+        //{
+        //    flowers.Add(flower.gameObject);
+        //}
     }
 
     public override void StartSeason()
     {
-        InvokeRepeating("generateFlowers", 0, flowerSpawnRate);
-        Flower.flowercollected += CheckObjetive;
+        //InvokeRepeating("generateFlowers", 0, flowerSpawnRate);
+        //Flower.flowercollected += CheckObjetive;
         onSeasonStart.Invoke();
-        count = 0;
+        //count = 0;
     }
 
     public override void StopSeason()
     {
-        CancelInvoke();
-        Flower.flowercollected -= CheckObjetive;
+        //CancelInvoke();
+        //Flower.flowercollected -= CheckObjetive;
 
-        foreach (GameObject flower in flowers)
-            flower.gameObject.SetActive(false);
+        //foreach (GameObject flower in flowers)
+        //    flower.gameObject.SetActive(false);
     }
 
     void generateFlowers()
     {
-        List<GameObject> availableFlowers = flowers.FindAll((flower) => !flower.activeInHierarchy);
-        if (availableFlowers.Count <= 0 || availableFlowers.Count <= flowers.Count - goal) return;
+        //List<GameObject> availableFlowers = flowers.FindAll((flower) => !flower.activeInHierarchy);
+        //if (availableFlowers.Count <= 0 || availableFlowers.Count <= flowers.Count - goal) return;
 
-        GameObject flower = availableFlowers[Random.Range(0, availableFlowers.Count)];
-        flower.transform.localPosition = new Vector2(
-                                            Random.Range(flower.transform.localPosition.x, flower.transform.localPosition.x + 2),
-                                            Random.Range(flower.transform.localPosition.y, flower.transform.localPosition.y + 2));
-        flower.SetActive(true);
+        //GameObject flower = availableFlowers[Random.Range(0, availableFlowers.Count)];
+        //flower.transform.localPosition = new Vector2(
+        //                                    Random.Range(flower.transform.localPosition.x, flower.transform.localPosition.x + 2),
+        //                                    Random.Range(flower.transform.localPosition.y, flower.transform.localPosition.y + 2));
+        //flower.SetActive(true);
     }
 
     public override void CheckObjetive()
     {
-        TriggerEvent();
-        count++;
+        //TriggerEvent();
+        //count++;
     }
 }

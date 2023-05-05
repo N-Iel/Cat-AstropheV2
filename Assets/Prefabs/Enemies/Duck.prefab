@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4157754732099898864}
   - component: {fileID: 7051087206733399613}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnDetect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 1181658254622096855}
   - component: {fileID: 1181658254622096854}
   - component: {fileID: 1181658254622096686}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Pasive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,7 +1033,7 @@ GameObject:
   - component: {fileID: 1181658254666051036}
   - component: {fileID: 1181658254666051039}
   - component: {fileID: 1181658254666051030}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Recover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1756,7 +1756,7 @@ GameObject:
   - component: {fileID: 1181658255604124330}
   - component: {fileID: 8814189725964664610}
   - component: {fileID: 1301315892}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2801,7 +2801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 332103044667237562}
-  m_Layer: 31
+  m_Layer: 7
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2837,7 +2837,7 @@ GameObject:
   - component: {fileID: 3888864976634553136}
   - component: {fileID: 3888864976634553151}
   - component: {fileID: 3888864976634553141}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Aggressive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3468,7 +3468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3888864976855888291}
   - component: {fileID: 3888864976855888290}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Dead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3539,7 +3539,7 @@ GameObject:
   - component: {fileID: 3888864977151101547}
   - component: {fileID: 3888864977151101541}
   - component: {fileID: 7777920403409604062}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Duck
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -3817,7 +3817,7 @@ GameObject:
   - component: {fileID: 3888864977746810269}
   - component: {fileID: 3888864977746810270}
   - component: {fileID: 485201500561342459}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3995,7 +3995,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3888864978184586396}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4030,7 +4030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3888864978333652451}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: Feedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4067,7 +4067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9165125021578078348}
   - component: {fileID: 8576213606736440457}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4273,7 +4273,7 @@ GameObject:
   - component: {fileID: 1906764004529741929}
   - component: {fileID: 3505791670230952765}
   - component: {fileID: 137993292695985108}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnDead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5655,7 +5655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1721508008357951585}
   - component: {fileID: 4676992714196903611}
-  m_Layer: 29
+  m_Layer: 7
   m_Name: OnSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5916,11 +5916,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2822468007096910444, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_Layer
-      value: 31
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2822468007096910446, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_Layer
-      value: 31
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2822468007097081420, guid: 4e4978903640d944884e6f2838151504, type: 3}
       propertyPath: m_RootOrder
@@ -6057,9 +6057,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: CFXR Water Splash (Small, No drops) Niel
       objectReference: {fileID: 0}
+    - target: {fileID: 4380479541975601373, guid: 9b538b0471dce2b4e8efe9fcf27a8192, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5119719833663097278, guid: 9b538b0471dce2b4e8efe9fcf27a8192, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266685031510129050, guid: 9b538b0471dce2b4e8efe9fcf27a8192, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271532248648578994, guid: 9b538b0471dce2b4e8efe9fcf27a8192, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033749177197262077, guid: 9b538b0471dce2b4e8efe9fcf27a8192, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8415389856590827282, guid: 9b538b0471dce2b4e8efe9fcf27a8192, type: 3}
       propertyPath: m_Materials.Array.size
