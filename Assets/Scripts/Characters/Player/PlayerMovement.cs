@@ -59,12 +59,12 @@ public class PlayerMovement : MonoBehaviour
             lastDir = direction;
             Player.player.animator.UpdateLookingDir(direction);
 
-            if (SeasonManager.seasonManager.currentSeason != null)
+            if (SeasonManager.seasonManager?.currentSeason != null)
             {
-                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Winter && Player.player.health.recoverRatio < 0)
+                if (SeasonManager.seasonManager?.currentSeason.season == Seasons.Winter && Player.player.health.recoverRatio < 0)
                     Player.player.health.recoverRatio *= -1;
 
-                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Summer && Player.player.health.recoverRatio > 0)
+                if (SeasonManager.seasonManager?.currentSeason.season == Seasons.Summer && Player.player.health.recoverRatio > 0)
                     Player.player.health.recoverRatio *= -1;
 
             }
@@ -73,12 +73,12 @@ public class PlayerMovement : MonoBehaviour
         {
             speed -= decceleration * maxSpeed * Time.deltaTime;
 
-            if (SeasonManager.seasonManager.currentSeason != null)
+            if (SeasonManager.seasonManager?.currentSeason != null)
             {
-                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Summer && Player.player.health.recoverRatio < 0)
+                if (SeasonManager.seasonManager?.currentSeason.season == Seasons.Summer && Player.player.health.recoverRatio < 0)
                     Player.player.health.recoverRatio *= -1;
 
-                if (SeasonManager.seasonManager.currentSeason.season == Seasons.Winter && Player.player.health.recoverRatio > 0)
+                if (SeasonManager.seasonManager?.currentSeason.season == Seasons.Winter && Player.player.health.recoverRatio > 0)
                     Player.player.health.recoverRatio *= -1;
             }
         }

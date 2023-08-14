@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - FxTemporaire
   - Season
+  - Rock
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Enemy
   - Obstacle
   - PostProcess
   - 
@@ -41,9 +42,9 @@ TagManager:
   - 
   - 
   - 
-  - Enemy/Deer
-  - Enemy/Mouse
-  - Enemy/Owl
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Background
     uniqueID: 3112033691

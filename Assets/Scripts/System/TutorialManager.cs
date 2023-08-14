@@ -5,61 +5,194 @@ using TMPro;
 using Constants;
 using UnityEngine.Events;
 using System.Threading.Tasks;
+using RengeGames.HealthBars;
+using MoreMountains.Feedbacks;
 
 public class TutorialManager : MonoBehaviour
 {
+    // Enemigos: Habrá que controlar el spawn de ratones y buhos
+    // Seasons: Solo se pasará de neutra a primavera
+    // Goals: Para la primera fase se usarán flores
+    // Bars: La barra mala aparecerá a mitad del tutorial
     [Header("Spawners")]
     [SerializeField]
     GameObject mouseSpawner;
     [SerializeField]
-    GameObject duckSpawner;
-    [SerializeField]
     GameObject owlSpawner;
+
+    [field: Header("Goals")]
+    [field: SerializeField]
+    List<Flower> flowers = new List<Flower>();
     [SerializeField]
-    GameObject deerSpawner;
+    AudioSource effectsSource;
+    [SerializeField]
+    AudioSource musicSource;
+    [SerializeField]
+    AudioClip onGoodEnemyKill;
+    [SerializeField]
+    AudioClip onGoodBarCompleted;
+    public int goal { get; set; }
 
     [Header("UI")]
     [SerializeField]
-    TextMeshProUGUI tutorialText;
+    RadialSegmentedHealthBar goodBar;
+    [SerializeField]
+    RadialSegmentedHealthBar goodBar2;
+    [SerializeField]
+    TextMeshProUGUI goodEnemyText;
+    [SerializeField]
+    RadialSegmentedHealthBar badBar;
+    [SerializeField]
+    TextMeshProUGUI badEnemyText;
+    [SerializeField]
+    TextMeshProUGUI season;
+    [SerializeField]
+    MMF_Player badBarEnabled;
 
-    // Texts
-    public const string
-        Spring = "Sweetheart, the house needs a little bit of colour. \r\nCould you bring some flowers from outside ? That would look perfect in the kitchen.\r\n\r\nPtd: You may encounter some mouses, take care please.",
-        Summer = "Sweetheart, the weather is drying up the river. Could you keep it clean from rocks and dirt ? We don`t want to run out of water at home.\r\n\r\nP.S.: The ducks could feel attacked if you get to close to the river, watch out please.",
-        Autumn = "Sweetheart, the wind is getting stronger, could you bring down the leafs reamining on the trees? I don't want them all over the place at home.\r\n\r\nPtd: The owls may find your intervention... disturbing, take care please.",
-        Winter = "Sweetheart, the river is frozen. Could you melt the frozen parts ? With your fur should be enough, just stay a few seconds close to the ice.\r\n\r\nPtd: The deers are hungry, try to avoid them, you can not run from them.";
+    Enemies goodEnemy = Enemies.Mouse;
+    Enemies badEnemy = Enemies.Owl;
+    int phase = 0;
+
 
     [Header("Events")]
     [SerializeField]
     UnityEvent onSeasonStart;
 
-    public async void NewSeason(Seasons season)
+    private void OnEnable()
     {
-        await Task.Delay(1000);
-        tutorialText.text = (string)this.GetType().GetField(season.ToString()).GetValue(this);
-        mouseSpawner.SetActive(false);
-        owlSpawner.SetActive(false);
-        deerSpawner.SetActive(false);
-        duckSpawner.SetActive(false);
-        onSeasonStart.Invoke();
+        Flower.flowercollected += IncreaseGoal;
+        EnemyHealth.onKill += OnEnemyKilled;
 
-        switch (season)
+        UpdatePhase();
+    }
+
+    private void OnDisable()
+    {
+        Flower.flowercollected -= IncreaseGoal;
+        EnemyHealth.onKill -= OnEnemyKilled;
+    }
+
+    private void Update()
+    {
+        if (goodBar.RemoveSegments.Value <= 3 && phase != 1)
+            UpdatePhase();
+    }
+
+    void IncreaseGoal()
+    {
+        goal++;
+        if(phase == 1)
         {
-            case Seasons.Spring:
+            goodBar.AddRemoveSegments(-2.5f);
+            if (goal == 3)
+            {
+                UpdatePhase();
+                return;
+            }
+                
+            effectsSource.pitch += 0.5f;
+            effectsSource.PlayOneShot(onGoodEnemyKill);            
+        }
+    }
+
+    void ResetBars()
+    {
+        goodBar?.SetRemovedSegments(10);
+        badBar?.SetRemovedSegments(10);
+    }
+
+    public void UpdatePhase()
+    {
+        phase++;
+        effectsSource.PlayOneShot(onGoodBarCompleted);
+        switch (phase)
+        {
+            case 1:
+                Debug.Log("Phase1");
+                foreach (Flower flower in flowers)
+                {
+                    flower.gameObject.SetActive(true);
+                }
+                badBar.gameObject.SetActive(false);
+                break;
+            case 2:
+                Debug.Log("Phase2");
+                effectsSource.pitch = 1;
+                foreach (Flower flower in flowers)
+                {
+                    flower.OnFlowerDestroyed();
+                }
                 mouseSpawner.SetActive(true);
+                season.text = "Spring";
+                goodEnemyText.gameObject.SetActive(true);
+                goodEnemyText.text = "Mouse";
+                ResetBars();
+                // show glow on enemy
                 break;
-            case Seasons.Autumn:
+            case 3:
+                Debug.Log("Phase3");
+                goodEnemy = Enemies.Owl;
+                badEnemy = Enemies.Mouse;
+                goodEnemyText.text = "Owl";
+                badBarEnabled.PlayFeedbacks();
+                StartCoroutine(IncreaseBadBar());
                 owlSpawner.SetActive(true);
+                badBar.gameObject.SetActive(true);
+                goodBar.gameObject.GetComponent<RectTransform>().localPosition = new Vector2(57.8f, 0);
+                goodBar.SetRemovedSegments(10);
+                ResetBars();
                 break;
-            case Seasons.Winter:
-                deerSpawner.SetActive(true);
-                break;
-            case Seasons.Summer:
-                duckSpawner.SetActive(true);
-                break;
-            default:
+            case 4:
+                Debug.Log("Fin del tutorial");
                 break;
         }
+    }
+
+    IEnumerator IncreaseBadBar()
+    {
+        if (badBar.RemoveSegments.Value > 3)
+        {
+            badBar.AddRemoveSegments(-0.01f);
+            yield return new WaitForSeconds(0.05f);
+            StartCoroutine(IncreaseBadBar());
+        }        
+    }
+
+    void OnEnemyKilled(Enemies id)
+    {
+        if (id == goodEnemy && goodBar.RemoveSegments.Value > 3)
+        {
+            // Subir Barra buena
+            if (goodBar.gameObject.activeInHierarchy)
+            {
+                goodBar.AddRemoveSegments(-2.5f);
+                goodBar.SetRemovedSegments(Mathf.Clamp(goodBar.RemoveSegments.Value, 3, 10));
+            }
+            else
+            {
+                goodBar2.AddRemoveSegments(-2.5f);
+                goodBar2.SetRemovedSegments(Mathf.Clamp(goodBar2.RemoveSegments.Value, 3, 10));
+                Debug.Log(goodBar2.RemoveSegments.Value);
+            }
+                
+            effectsSource.pitch += 0.5f;
+            effectsSource.PlayOneShot(onGoodEnemyKill);
+            //goodEnemyCount++;
+            //goodNumber.text = (maxGoodEnemies - goodEnemyCount).ToString();
+        }
+        else if (id == badEnemy && badBar.RemoveSegments.Value > 3)
+        {
+            // Subir velocidad barra mala
+            badBar.AddRemoveSegments(-1);
+            badBar.SetRemovedSegments(Mathf.Clamp(badBar.RemoveSegments.Value, 3, 10));
+            if (badBar.RemoveSegments.Value <= 5) musicSource.pitch = 1.05f;
+            if (badBar.RemoveSegments.Value <= 6) musicSource.pitch = 1.1f;
+            //badEnemyCount++;
+            //badNumber.text = (maxBadEnemies - badEnemyCount).ToString();
+        }
+
+        //if (goodEnemyCount >= maxGoodEnemies || badEnemyCount >= maxBadEnemies)
+        //    ResetEnemyNumbers();
     }
 }
 

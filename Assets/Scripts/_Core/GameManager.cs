@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -19,6 +21,10 @@ public class GameManager : MonoBehaviour
     [Header("Components")]
     [SerializeField]
     InputActionReference input;
+    [SerializeField]
+    GameObject keyboardUi;
+    [SerializeField]
+    GameObject gamepadUi;
     #endregion
 
     #region Events
@@ -40,7 +46,13 @@ public class GameManager : MonoBehaviour
     #region LifeCycle
     private void Awake()
     {
+        GraphicsSettings.transparencySortMode = TransparencySortMode.CustomAxis;
+        GraphicsSettings.transparencySortAxis = new Vector3(0.0f, 1.0f, 0.0f);
         onAwake?.Invoke();
+        if (Input.GetJoystickNames().Length > 0)
+            gamepadUi.SetActive(true);
+        else
+            keyboardUi.SetActive(true);
     }
 
     private void OnEnable()

@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Flower : MonoBehaviour
 {
     [SerializeField]
     float AmountReduced = 0.5f;
+
+    [SerializeField]
+    UnityEvent onDestroyed;
 
     public delegate void Flowercollected();
     public static event Flowercollected flowercollected;
@@ -36,5 +40,10 @@ public class Flower : MonoBehaviour
         await Task.Delay(2);
         _renderer.enabled = true;
         gameObject.SetActive(false);
+    }
+
+    public void OnFlowerDestroyed()
+    {
+        onDestroyed.Invoke();
     }
 }

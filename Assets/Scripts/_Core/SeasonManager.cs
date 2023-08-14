@@ -68,6 +68,10 @@ public class SeasonManager : MonoBehaviour
     AudioSource effectsSource;
     [SerializeField]
     AudioSource musicSource;
+    [SerializeField]
+    EnemySpawner duckSpawner;
+    [SerializeField]
+    EnemySpawner deerSpawner;
 
     [Header("Event")]
     [SerializeField]
@@ -80,7 +84,7 @@ public class SeasonManager : MonoBehaviour
 
     // Randomness
     System.Random random = new System.Random();
-    Array enemies;
+    Array enemies = new Enemies[99];
 
     private void Awake()
     {
@@ -94,7 +98,8 @@ public class SeasonManager : MonoBehaviour
         Season.objetiveAdded += IncreaseGoodBar;
 
         // Lists
-        enemies = Enum.GetValues(typeof(Enemies));
+        enemies.SetValue(Enemies.Mouse, 0);
+        enemies.SetValue(Enemies.Owl, 1);
 
         foreach (GameObject season in GameObject.FindGameObjectsWithTag("Season"))
         {
@@ -141,7 +146,7 @@ public class SeasonManager : MonoBehaviour
     }
 
     // TODO Revisar mecánica, por ahora la quito ya que me parece un poco abrumador todo. Puede que con una buena progresión añada profundidad
-    void OnEnemyKilled(Enemies id)
+    public void OnEnemyKilled(Enemies id)
     {
         if(id == goodEnemy && goodBar.RemoveSegments.Value > 3)
         {
@@ -227,6 +232,17 @@ public class SeasonManager : MonoBehaviour
 
         seasonText.text = currentSeason.season.ToString();
         SeasonsPlayed++;
+        if (SeasonsPlayed == 3)
+        {
+            duckSpawner.gameObject.SetActive(true);
+            enemies.SetValue(Enemies.Duck, 3);
+        }
+        if (SeasonsPlayed == 4)
+        {
+            deerSpawner.gameObject.SetActive(true);
+            enemies.SetValue(Enemies.Deer, 4);
+        }
+
         RealEndingSequence();
     }
 

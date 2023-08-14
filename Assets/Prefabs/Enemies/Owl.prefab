@@ -2184,7 +2184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bee580bf06d3f4ba6843196a530287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 20
+  detectionRadius: 40
   targetTag: Player
   showGizmos: 1
 --- !u!114 &6302891047756435443

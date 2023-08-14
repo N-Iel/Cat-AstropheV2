@@ -6,7 +6,6 @@ using UnityEngine.Events;
 using Constants;
 using System;
 using RengeGames.HealthBars;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 /// <summary>
 /// This script will manage all the elements relative with the energy
@@ -68,6 +67,7 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator RecoverEnergy()
     {
         yield return new WaitForSeconds(invincibilityTime);
+        Physics2D.IgnoreLayerCollision(6, 7, false);
         isInvincible = false;
 
         while (!Player.player.isDead)
@@ -81,8 +81,9 @@ public class PlayerHealth : MonoBehaviour
     // Stops Recovery and reduce shield 
     public void Hit(GameObject sender)
     {
-        if (Player.player.isDead) return;
+        Physics2D.IgnoreLayerCollision(6, 7, true);
         if (Player.player.isExhausted) Dead(sender);
+        if (Player.player.isDead) return;
 
         isInvincible = true;
         AddRestrictedSegments(1);
@@ -147,8 +148,6 @@ public class PlayerHealth : MonoBehaviour
         OnDeath?.Invoke(sender);
 
         Player.player.animator.PlayAnimation(Animations.dead);
-        Player.player.rb.velocity = Vector2.zero;
-        Player.player.rb.isKinematic = true;
 
         energy = 0;
     }

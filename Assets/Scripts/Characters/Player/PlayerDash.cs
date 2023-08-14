@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Constants;
 using UnityEngine.Events;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 /// <summary>
 /// Preforms all the task related with dashing
